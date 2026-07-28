@@ -1,0 +1,243 @@
+<div class="shell">
+  <nav class="rail" aria-label="Console">
+    <div class="brand">
+      <div class="brand__mark">Capture</div>
+      <div class="brand__sub">Value realization console for supply chain platforms</div>
+    </div>
+
+    <div class="rail__group" role="tablist" aria-label="Views">
+      <div class="rail__group-title">Engagement</div>
+      <button class="tab" role="tab" data-view="engagement" aria-selected="true">
+        Set up<span class="tab__key">1</span>
+      </button>
+      <button class="tab" role="tab" data-view="report" aria-selected="false">
+        Audit report<span class="tab__key">2</span>
+      </button>
+      <button class="tab" role="tab" data-view="growth" aria-selected="false">
+        Growth advisor<span class="tab__key">3</span>
+      </button>
+      <div class="rail__group-title" style="padding-top:.75rem">Firm</div>
+      <button class="tab" role="tab" data-view="library" aria-selected="false">
+        Pattern library<span class="tab__key">4</span>
+      </button>
+      <button class="tab" role="tab" data-view="firm" aria-selected="false">
+        Economics<span class="tab__key">5</span>
+      </button>
+      <button class="tab" role="tab" data-view="method" aria-selected="false">
+        Method<span class="tab__key">6</span>
+      </button>
+    </div>
+
+    <div class="rail__group">
+      <div class="rail__group-title">This engagement</div>
+      <div id="rail-summary" class="stack" style="padding:0 .55rem"></div>
+    </div>
+
+    <div class="rail__group">
+      <div class="rail__group-title">File</div>
+      <div class="btn-row" style="padding:0 .3rem">
+        <button class="btn" data-action="import">Open…</button>
+        <button class="btn" data-action="export">Save file</button>
+        <button class="btn" data-action="print">Print</button>
+        <button class="btn btn--ghost" data-action="theme" title="Switch light / dark">Theme</button>
+      </div>
+      <input type="file" id="import-file" accept="application/json" hidden>
+    </div>
+
+    <div class="rail__foot">
+      <p>Everything stays in this browser. No account, no upload, no server.</p>
+      <p>Engine verified line-for-line against the Python reference implementation.</p>
+    </div>
+  </nav>
+
+  <main class="main">
+    <!-- ENGAGEMENT ------------------------------------------------------- -->
+    <section class="view" id="view-engagement" role="tabpanel" aria-label="Engagement set up">
+      <header class="view__head">
+        <div class="eyebrow">Tier 1 — Adoption audit</div>
+        <h1>What did they buy, and what are they actually using?</h1>
+        <p>
+          Fill in what you know. Anything left blank is reported as a data gap rather
+          than guessed — that is the point of the method, not a limitation of the form.
+        </p>
+      </header>
+
+      <div class="panel no-print">
+        <div class="panel__head">
+          <h2>Start from a worked example</h2>
+          <span class="eyebrow">Illustrative clients</span>
+        </div>
+        <div class="btn-row" id="sample-buttons"></div>
+        <p class="note">
+          These four are fictional but complete, and they seed the pattern library so the
+          benchmark has something to compare against.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>Client</h2><span class="eyebrow">Who and what</span></div>
+        <div class="fields" id="client-fields"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head">
+          <h2>Capability walkthrough</h2>
+          <span class="eyebrow" id="walkthrough-progress"></span>
+        </div>
+        <p class="muted" style="font-size:.9rem">
+          Go module by module with the platform owner. Capture is weighted by how much value
+          sits behind each capability, and counts only what they are licensed for.
+        </p>
+        <div class="btn-row no-print" style="margin:.6rem 0 1rem">
+          <button class="btn" data-action="mark-all" data-state="not_assessed">Reset all</button>
+          <button class="btn" data-action="mark-all" data-state="full">Mark all fully used</button>
+          <button class="btn" data-action="mark-all" data-state="licensed_unused">Mark all licensed, unused</button>
+        </div>
+        <div id="capability-list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head">
+          <h2>Operating metrics</h2>
+          <span class="eyebrow" id="metrics-progress"></span>
+        </div>
+        <p class="muted" style="font-size:.9rem">
+          Each field unlocks a dollar model or narrows a band. Leave what you do not have.
+        </p>
+        <div class="fields" id="metric-fields" style="margin-top:1rem"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>Governance</h2><span class="eyebrow">Should you take the job</span></div>
+        <div class="fields" id="governance-fields"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>Evidence quality</h2><span class="eyebrow">Sets the band, not the number</span></div>
+        <p class="muted" style="font-size:.9rem">
+          Measured findings carry a ±20% band, estimated ±40%, anecdotal ±65%. Widening a band
+          never moves the point estimate.
+        </p>
+        <div class="fields" id="evidence-fields" style="margin-top:1rem"></div>
+      </div>
+    </section>
+
+    <!-- REPORT ----------------------------------------------------------- -->
+    <section class="view" id="view-report" role="tabpanel" aria-label="Audit report" hidden></section>
+
+    <!-- GROWTH ------------------------------------------------------------ -->
+    <section class="view" id="view-growth" role="tabpanel" aria-label="Growth advisor" hidden>
+      <header class="view__head">
+        <div class="eyebrow">Scenarios on real market data</div>
+        <h1>Where should this practice go next?</h1>
+        <p>
+          Ask about a city. You get the trajectory, the month it breaks even, whether the
+          market is deep enough, and a straight answer on whether it is a good decision.
+        </p>
+      </header>
+
+      <div class="panel" id="growth-source"></div>
+
+      <div class="chat" id="chat">
+        <div class="chat__log" id="chat-log" role="log" aria-live="polite" aria-label="Advisor conversation"></div>
+        <div class="chat__suggestions" id="chat-suggestions"></div>
+        <form class="chat__form" id="chat-form" autocomplete="off">
+          <input id="chat-input" type="text" aria-label="Ask the advisor"
+                 placeholder="Ask about a city — &quot;should I open in Dallas?&quot;">
+          <button class="btn btn--primary" type="submit">Ask</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LIBRARY ---------------------------------------------------------- -->
+    <section class="view" id="view-library" role="tabpanel" aria-label="Pattern library" hidden></section>
+
+    <!-- FIRM ------------------------------------------------------------- -->
+    <section class="view" id="view-firm" role="tabpanel" aria-label="Firm economics" hidden></section>
+
+    <!-- METHOD ----------------------------------------------------------- -->
+    <section class="view" id="view-method" role="tabpanel" aria-label="Method" hidden>
+      <header class="view__head">
+        <div class="eyebrow">How it works</div>
+        <h1>The method, in plain terms</h1>
+        <p>
+          A company spent millions on a planning platform. Two years later it is doing maybe a
+          third of what it was bought to do. This tool measures that gap, prices it, and says
+          what to fix first — with every formula shown, because a firm with no track record has
+          nothing to trade on except being checkable.
+        </p>
+      </header>
+
+      <div class="panel">
+        <div class="panel__head"><h2>Five steps, in order</h2><span class="eyebrow">The pipeline</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Step</th><th>Question it answers</th><th>What comes out</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><b>Qualify</b></td><td>Should we take this job at all?</td>
+                  <td>Go, conditional, or walk away — with reasons</td></tr>
+              <tr><td><b>Score adoption</b></td><td>How much of what they pay for is actually in use?</td>
+                  <td>A capture rate, weighted by value not by module count</td></tr>
+              <tr><td><b>Dollarize</b></td><td>What is the gap worth in money?</td>
+                  <td>Eight models, each with a range and its formula</td></tr>
+              <tr><td><b>Sequence</b></td><td>What do we fix first?</td>
+                  <td>A ranked roadmap and a three-outcome sprint</td></tr>
+              <tr><td><b>Price</b></td><td>What should this cost, and is it worth it to them?</td>
+                  <td>Fees inside fixed bands, plus the client's own return</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>Three rules the tool enforces</h2><span class="eyebrow">Why trust it</span></div>
+        <div class="split">
+          <div>
+            <h3 style="font-size:.95rem">Missing data is reported, never guessed</h3>
+            <p class="muted" style="font-size:.9rem">
+              A model without its inputs shows up as “not assessed — requires X”. Inventing a
+              plausible number is how a young firm loses the only thing it is selling.
+            </p>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem">Gross is not recoverable</h3>
+            <p class="muted" style="font-size:.9rem">
+              Every finding shows the size of the problem and, separately, the slice a
+              twelve-week sprint can actually take back. Only the second is ever quoted.
+            </p>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem">Sequencing is enforced</h3>
+            <p class="muted" style="font-size:.9rem">
+              You cannot activate optimization on top of a forecast nobody trusts. The tool
+              blocks it and says what has to come first.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>The eight dollar models</h2><span class="eyebrow">Every formula, shown</span></div>
+        <div id="method-models"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head"><h2>What the capture rate means</h2><span class="eyebrow">Scoring</span></div>
+        <p>
+          Each capability carries a value weight of 1–5. Usage scores at
+          0 when licensed and untouched, 0.10 when configured but idle, 0.50 when partly used,
+          1.00 when the business actually runs on it. Capture is the weighted average across
+          everything they are licensed for — capability they never bought is excluded, because
+          nobody is accountable for that.
+        </p>
+        <div class="table-wrap">
+          <table id="method-states"></table>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

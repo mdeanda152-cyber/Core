@@ -131,3 +131,14 @@ Choose ONE platform (o9, Kinaxis, or Blue Yonder) and ONE sub-vertical (3PL, col
 Every audit teaches you what actually breaks. After 20 engagements you know the failure patterns cold — which means faster diagnosis, higher margin, and a benchmark nobody else has: *"Firms your size using this platform typically capture 40% of licensed capability. You're at 22%. Here's the gap in dollars."*
 
 That accumulated pattern library is the real asset. Same logic as the cross-customer data moat discussed earlier — different market, same principle. Start recording it from client zero.
+
+---
+
+## 8. Implementation
+
+The weeks 4–10 methodology and the section 7 pattern library exist as working code in [`scvr/`](../README.md) — capability catalogs for all three platforms, the leakage models with their formulas and confidence bands, the qualification gate, sprint packing and tier pricing, the cross-engagement benchmark, and the firm's own cash-flow model.
+
+```bash
+python -m scvr audit examples/client-zero-northgate-3pl.json --out out --format all
+python -m scvr economics
+```

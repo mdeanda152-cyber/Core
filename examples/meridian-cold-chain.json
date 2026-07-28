@@ -1,0 +1,72 @@
+{
+  "engagement_id": "meridian-cold-chain-2025-q4",
+  "client": {
+    "name": "Meridian Cold Chain",
+    "platform": "blue_yonder",
+    "sub_vertical": "cold_chain",
+    "annual_revenue": 185000000,
+    "live_months": 16,
+    "sites": 3,
+    "erp_systems": 2,
+    "skus": 9400,
+    "planners_fte": 5,
+    "annual_license_fee": 410000,
+    "implementation_spend": 2200000,
+    "business_case_annual_benefit": 2400000
+  },
+  "capabilities": {
+    "by.dp.stat_forecast": "partial",
+    "by.dp.demand_sensing": "licensed_unused",
+    "by.dp.npi": "not_licensed",
+    "by.dp.promo": "licensed_unused",
+    "by.dp.segmentation": "licensed_unused",
+    "by.io.meio": "licensed_unused",
+    "by.io.safety_stock": "deployed_unused",
+    "by.sp.master_planning": "partial",
+    "by.sp.capacity": "licensed_unused",
+    "by.sp.sop": "deployed_unused",
+    "by.ct.exception_mgmt": "licensed_unused",
+    "by.ct.playbooks": "licensed_unused",
+    "by.ct.visibility": "partial",
+    "by.tms.load_build": "partial",
+    "by.tms.routing": "deployed_unused",
+    "by.tms.rate_engine": "licensed_unused",
+    "by.tms.tendering": "not_licensed",
+    "by.wms.labor_mgmt": "not_licensed",
+    "by.wms.slotting": "not_licensed",
+    "by.oms.atp": "not_licensed"
+  },
+  "operations": {
+    "annual_cogs": 142000000,
+    "gross_margin_pct": 0.24,
+    "inventory_value": 19000000,
+    "carrying_cost_rate": 0.31,
+    "excess_obsolete_writeoff": 2800000,
+    "forecast_mape": 0.41,
+    "avg_lead_time_weeks": 3.0,
+    "service_level_target": 0.98,
+    "exceptions_per_week": 420,
+    "minutes_per_exception": 14,
+    "planner_loaded_cost": 104000,
+    "planner_override_rate": 0.71,
+    "annual_freight_spend": 17000000,
+    "expedite_share": 0.19,
+    "stockout_rate": 0.034,
+    "master_data_accuracy": 0.86,
+    "data_rework_hours_per_week": 33
+  },
+  "governance": {
+    "executive_sponsor": "VP Operations",
+    "documented_baseline": false,
+    "baseline_period_months": 0,
+    "dedicated_client_resource": false,
+    "prior_remediation_attempts": 1,
+    "vendor_relationship": "renewal_risk"
+  },
+  "evidence": {
+    "default": "estimated",
+    "excess_obsolete": "measured",
+    "stockout_margin": "anecdotal"
+  },
+  "notes": "Illustrative comparable used to seed the pattern library. Short shelf life amplifies forecast error into write-off."
+}
