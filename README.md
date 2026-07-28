@@ -10,10 +10,46 @@ that scores licensed-vs-used capability, dollarizes the gap with documented
 formulas, sequences the fixes, prices the three tiers, and writes one record per
 engagement into a benchmark that gets sharper with every client.
 
+It ships two ways: a **browser console** you can hand to a consultant, and a
+**CLI** for scripted runs. Both execute the same methodology, and a parity test
+fails the build if they ever disagree.
+
 Python 3.11+, standard library only. No install step, no dependencies.
 
 ```bash
-python -m scvr audit examples/client-zero-northgate-3pl.json --out out --format all
+open web/dist/capture.html                                             # the app
+python -m scvr audit examples/client-zero-northgate-3pl.json --out out  # the CLI
+```
+
+---
+
+## The app
+
+`web/dist/capture.html` is a single self-contained file — one HTML document
+with the fonts, styles, catalogs and engine inlined. Open it from disk on a
+plane, on a client's laptop, off a USB stick. Nothing loads from the network,
+nothing is uploaded, and there is no account: engagements live in that
+browser's local storage until you save them to a file.
+
+Five screens:
+
+| Screen | What it is for |
+|---|---|
+| **Set up** | Client profile, the capability walkthrough, operating metrics, governance. Progress counters show how much of the catalog you have assessed and how many metrics are supplied. |
+| **Audit report** | The deliverable. Capture rate against the cohort, qualification verdict, every finding with its formula and confidence band, the sprint, the fees. Print to PDF straight from here. |
+| **Pattern library** | Recorded engagements, cohort statistics, failure-pattern frequency, most-often-dormant capabilities. |
+| **Economics** | The firm's own P&L, capacity check and cash-flow simulation. |
+| **Method** | Every dollar model in plain English, with its formula. |
+
+The app reads and writes exactly the same engagement JSON the CLI takes, so an
+audit started in the browser can be finished in a script and vice versa.
+
+Rebuild after changing anything under `web/src`:
+
+```bash
+python3 tools/gen_web_data.py    # catalogs + parity fixtures, from the Python
+python3 tools/build_web.py       # inline everything into web/dist
+node tests/test_web_parity.js    # 403 checks: JS engine vs Python reference
 ```
 
 ---
@@ -32,6 +68,9 @@ python -m scvr audit examples/client-zero-northgate-3pl.json --out out --format 
 | `scvr/library.py` | The pattern library: cohort benchmarks, failure-pattern frequency, dormancy frequency |
 | `scvr/economics.py` | The firm's own P&L, capacity check, and the net-60/90 cash trap simulator |
 | `scvr/report.py` | Markdown deliverable and a self-contained HTML render of the same text |
+| `web/src/engine.js` | The same pipeline in the browser — a port held to the Python by parity tests |
+| `web/src/app.js` | Console UI: forms, report rendering, charts, local storage |
+| `tools/` | Generate the web data from the Python, inline the build, subset the display font |
 
 ---
 
@@ -152,13 +191,20 @@ knowing before they cost money:
 ## Tests
 
 ```bash
-python -m unittest discover -s tests -t .
+python -m unittest discover -s tests -t .   # 84 tests, includes the JS parity run
+node tests/test_web_parity.js               # or run the parity check alone
 ```
 
-72 tests covering the leakage formulas against hand-computed values, the
-qualification gate's block conditions, sprint packing constraints, pricing
-clamps, cohort suppression below the floor, cash-flow timing under payment
-terms, and an end-to-end run on all three platforms.
+Covering the leakage formulas against hand-computed values, the qualification
+gate's block conditions, sprint packing constraints, pricing clamps, cohort
+suppression below the floor, cash-flow timing under payment terms, an
+end-to-end run on all three platforms, and — for the web build — that the
+shipped file loads nothing from the network and that the JS engine agrees with
+the Python across 403 checks.
+
+The parity test earns its keep: it caught the browser pricing an audit at
+$43K where Python priced it at $42K, because Python's `round()` breaks ties to
+even and JavaScript's does not.
 
 ---
 

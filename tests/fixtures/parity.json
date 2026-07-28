@@ -1,0 +1,969 @@
+{
+  "generated_by": "tools/gen_web_data.py",
+  "audits": [
+    {
+      "source": "examples/client-zero-northgate-3pl.json",
+      "engagement": {
+        "engagement_id": "northgate-3pl-2026-q1",
+        "client": {
+          "name": "Northgate Logistics",
+          "platform": "blue_yonder",
+          "sub_vertical": "3pl",
+          "annual_revenue": 340000000,
+          "live_months": 21,
+          "sites": 6,
+          "erp_systems": 2,
+          "skus": 48000,
+          "planners_fte": 9,
+          "annual_license_fee": 620000,
+          "implementation_spend": 3800000,
+          "business_case_annual_benefit": 4200000
+        },
+        "capabilities": {
+          "by.dp.stat_forecast": "full",
+          "by.dp.demand_sensing": "licensed_unused",
+          "by.dp.npi": "not_licensed",
+          "by.dp.promo": "not_licensed",
+          "by.dp.segmentation": "deployed_unused",
+          "by.io.meio": "licensed_unused",
+          "by.io.safety_stock": "partial",
+          "by.sp.master_planning": "full",
+          "by.sp.capacity": "partial",
+          "by.sp.sop": "partial",
+          "by.ct.exception_mgmt": "deployed_unused",
+          "by.ct.playbooks": "licensed_unused",
+          "by.ct.visibility": "partial",
+          "by.tms.load_build": "full",
+          "by.tms.routing": "partial",
+          "by.tms.rate_engine": "deployed_unused",
+          "by.tms.tendering": "licensed_unused",
+          "by.wms.labor_mgmt": "licensed_unused",
+          "by.wms.slotting": "not_licensed",
+          "by.oms.atp": "deployed_unused"
+        },
+        "operations": {
+          "annual_cogs": 268000000,
+          "gross_margin_pct": 0.21,
+          "inventory_value": 41000000,
+          "carrying_cost_rate": 0.24,
+          "excess_obsolete_writeoff": 1900000,
+          "forecast_mape": 0.34,
+          "attainable_mape": 0.24,
+          "avg_lead_time_weeks": 5.5,
+          "service_level_target": 0.95,
+          "exceptions_per_week": 640,
+          "minutes_per_exception": 11,
+          "exception_automation_rate": 0.05,
+          "planner_loaded_cost": 118000,
+          "planner_override_rate": 0.58,
+          "override_value_add_rate": 0.25,
+          "annual_freight_spend": 22000000,
+          "expedite_share": 0.14,
+          "expedite_premium_pct": 0.38,
+          "stockout_rate": 0.021,
+          "otif_pct": 0.912,
+          "master_data_accuracy": 0.88,
+          "data_rework_hours_per_week": 26,
+          "interface_failure_rate": 0.03
+        },
+        "governance": {
+          "executive_sponsor": "VP Supply Chain",
+          "documented_baseline": true,
+          "baseline_period_months": 6,
+          "dedicated_client_resource": true,
+          "prior_remediation_attempts": 1,
+          "vendor_relationship": "renewal_risk"
+        },
+        "evidence": {
+          "default": "estimated",
+          "exception_handling": "measured",
+          "planner_override": "measured",
+          "expedite_freight": "measured",
+          "stockout_margin": "anecdotal"
+        },
+        "notes": "Client zero. Audit delivered at cost in exchange for a named case study. Blue Yonder CSM made the introduction ahead of a renewal conversation."
+      },
+      "expected": {
+        "capture_rate": 0.36376811594202896,
+        "catalog_capture_rate": 0.32179487179487176,
+        "assessment_coverage": 1.0,
+        "license_waste_share": 0.5217391304347826,
+        "dormant": [
+          "by.io.meio",
+          "by.ct.exception_mgmt",
+          "by.dp.demand_sensing",
+          "by.ct.playbooks",
+          "by.wms.labor_mgmt",
+          "by.tms.rate_engine",
+          "by.oms.atp",
+          "by.tms.tendering",
+          "by.dp.segmentation"
+        ],
+        "by_module": {
+          "Demand Planning": 0.44166666666666665,
+          "Inventory Optimization": 0.2222222222222222,
+          "Supply Planning": 0.6923076923076923,
+          "Luminate Control Tower": 0.16666666666666666,
+          "Transportation Management": 0.4266666666666667,
+          "Warehouse Management": 0.0,
+          "Order Management": 0.1
+        },
+        "qualification": {
+          "verdict": "GO",
+          "checks": {
+            "master_data": "warn",
+            "maturity": "pass",
+            "sponsor": "pass",
+            "baseline": "pass",
+            "integration": "pass",
+            "data_coverage": "pass",
+            "assessment_coverage": "pass",
+            "prior_attempts": "pass"
+          }
+        },
+        "leakage": {
+          "gross_total": 7322613.808269406,
+          "recoverable_total": 3052976.516852414,
+          "recoverable_low": 2016939.3150759873,
+          "recoverable_high": 4089013.71862884,
+          "license_waste": 323478.2608695652,
+          "estimates": {
+            "exception_handling": {
+              "gross": 363808.22695035464,
+              "recoverable": 200094.52482269506,
+              "low": 160075.61985815607,
+              "high": 240113.42978723405,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "forecast_inventory": {
+              "gross": 477146.00685096567,
+              "recoverable": 334002.20479567593,
+              "low": 200401.32287740556,
+              "high": 467603.08671394625,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "planner_override": {
+              "gross": 1827000.0,
+              "recoverable": 913500.0,
+              "low": 730800.0,
+              "high": 1096200.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "expedite_freight": {
+              "gross": 1170400.0000000002,
+              "recoverable": 468160.0000000001,
+              "low": 374528.0000000001,
+              "high": 561792.0000000001,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "stockout_margin": {
+              "gross": 1499400.0,
+              "recoverable": 524790.0,
+              "low": 183676.5,
+              "high": 865903.5,
+              "confidence": 0.35,
+              "evidence": "anecdotal"
+            },
+            "excess_obsolete": {
+              "gross": 1900000.0,
+              "recoverable": 570000.0,
+              "low": 342000.0,
+              "high": 798000.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "data_quality_tax": {
+              "gross": 84859.5744680851,
+              "recoverable": 42429.78723404255,
+              "low": 25457.872340425532,
+              "high": 59401.70212765957,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "license_waste": {
+              "gross": 323478.2608695652,
+              "recoverable": 0.0,
+              "low": 0.0,
+              "high": 0.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            }
+          },
+          "skipped": []
+        },
+        "roadmap": {
+          "sprint_items": [
+            "planner_override",
+            "expedite_freight",
+            "excess_obsolete"
+          ],
+          "duration_weeks": 11,
+          "team_size": 2,
+          "effort_weeks": 21.8,
+          "sprint_recoverable": 1951660.0,
+          "item_effort": {
+            "planner_override": 4.1,
+            "expedite_freight": 7.1,
+            "excess_obsolete": 10.6,
+            "forecast_inventory": 7.8,
+            "exception_handling": 9.7,
+            "stockout_margin": 14.0,
+            "data_quality_tax": 4.6
+          },
+          "item_score": {
+            "planner_override": 189384.14634146343,
+            "expedite_freight": 56047.32394366199,
+            "excess_obsolete": 32264.150943396227,
+            "forecast_inventory": 25692.477291975072,
+            "exception_handling": 17534.05629889596,
+            "stockout_margin": 13119.75,
+            "data_quality_tax": 5534.320074005551
+          },
+          "unquantified": [
+            "activate.by.wms.labor_mgmt"
+          ]
+        },
+        "commercials": {
+          "audit_fee": 52000,
+          "sprint_fee": 250000,
+          "retainer_monthly": 25000,
+          "sprint_margin": 0.5864,
+          "year_one_multiple": 7.80664
+        }
+      }
+    },
+    {
+      "source": "examples/harborlink-3pl.json",
+      "engagement": {
+        "engagement_id": "harborlink-3pl-2025-q3",
+        "client": {
+          "name": "Harborlink Freight Services",
+          "platform": "blue_yonder",
+          "sub_vertical": "3pl",
+          "annual_revenue": 290000000,
+          "live_months": 30,
+          "sites": 4,
+          "erp_systems": 1,
+          "skus": 22000,
+          "planners_fte": 6,
+          "annual_license_fee": 480000,
+          "implementation_spend": 2600000,
+          "business_case_annual_benefit": 3100000
+        },
+        "capabilities": {
+          "by.dp.stat_forecast": "full",
+          "by.dp.demand_sensing": "not_licensed",
+          "by.dp.npi": "not_licensed",
+          "by.dp.promo": "not_licensed",
+          "by.dp.segmentation": "partial",
+          "by.io.meio": "not_licensed",
+          "by.io.safety_stock": "full",
+          "by.sp.master_planning": "full",
+          "by.sp.capacity": "partial",
+          "by.sp.sop": "partial",
+          "by.ct.exception_mgmt": "partial",
+          "by.ct.playbooks": "licensed_unused",
+          "by.ct.visibility": "full",
+          "by.tms.load_build": "full",
+          "by.tms.routing": "full",
+          "by.tms.rate_engine": "partial",
+          "by.tms.tendering": "deployed_unused",
+          "by.wms.labor_mgmt": "deployed_unused",
+          "by.wms.slotting": "licensed_unused",
+          "by.oms.atp": "not_licensed"
+        },
+        "operations": {
+          "annual_cogs": 231000000,
+          "gross_margin_pct": 0.19,
+          "inventory_value": 26000000,
+          "carrying_cost_rate": 0.22,
+          "forecast_mape": 0.27,
+          "avg_lead_time_weeks": 4.0,
+          "service_level_target": 0.95,
+          "exceptions_per_week": 310,
+          "minutes_per_exception": 9,
+          "exception_automation_rate": 0.2,
+          "planner_loaded_cost": 112000,
+          "planner_override_rate": 0.34,
+          "annual_freight_spend": 31000000,
+          "expedite_share": 0.09,
+          "master_data_accuracy": 0.93,
+          "data_rework_hours_per_week": 11,
+          "interface_failure_rate": 0.01
+        },
+        "governance": {
+          "executive_sponsor": "COO",
+          "documented_baseline": true,
+          "baseline_period_months": 6,
+          "dedicated_client_resource": true,
+          "prior_remediation_attempts": 0,
+          "vendor_relationship": "healthy"
+        },
+        "evidence": {
+          "default": "estimated",
+          "exception_handling": "measured",
+          "expedite_freight": "measured"
+        },
+        "notes": "Illustrative comparable used to seed the pattern library."
+      },
+      "expected": {
+        "capture_rate": 0.6050847457627118,
+        "catalog_capture_rate": 0.4576923076923076,
+        "assessment_coverage": 1.0,
+        "license_waste_share": 0.23728813559322035,
+        "dormant": [
+          "by.ct.playbooks",
+          "by.wms.labor_mgmt",
+          "by.wms.slotting",
+          "by.tms.tendering"
+        ],
+        "by_module": {
+          "Demand Planning": 0.8125,
+          "Inventory Optimization": 1.0,
+          "Supply Planning": 0.6923076923076923,
+          "Luminate Control Tower": 0.4583333333333333,
+          "Transportation Management": 0.6866666666666668,
+          "Warehouse Management": 0.05714285714285715
+        },
+        "qualification": {
+          "verdict": "GO",
+          "checks": {
+            "master_data": "pass",
+            "maturity": "pass",
+            "sponsor": "pass",
+            "baseline": "pass",
+            "integration": "pass",
+            "data_coverage": "pass",
+            "assessment_coverage": "pass",
+            "prior_attempts": "pass"
+          }
+        },
+        "leakage": {
+          "gross_total": 2133333.7406243947,
+          "recoverable_total": 1018182.1716285654,
+          "recoverable_low": 701705.7965941606,
+          "recoverable_high": 1334658.5466629704,
+          "license_waste": 113898.30508474576,
+          "estimates": {
+            "exception_handling": {
+              "gross": 115240.85106382979,
+              "recoverable": 63382.46808510639,
+              "low": 50705.974468085114,
+              "high": 76058.96170212766,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "forecast_inventory": {
+              "gross": 217016.29381588384,
+              "recoverable": 151911.40567111867,
+              "low": 91146.8434026712,
+              "high": 212675.96793956612,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "planner_override": {
+              "gross": 790500.0,
+              "recoverable": 395250.0,
+              "low": 237150.0,
+              "high": 553350.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "expedite_freight": {
+              "gross": 976499.9999999999,
+              "recoverable": 390600.0,
+              "low": 312480.0,
+              "high": 468720.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "data_quality_tax": {
+              "gross": 34076.59574468085,
+              "recoverable": 17038.297872340427,
+              "low": 10222.978723404256,
+              "high": 23853.617021276597,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "license_waste": {
+              "gross": 113898.30508474576,
+              "recoverable": 0.0,
+              "low": 0.0,
+              "high": 0.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            }
+          },
+          "skipped": [
+            "excess_obsolete",
+            "stockout_margin"
+          ]
+        },
+        "roadmap": {
+          "sprint_items": [
+            "expedite_freight",
+            "planner_override",
+            "forecast_inventory"
+          ],
+          "duration_weeks": 11,
+          "team_size": 1,
+          "effort_weeks": 10.3,
+          "sprint_recoverable": 937761.4056711186,
+          "item_effort": {
+            "expedite_freight": 5.0,
+            "planner_override": 3.8,
+            "forecast_inventory": 1.5,
+            "exception_handling": 8.1,
+            "data_quality_tax": 4.2
+          },
+          "item_score": {
+            "expedite_freight": 66402.0,
+            "planner_override": 62407.89473684211,
+            "forecast_inventory": 60764.56226844747,
+            "exception_handling": 6651.246650906227,
+            "data_quality_tax": 2434.0425531914893
+          },
+          "unquantified": [
+            "activate.by.wms.labor_mgmt"
+          ]
+        },
+        "commercials": {
+          "audit_fee": 42000,
+          "sprint_fee": 205000,
+          "retainer_monthly": 20000,
+          "sprint_margin": 0.7478048780487805,
+          "year_one_multiple": 4.57444588132253
+        }
+      }
+    },
+    {
+      "source": "examples/meridian-cold-chain.json",
+      "engagement": {
+        "engagement_id": "meridian-cold-chain-2025-q4",
+        "client": {
+          "name": "Meridian Cold Chain",
+          "platform": "blue_yonder",
+          "sub_vertical": "cold_chain",
+          "annual_revenue": 185000000,
+          "live_months": 16,
+          "sites": 3,
+          "erp_systems": 2,
+          "skus": 9400,
+          "planners_fte": 5,
+          "annual_license_fee": 410000,
+          "implementation_spend": 2200000,
+          "business_case_annual_benefit": 2400000
+        },
+        "capabilities": {
+          "by.dp.stat_forecast": "partial",
+          "by.dp.demand_sensing": "licensed_unused",
+          "by.dp.npi": "not_licensed",
+          "by.dp.promo": "licensed_unused",
+          "by.dp.segmentation": "licensed_unused",
+          "by.io.meio": "licensed_unused",
+          "by.io.safety_stock": "deployed_unused",
+          "by.sp.master_planning": "partial",
+          "by.sp.capacity": "licensed_unused",
+          "by.sp.sop": "deployed_unused",
+          "by.ct.exception_mgmt": "licensed_unused",
+          "by.ct.playbooks": "licensed_unused",
+          "by.ct.visibility": "partial",
+          "by.tms.load_build": "partial",
+          "by.tms.routing": "deployed_unused",
+          "by.tms.rate_engine": "licensed_unused",
+          "by.tms.tendering": "not_licensed",
+          "by.wms.labor_mgmt": "not_licensed",
+          "by.wms.slotting": "not_licensed",
+          "by.oms.atp": "not_licensed"
+        },
+        "operations": {
+          "annual_cogs": 142000000,
+          "gross_margin_pct": 0.24,
+          "inventory_value": 19000000,
+          "carrying_cost_rate": 0.31,
+          "excess_obsolete_writeoff": 2800000,
+          "forecast_mape": 0.41,
+          "avg_lead_time_weeks": 3.0,
+          "service_level_target": 0.98,
+          "exceptions_per_week": 420,
+          "minutes_per_exception": 14,
+          "planner_loaded_cost": 104000,
+          "planner_override_rate": 0.71,
+          "annual_freight_spend": 17000000,
+          "expedite_share": 0.19,
+          "stockout_rate": 0.034,
+          "master_data_accuracy": 0.86,
+          "data_rework_hours_per_week": 33
+        },
+        "governance": {
+          "executive_sponsor": "VP Operations",
+          "documented_baseline": false,
+          "baseline_period_months": 0,
+          "dedicated_client_resource": false,
+          "prior_remediation_attempts": 1,
+          "vendor_relationship": "renewal_risk"
+        },
+        "evidence": {
+          "default": "estimated",
+          "excess_obsolete": "measured",
+          "stockout_margin": "anecdotal"
+        },
+        "notes": "Illustrative comparable used to seed the pattern library. Short shelf life amplifies forecast error into write-off."
+      },
+      "expected": {
+        "capture_rate": 0.15901639344262297,
+        "catalog_capture_rate": 0.12435897435897438,
+        "assessment_coverage": 1.0,
+        "license_waste_share": 0.7213114754098361,
+        "dormant": [
+          "by.ct.exception_mgmt",
+          "by.io.meio",
+          "by.dp.demand_sensing",
+          "by.sp.capacity",
+          "by.tms.rate_engine",
+          "by.ct.playbooks",
+          "by.io.safety_stock",
+          "by.tms.routing",
+          "by.sp.sop",
+          "by.dp.segmentation",
+          "by.dp.promo"
+        ],
+        "by_module": {
+          "Demand Planning": 0.16666666666666666,
+          "Inventory Optimization": 0.044444444444444446,
+          "Supply Planning": 0.22307692307692306,
+          "Luminate Control Tower": 0.125,
+          "Transportation Management": 0.19999999999999998
+        },
+        "qualification": {
+          "verdict": "CONDITIONAL",
+          "checks": {
+            "master_data": "warn",
+            "maturity": "pass",
+            "sponsor": "pass",
+            "baseline": "warn",
+            "integration": "pass",
+            "data_coverage": "pass",
+            "assessment_coverage": "pass",
+            "prior_attempts": "pass"
+          }
+        },
+        "leakage": {
+          "gross_total": 7403592.750164717,
+          "recoverable_total": 2878133.4357536,
+          "recoverable_low": 1762790.0614521604,
+          "recoverable_high": 3993476.8100550408,
+          "license_waste": 295737.7049180328,
+          "estimates": {
+            "exception_handling": {
+              "gross": 281906.38297872344,
+              "recoverable": 155048.5106382979,
+              "low": 93029.10638297875,
+              "high": 217067.91489361707,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "forecast_inventory": {
+              "gross": 308658.7076115264,
+              "recoverable": 216061.09532806848,
+              "low": 129636.65719684109,
+              "high": 302485.53345929587,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "planner_override": {
+              "gross": 1278000.0,
+              "recoverable": 639000.0,
+              "low": 383400.0,
+              "high": 894600.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "expedite_freight": {
+              "gross": 1130500.0,
+              "recoverable": 452200.0,
+              "low": 271320.0,
+              "high": 633080.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "stockout_margin": {
+              "gross": 1509600.0,
+              "recoverable": 528360.0,
+              "low": 184926.0,
+              "high": 871794.0,
+              "confidence": 0.35,
+              "evidence": "anecdotal"
+            },
+            "excess_obsolete": {
+              "gross": 2800000.0,
+              "recoverable": 840000.0,
+              "low": 672000.0,
+              "high": 1008000.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "data_quality_tax": {
+              "gross": 94927.6595744681,
+              "recoverable": 47463.82978723405,
+              "low": 28478.297872340427,
+              "high": 66449.36170212766,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "license_waste": {
+              "gross": 295737.7049180328,
+              "recoverable": 0.0,
+              "low": 0.0,
+              "high": 0.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            }
+          },
+          "skipped": []
+        },
+        "roadmap": {
+          "sprint_items": [
+            "planner_override",
+            "excess_obsolete",
+            "expedite_freight"
+          ],
+          "duration_weeks": 10,
+          "team_size": 3,
+          "effort_weeks": 27.1,
+          "sprint_recoverable": 1931200.0,
+          "item_effort": {
+            "planner_override": 5.7,
+            "excess_obsolete": 10.9,
+            "expedite_freight": 10.5,
+            "stockout_margin": 10.5,
+            "forecast_inventory": 8.5,
+            "exception_handling": 10.9,
+            "data_quality_tax": 4.4
+          },
+          "item_score": {
+            "planner_override": 67263.15789473684,
+            "excess_obsolete": 65504.5871559633,
+            "expedite_freight": 25840.0,
+            "stockout_margin": 17612.0,
+            "forecast_inventory": 15251.371434922481,
+            "exception_handling": 8534.780402108141,
+            "data_quality_tax": 6472.340425531915
+          },
+          "unquantified": [
+            "activate.by.io.safety_stock",
+            "activate.by.sp.capacity"
+          ]
+        },
+        "commercials": {
+          "audit_fee": 44000,
+          "sprint_fee": 250000,
+          "retainer_monthly": 24000,
+          "sprint_margin": 0.43600000000000005,
+          "year_one_multiple": 7.7248
+        }
+      }
+    },
+    {
+      "source": "examples/valeron-distribution.json",
+      "engagement": {
+        "engagement_id": "valeron-distribution-2026-q1",
+        "client": {
+          "name": "Valeron Industrial Distribution",
+          "platform": "blue_yonder",
+          "sub_vertical": "industrial_distribution",
+          "annual_revenue": 760000000,
+          "live_months": 26,
+          "sites": 11,
+          "erp_systems": 3,
+          "skus": 132000,
+          "planners_fte": 17,
+          "annual_license_fee": 1150000,
+          "implementation_spend": 7400000,
+          "business_case_annual_benefit": 9100000
+        },
+        "capabilities": {
+          "by.dp.stat_forecast": "full",
+          "by.dp.demand_sensing": "deployed_unused",
+          "by.dp.npi": "partial",
+          "by.dp.promo": "partial",
+          "by.dp.segmentation": "full",
+          "by.io.meio": "deployed_unused",
+          "by.io.safety_stock": "full",
+          "by.sp.master_planning": "full",
+          "by.sp.capacity": "full",
+          "by.sp.sop": "full",
+          "by.ct.exception_mgmt": "partial",
+          "by.ct.playbooks": "deployed_unused",
+          "by.ct.visibility": "partial",
+          "by.tms.load_build": "partial",
+          "by.tms.routing": "licensed_unused",
+          "by.tms.rate_engine": "partial",
+          "by.tms.tendering": "partial",
+          "by.wms.labor_mgmt": "partial",
+          "by.wms.slotting": "deployed_unused",
+          "by.oms.atp": "partial"
+        },
+        "operations": {
+          "annual_cogs": 574000000,
+          "gross_margin_pct": 0.28,
+          "inventory_value": 96000000,
+          "carrying_cost_rate": 0.2,
+          "excess_obsolete_writeoff": 4100000,
+          "forecast_mape": 0.23,
+          "attainable_mape": 0.18,
+          "avg_lead_time_weeks": 7.0,
+          "service_level_target": 0.96,
+          "exceptions_per_week": 980,
+          "minutes_per_exception": 8,
+          "exception_automation_rate": 0.35,
+          "planner_loaded_cost": 126000,
+          "planner_override_rate": 0.29,
+          "override_value_add_rate": 0.35,
+          "annual_freight_spend": 48000000,
+          "expedite_share": 0.07,
+          "stockout_rate": 0.014,
+          "otif_pct": 0.947,
+          "master_data_accuracy": 0.94,
+          "data_rework_hours_per_week": 18,
+          "interface_failure_rate": 0.02
+        },
+        "governance": {
+          "executive_sponsor": "VP Supply Chain",
+          "documented_baseline": true,
+          "baseline_period_months": 12,
+          "dedicated_client_resource": true,
+          "prior_remediation_attempts": 0,
+          "vendor_relationship": "healthy"
+        },
+        "evidence": {
+          "default": "measured",
+          "stockout_margin": "estimated"
+        },
+        "notes": "Illustrative comparable used to seed the pattern library. Mature deployment; the gap is depth of use in TMS and control tower, not breadth."
+      },
+      "expected": {
+        "capture_rate": 0.5525641025641025,
+        "catalog_capture_rate": 0.5525641025641025,
+        "assessment_coverage": 1.0,
+        "license_waste_share": 0.2564102564102564,
+        "dormant": [
+          "by.io.meio",
+          "by.tms.routing",
+          "by.dp.demand_sensing",
+          "by.ct.playbooks",
+          "by.wms.slotting"
+        ],
+        "by_module": {
+          "Demand Planning": 0.6333333333333333,
+          "Inventory Optimization": 0.5,
+          "Supply Planning": 1.0,
+          "Luminate Control Tower": 0.3666666666666667,
+          "Transportation Management": 0.36666666666666664,
+          "Warehouse Management": 0.32857142857142857,
+          "Order Management": 0.5
+        },
+        "qualification": {
+          "verdict": "GO",
+          "checks": {
+            "master_data": "pass",
+            "maturity": "pass",
+            "sponsor": "pass",
+            "baseline": "pass",
+            "integration": "pass",
+            "data_coverage": "pass",
+            "assessment_coverage": "pass",
+            "prior_attempts": "pass"
+          }
+        },
+        "leakage": {
+          "gross_total": 10840571.905827343,
+          "recoverable_total": 4152863.6957812672,
+          "recoverable_low": 3113746.9566250136,
+          "recoverable_high": 5191980.434937521,
+          "license_waste": 294871.7948717948,
+          "estimates": {
+            "exception_handling": {
+              "gross": 296001.7021276595,
+              "recoverable": 162800.93617021275,
+              "low": 130240.7489361702,
+              "high": 195361.12340425528,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "forecast_inventory": {
+              "gross": 511288.28880606557,
+              "recoverable": 357901.80216424586,
+              "low": 286321.4417313967,
+              "high": 429482.162597095,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "planner_override": {
+              "gross": 1715350.0,
+              "recoverable": 857675.0,
+              "low": 686140.0,
+              "high": 1029210.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "expedite_freight": {
+              "gross": 1176000.0,
+              "recoverable": 470400.0,
+              "low": 376320.0,
+              "high": 564480.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "stockout_margin": {
+              "gross": 2979200.0000000005,
+              "recoverable": 1042720.0000000001,
+              "low": 625632.0,
+              "high": 1459808.0,
+              "confidence": 0.6,
+              "evidence": "estimated"
+            },
+            "excess_obsolete": {
+              "gross": 4100000.0,
+              "recoverable": 1230000.0,
+              "low": 984000.0,
+              "high": 1476000.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "data_quality_tax": {
+              "gross": 62731.914893617024,
+              "recoverable": 31365.957446808512,
+              "low": 25092.765957446813,
+              "high": 37639.14893617021,
+              "confidence": 0.85,
+              "evidence": "measured"
+            },
+            "license_waste": {
+              "gross": 294871.7948717948,
+              "recoverable": 0.0,
+              "low": 0.0,
+              "high": 0.0,
+              "confidence": 0.85,
+              "evidence": "measured"
+            }
+          },
+          "skipped": []
+        },
+        "roadmap": {
+          "sprint_items": [
+            "planner_override",
+            "excess_obsolete",
+            "stockout_margin"
+          ],
+          "duration_weeks": 11,
+          "team_size": 2,
+          "effort_weeks": 21.3,
+          "sprint_recoverable": 3130395.0,
+          "item_effort": {
+            "planner_override": 3.9,
+            "excess_obsolete": 7.0,
+            "stockout_margin": 10.4,
+            "forecast_inventory": 5.5,
+            "expedite_freight": 11.2,
+            "exception_handling": 6.8,
+            "data_quality_tax": 5.2
+          },
+          "item_score": {
+            "planner_override": 186929.16666666666,
+            "excess_obsolete": 149357.14285714287,
+            "stockout_margin": 60156.92307692308,
+            "forecast_inventory": 55312.09669811072,
+            "expedite_freight": 35700.0,
+            "exception_handling": 20350.117021276594,
+            "data_quality_tax": 5127.127659574468
+          },
+          "unquantified": []
+        },
+        "commercials": {
+          "audit_fee": 60000,
+          "sprint_fee": 250000,
+          "retainer_monthly": 35000,
+          "sprint_margin": 0.5864,
+          "year_one_multiple": 12.52158
+        }
+      }
+    }
+  ],
+  "firms": [
+    {
+      "overrides": {},
+      "expected": {
+        "revenue": 1295000.0,
+        "delivery_cost": 638138.2978723404,
+        "gross_margin": 0.5072291136120923,
+        "operating_profit": 255000.0,
+        "required_weeks": 139.5,
+        "implied_utilization": 0.7420212765957447,
+        "recurring_share": 0.555984555984556,
+        "breakeven_audits": 24.31099195710456,
+        "warnings": 0,
+        "min_balance": -23333.333333333343,
+        "trough_month": 2,
+        "ending_balance": 515249.99999999965,
+        "months_negative": 1,
+        "credit_line_needed": 25000
+      }
+    },
+    {
+      "overrides": {
+        "consultants": 2,
+        "audits_per_year": 4,
+        "sprints_per_year": 2,
+        "retainer_clients": 0,
+        "starting_cash": 60000
+      },
+      "expected": {
+        "revenue": 530000.0,
+        "delivery_cost": 283617.02127659577,
+        "gross_margin": 0.46487354476114007,
+        "operating_profit": -80000.00000000003,
+        "required_weeks": 62.0,
+        "implied_utilization": 0.6595744680851063,
+        "recurring_share": 0.0,
+        "breakeven_audits": 22.32707774798928,
+        "warnings": 2,
+        "min_balance": -190416.66666666663,
+        "trough_month": 23,
+        "ending_balance": -124749.99999999994,
+        "months_negative": 22,
+        "credit_line_needed": 200000
+      }
+    },
+    {
+      "overrides": {
+        "consultants": 6,
+        "audits_per_year": 8,
+        "sprints_per_year": 4,
+        "retainer_clients": 4,
+        "payment_terms_days": 90,
+        "deposit_rate": 0.25
+      },
+      "expected": {
+        "revenue": 2500000.0,
+        "delivery_cost": 1225957.4468085107,
+        "gross_margin": 0.5096170212765957,
+        "operating_profit": 1030000.0,
+        "required_weeks": 268.0,
+        "implied_utilization": 0.950354609929078,
+        "recurring_share": 0.576,
+        "breakeven_audits": 17.876675603217162,
+        "warnings": 1,
+        "min_balance": -217500.0,
+        "trough_month": 3,
+        "ending_balance": 1453750.0,
+        "months_negative": 5,
+        "credit_line_needed": 225000
+      }
+    }
+  ]
+}
