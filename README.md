@@ -36,6 +36,7 @@ Five screens:
 | Screen | What it is for |
 |---|---|
 | **Set up** | Client profile, the capability walkthrough, operating metrics, governance. Progress counters show how much of the catalog you have assessed and how many metrics are supplied. |
+| **Growth advisor** | Ask about a city in plain English. Real BLS establishment counts for 375 US metros, a scenario run against your own economics, and a straight verdict with the trajectory and break-even month. |
 | **Audit report** | The deliverable. Capture rate against the cohort, qualification verdict, every finding with its formula and confidence band, the sprint, the fees. Print to PDF straight from here. |
 | **Pattern library** | Recorded engagements, cohort statistics, failure-pattern frequency, most-often-dormant capabilities. |
 | **Economics** | The firm's own P&L, capacity check and cash-flow simulation. |
@@ -47,9 +48,10 @@ audit started in the browser can be finished in a script and vice versa.
 Rebuild after changing anything under `web/src`:
 
 ```bash
+python3 tools/fetch_market_data.py  # metro market data from BLS (only when the vintage changes)
 python3 tools/gen_web_data.py    # catalogs + parity fixtures, from the Python
 python3 tools/build_web.py       # inline everything into web/dist
-node tests/test_web_parity.js    # 403 checks: JS engine vs Python reference
+node tests/test_web_parity.js    # 2023 checks: JS engines vs Python reference
 ```
 
 ---
@@ -69,7 +71,10 @@ node tests/test_web_parity.js    # 403 checks: JS engine vs Python reference
 | `scvr/economics.py` | The firm's own P&L, capacity check, and the net-60/90 cash trap simulator |
 | `scvr/report.py` | Markdown deliverable and a self-contained HTML render of the same text |
 | `web/src/engine.js` | The same pipeline in the browser — a port held to the Python by parity tests |
-| `web/src/app.js` | Console UI: forms, report rendering, charts, local storage |
+| `scvr/market.py` | Metro market sizing and growth scenarios — measured BLS counts kept strictly apart from modelled assumptions |
+| `web/src/market.js` | Market engine in the browser, parity tested against `scvr/market.py` |
+| `web/src/advisor.js` | Question parsing for the growth advisor — keyword and entity matching, no language model, so answers are reproducible |
+| `web/src/app.js` | Console UI: forms, report rendering, charts, chat, local storage |
 | `tools/` | Generate the web data from the Python, inline the build, subset the display font |
 
 ---
@@ -172,6 +177,39 @@ for f in engagements/*.json; do python -m scvr audit "$f" --record --format json
 
 ---
 
+## Market data
+
+The growth advisor runs on the Bureau of Labor Statistics Quarterly Census of
+Employment and Wages: establishment counts, employment and average pay for 375
+US metros across warehousing, trucking, wholesale and food manufacturing. QCEW
+is a census of employers covered by unemployment insurance — about 95% of US
+jobs — not a survey estimate, and it is public domain.
+
+What is *not* in any dataset is which of those companies run Blue Yonder, o9 or
+Kinaxis. Nobody publishes it. So the funnel from establishments to sellable
+accounts is modelled from five stated assumptions, each editable and each
+reported next to the answer:
+
+| Layer | Source |
+|---|---|
+| Establishments, employment | measured — BLS QCEW |
+| Enterprise-scale sites | modelled — employment ÷ 250 per site |
+| Running a planning platform | modelled — 18% penetration |
+| Past go-live and underperforming | modelled — 55% of those |
+| Addressable by one practice | modelled — 35% reachable × 40% platform focus |
+
+Ask the advisor where the numbers come from and it prints that table. Suppressed
+cells — BLS withholds figures that would identify an employer — are carried as
+unknown and labelled, never silently zeroed.
+
+Refresh the dataset when a new vintage lands:
+
+```bash
+python3 tools/fetch_market_data.py && python3 tools/build_web.py
+```
+
+---
+
 ## Firm economics
 
 `python -m scvr economics` models the mix, the capacity it needs, and the cash
@@ -191,7 +229,7 @@ knowing before they cost money:
 ## Tests
 
 ```bash
-python -m unittest discover -s tests -t .   # 84 tests, includes the JS parity run
+python -m unittest discover -s tests -t .   # 107 tests, includes the JS parity run
 node tests/test_web_parity.js               # or run the parity check alone
 ```
 
@@ -200,7 +238,7 @@ gate's block conditions, sprint packing constraints, pricing clamps, cohort
 suppression below the floor, cash-flow timing under payment terms, an
 end-to-end run on all three platforms, and — for the web build — that the
 shipped file loads nothing from the network and that the JS engine agrees with
-the Python across 403 checks.
+the Python across 2023 checks.
 
 The parity test earns its keep: it caught the browser pricing an audit at
 $43K where Python priced it at $42K, because Python's `round()` breaks ties to

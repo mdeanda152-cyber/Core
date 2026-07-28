@@ -965,5 +965,2469 @@
         "credit_line_needed": 225000
       }
     }
-  ]
+  ],
+  "market": {
+    "scenarios": [
+      {
+        "label": "dallas-solo",
+        "market_ids": [
+          "C1910"
+        ],
+        "inputs": {},
+        "firm_overrides": {
+          "consultants": 2
+        },
+        "expected": {
+          "verdict": "NO",
+          "reasons": [
+            "Never breaks even inside the horizon. The mix does not cover fixed cost at any point, so this is a plan to lose money slowly.",
+            "The market holds about 12 addressable accounts and the plan consumes 12 of them. Thin: you would be re-selling the same logos by year three.",
+            "Market runs out in month 26; add a second metro before then.",
+            "Cash troughs at -$312,464. Arrange a $325,000 line before you need it, not when the first invoice ages past sixty days.",
+            "The last six months run at a -$21,644/month loss -- the cost base outgrew what this market can feed. Cut the hiring plan or add a metro.",
+            "Utilization peaks at 100%. Above 95% there is no slack for an engagement running long, and fixed-scope work always does."
+          ],
+          "breakeven_month": null,
+          "cash_trough": -312464.1787745649,
+          "cash_trough_month": 18,
+          "peak_consultants": 4.0,
+          "year_three_revenue": 1004366.230268694,
+          "total_revenue": 2434648.4745390634,
+          "addressable": 12.33052128,
+          "market_exhausted_month": 26,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -57104.16666666667,
+              "cash": 92895.83333333333,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -114208.33333333334,
+              "cash": 35791.66666666666,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -171312.5,
+              "cash": -21312.500000000015,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 13500.0,
+              "profit": -43604.16666666667,
+              "cumulative_profit": -214916.6666666667,
+              "cash": -78416.66666666669,
+              "consultants": 2.0,
+              "utilization": 0.21063829787234042,
+              "audits_signed": 0.3
+            },
+            {
+              "month": 5,
+              "revenue": 23875.0,
+              "profit": -33229.16666666667,
+              "cumulative_profit": -248145.83333333337,
+              "cash": -135520.83333333337,
+              "consultants": 2.0,
+              "utilization": 0.36542553191489363,
+              "audits_signed": 0.375
+            },
+            {
+              "month": 6,
+              "revenue": 36000.0,
+              "profit": -21104.16666666667,
+              "cumulative_profit": -269250.00000000006,
+              "cash": -186550.00000000006,
+              "consultants": 2.0,
+              "utilization": 0.5457446808510639,
+              "audits_signed": 0.45
+            },
+            {
+              "month": 7,
+              "revenue": 46781.25,
+              "profit": -10322.916666666672,
+              "cumulative_profit": -279572.91666666674,
+              "cash": -225485.41666666674,
+              "consultants": 2.0,
+              "utilization": 0.7033244680851064,
+              "audits_signed": 0.45625
+            },
+            {
+              "month": 8,
+              "revenue": 50778.64583333334,
+              "profit": -6325.5208333333285,
+              "cumulative_profit": -285898.43750000006,
+              "cash": -257108.33333333343,
+              "consultants": 2.0,
+              "utilization": 0.7620013297872341,
+              "audits_signed": 0.4640625
+            },
+            {
+              "month": 9,
+              "revenue": 53278.64583333334,
+              "profit": -3825.5208333333285,
+              "cumulative_profit": -289723.9583333334,
+              "cash": -278173.4375000001,
+              "consultants": 2.0,
+              "utilization": 0.798902925531915,
+              "audits_signed": 0.4734375
+            },
+            {
+              "month": 10,
+              "revenue": 54253.25520833334,
+              "profit": -2850.9114583333285,
+              "cumulative_profit": -292574.8697916667,
+              "cash": -292472.5260416668,
+              "consultants": 2.0,
+              "utilization": 0.8135555186170215,
+              "audits_signed": 0.48294270833333336
+            },
+            {
+              "month": 11,
+              "revenue": 57111.143663194445,
+              "profit": 6.976996527773736,
+              "cumulative_profit": -292567.89279513893,
+              "cash": -299678.2552083335,
+              "consultants": 2.0,
+              "utilization": 0.8524092697251774,
+              "audits_signed": 0.49261067708333334
+            },
+            {
+              "month": 12,
+              "revenue": 60471.11545138889,
+              "profit": 3366.948784722219,
+              "cumulative_profit": -289200.94401041674,
+              "cash": -304208.1705729168,
+              "consultants": 2.0,
+              "utilization": 0.897776484929078,
+              "audits_signed": 0.5024739583333333
+            },
+            {
+              "month": 13,
+              "revenue": 64301.39160156251,
+              "profit": 7197.224934895836,
+              "cumulative_profit": -282003.71907552093,
+              "cash": -305083.8134765626,
+              "consultants": 2.0,
+              "utilization": 0.9491936433399824,
+              "audits_signed": 0.5125352647569444
+            },
+            {
+              "month": 14,
+              "revenue": 68100.18166692971,
+              "profit": 10996.01500026304,
+              "cumulative_profit": -271007.7040752579,
+              "cash": -302669.90559895843,
+              "consultants": 2.0,
+              "utilization": 1.0,
+              "audits_signed": 0.5207751999158248
+            },
+            {
+              "month": 15,
+              "revenue": 68649.10518637288,
+              "profit": 11544.938519706207,
+              "cumulative_profit": -259462.76555555168,
+              "cash": -296460.7008192275,
+              "consultants": 3.0,
+              "utilization": 1.0,
+              "audits_signed": 0.45649467369401076
+            },
+            {
+              "month": 16,
+              "revenue": 74352.10046570013,
+              "profit": -668.7328676331963,
+              "cumulative_profit": -260131.49842318488,
+              "cash": -304337.6965701942,
+              "consultants": 3.0,
+              "utilization": 0.7213409167690356,
+              "audits_signed": 0.543944012677228
+            },
+            {
+              "month": 17,
+              "revenue": 78470.85425042783,
+              "profit": 3450.020917094502,
+              "cumulative_profit": -256681.47750609036,
+              "cash": -309859.69754361804,
+              "consultants": 3.0,
+              "utilization": 0.7582085290621797,
+              "audits_signed": 0.5547934960088077
+            },
+            {
+              "month": 18,
+              "revenue": 82648.24231168556,
+              "profit": 7627.408978352236,
+              "cumulative_profit": -249054.06852773813,
+              "cash": -312464.1787745649,
+              "consultants": 3.0,
+              "utilization": 0.7955352136459012,
+              "audits_signed": 0.5643038017107662
+            },
+            {
+              "month": 19,
+              "revenue": 88688.57989396143,
+              "profit": 13667.746560628104,
+              "cumulative_profit": -235386.32196711004,
+              "cash": -309095.69401536597,
+              "consultants": 3.0,
+              "utilization": 0.8509651967236838,
+              "audits_signed": 0.5756359686415419
+            },
+            {
+              "month": 20,
+              "revenue": 93023.38935751202,
+              "profit": 18002.556024178688,
+              "cumulative_profit": -217383.76594293135,
+              "cash": -302543.31216797413,
+              "consultants": 3.0,
+              "utilization": 0.8897399311500679,
+              "audits_signed": 0.5871941664750586
+            },
+            {
+              "month": 21,
+              "revenue": 97433.09101532333,
+              "profit": 22412.25768199,
+              "cumulative_profit": -194971.50826094137,
+              "cash": -290976.15534829104,
+              "consultants": 4.0,
+              "utilization": 0.929189013573233,
+              "audits_signed": 0.5989504956773664
+            },
+            {
+              "month": 22,
+              "revenue": 101520.14063730952,
+              "profit": 8582.640637309523,
+              "cumulative_profit": -186388.86762363184,
+              "cash": -292966.5952982489,
+              "consultants": 4.0,
+              "utilization": 0.7244819480225324,
+              "audits_signed": 0.6109429116907318
+            },
+            {
+              "month": 23,
+              "revenue": 106158.127915591,
+              "profit": 13220.627915591002,
+              "cumulative_profit": -173168.23970804084,
+              "cash": -289584.49546987494,
+              "consultants": 4.0,
+              "utilization": 0.7556181769999436,
+              "audits_signed": 0.6231761234922955
+            },
+            {
+              "month": 24,
+              "revenue": 110887.98397841024,
+              "profit": 17950.483978410237,
+              "cumulative_profit": -155217.7557296306,
+              "cash": -282159.10830578447,
+              "consultants": 4.0,
+              "utilization": 0.7873707978902169,
+              "audits_signed": 0.6356542588189072
+            },
+            {
+              "month": 25,
+              "revenue": 115702.98690835419,
+              "profit": 22765.486908354185,
+              "cumulative_profit": -132452.2688212764,
+              "cash": -270138.9907239848,
+              "consultants": 4.0,
+              "utilization": 0.8196982143605445,
+              "audits_signed": 0.6483822361457975
+            },
+            {
+              "month": 26,
+              "revenue": 120614.61457326231,
+              "profit": 27677.11457326231,
+              "cumulative_profit": -104775.15424801409,
+              "cash": -253412.21481242732,
+              "consultants": 4.0,
+              "utilization": 0.8526743022679012,
+              "audits_signed": 0.661365072051887
+            },
+            {
+              "month": 27,
+              "revenue": 106049.25824834572,
+              "profit": 13111.758248345723,
+              "cumulative_profit": -91663.39599966837,
+              "cash": -231894.54541828466,
+              "consultants": 4.0,
+              "utilization": 0.7335950596808256,
+              "audits_signed": 0.23959625449283273
+            },
+            {
+              "month": 28,
+              "revenue": 89619.77633595736,
+              "profit": -3317.7236640426418,
+              "cumulative_profit": -94981.11966371101,
+              "cash": -205490.25899118782,
+              "consultants": 4.0,
+              "utilization": 0.6050058822016537,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 29,
+              "revenue": 78156.5149626998,
+              "profit": -14780.985037300197,
+              "cumulative_profit": -109762.10470101121,
+              "cash": -182910.28534527693,
+              "consultants": 4.0,
+              "utilization": 0.5180407620288227,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 30,
+              "revenue": 66463.72002244288,
+              "profit": -26473.77997755712,
+              "cumulative_profit": -136235.88467856834,
+              "cash": -175705.34882828544,
+              "consultants": 4.0,
+              "utilization": 0.429334303430334,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 31,
+              "revenue": 64687.0663038569,
+              "profit": -28250.433696143104,
+              "cumulative_profit": -164486.31837471144,
+              "cash": -177082.68411286327,
+              "consultants": 4.0,
+              "utilization": 0.41289616789695893,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 32,
+              "revenue": 68577.35972073168,
+              "profit": -24360.140279268322,
+              "cumulative_profit": -188846.45865397976,
+              "cash": -186748.04030188342,
+              "consultants": 4.0,
+              "utilization": 0.4377278280046703,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 33,
+              "revenue": 72545.550153043,
+              "profit": -20391.949846956995,
+              "cumulative_profit": -209238.40850093676,
+              "cash": -203436.13697403594,
+              "consultants": 4.0,
+              "utilization": 0.4630567031045298,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 34,
+              "revenue": 73983.12768,
+              "profit": -18954.372319999995,
+              "cumulative_profit": -228192.78082093675,
+              "cash": -224721.4586539796,
+              "consultants": 4.0,
+              "utilization": 0.47223272987234044,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 35,
+              "revenue": 73983.12768,
+              "profit": -18954.372319999995,
+              "cumulative_profit": -247147.15314093675,
+              "cash": -245113.40850093658,
+              "consultants": 4.0,
+              "utilization": 0.47223272987234044,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 36,
+              "revenue": 73983.12768,
+              "profit": -18954.372319999995,
+              "cumulative_profit": -266101.5254609367,
+              "cash": -264067.78082093655,
+              "consultants": 4.0,
+              "utilization": 0.47223272987234044,
+              "audits_signed": 0.0
+            }
+          ]
+        }
+      },
+      {
+        "label": "dallas-atlanta",
+        "market_ids": [
+          "C1910",
+          "C1206"
+        ],
+        "inputs": {},
+        "firm_overrides": {
+          "consultants": 2
+        },
+        "expected": {
+          "verdict": "MARGINAL",
+          "reasons": [
+            "Breaks even in month 30. Past two years is a long time to fund a bet on one metro.",
+            "The market holds about 26 addressable accounts and the plan consumes 19 of them. Thin: you would be re-selling the same logos by year three.",
+            "Cash troughs at -$312,464. Arrange a $325,000 line before you need it, not when the first invoice ages past sixty days.",
+            "Utilization peaks at 100%. Above 95% there is no slack for an engagement running long, and fixed-scope work always does."
+          ],
+          "breakeven_month": 30,
+          "cash_trough": -312464.1787745649,
+          "cash_trough_month": 18,
+          "peak_consultants": 6.0,
+          "year_three_revenue": 1735257.1460595487,
+          "total_revenue": 3165539.3903299184,
+          "addressable": 25.72898328,
+          "market_exhausted_month": null,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -57104.16666666667,
+              "cash": 92895.83333333333,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -114208.33333333334,
+              "cash": 35791.66666666666,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -171312.5,
+              "cash": -21312.500000000015,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 13500.0,
+              "profit": -43604.16666666667,
+              "cumulative_profit": -214916.6666666667,
+              "cash": -78416.66666666669,
+              "consultants": 2.0,
+              "utilization": 0.21063829787234042,
+              "audits_signed": 0.3
+            },
+            {
+              "month": 5,
+              "revenue": 23875.0,
+              "profit": -33229.16666666667,
+              "cumulative_profit": -248145.83333333337,
+              "cash": -135520.83333333337,
+              "consultants": 2.0,
+              "utilization": 0.36542553191489363,
+              "audits_signed": 0.375
+            },
+            {
+              "month": 6,
+              "revenue": 36000.0,
+              "profit": -21104.16666666667,
+              "cumulative_profit": -269250.00000000006,
+              "cash": -186550.00000000006,
+              "consultants": 2.0,
+              "utilization": 0.5457446808510639,
+              "audits_signed": 0.45
+            },
+            {
+              "month": 7,
+              "revenue": 46781.25,
+              "profit": -10322.916666666672,
+              "cumulative_profit": -279572.91666666674,
+              "cash": -225485.41666666674,
+              "consultants": 2.0,
+              "utilization": 0.7033244680851064,
+              "audits_signed": 0.45625
+            },
+            {
+              "month": 8,
+              "revenue": 50778.64583333334,
+              "profit": -6325.5208333333285,
+              "cumulative_profit": -285898.43750000006,
+              "cash": -257108.33333333343,
+              "consultants": 2.0,
+              "utilization": 0.7620013297872341,
+              "audits_signed": 0.4640625
+            },
+            {
+              "month": 9,
+              "revenue": 53278.64583333334,
+              "profit": -3825.5208333333285,
+              "cumulative_profit": -289723.9583333334,
+              "cash": -278173.4375000001,
+              "consultants": 2.0,
+              "utilization": 0.798902925531915,
+              "audits_signed": 0.4734375
+            },
+            {
+              "month": 10,
+              "revenue": 54253.25520833334,
+              "profit": -2850.9114583333285,
+              "cumulative_profit": -292574.8697916667,
+              "cash": -292472.5260416668,
+              "consultants": 2.0,
+              "utilization": 0.8135555186170215,
+              "audits_signed": 0.48294270833333336
+            },
+            {
+              "month": 11,
+              "revenue": 57111.143663194445,
+              "profit": 6.976996527773736,
+              "cumulative_profit": -292567.89279513893,
+              "cash": -299678.2552083335,
+              "consultants": 2.0,
+              "utilization": 0.8524092697251774,
+              "audits_signed": 0.49261067708333334
+            },
+            {
+              "month": 12,
+              "revenue": 60471.11545138889,
+              "profit": 3366.948784722219,
+              "cumulative_profit": -289200.94401041674,
+              "cash": -304208.1705729168,
+              "consultants": 2.0,
+              "utilization": 0.897776484929078,
+              "audits_signed": 0.5024739583333333
+            },
+            {
+              "month": 13,
+              "revenue": 64301.39160156251,
+              "profit": 7197.224934895836,
+              "cumulative_profit": -282003.71907552093,
+              "cash": -305083.8134765626,
+              "consultants": 2.0,
+              "utilization": 0.9491936433399824,
+              "audits_signed": 0.5125352647569444
+            },
+            {
+              "month": 14,
+              "revenue": 68100.18166692971,
+              "profit": 10996.01500026304,
+              "cumulative_profit": -271007.7040752579,
+              "cash": -302669.90559895843,
+              "consultants": 2.0,
+              "utilization": 1.0,
+              "audits_signed": 0.5207751999158248
+            },
+            {
+              "month": 15,
+              "revenue": 68649.10518637288,
+              "profit": 11544.938519706207,
+              "cumulative_profit": -259462.76555555168,
+              "cash": -296460.7008192275,
+              "consultants": 3.0,
+              "utilization": 1.0,
+              "audits_signed": 0.45649467369401076
+            },
+            {
+              "month": 16,
+              "revenue": 74352.10046570013,
+              "profit": -668.7328676331963,
+              "cumulative_profit": -260131.49842318488,
+              "cash": -304337.6965701942,
+              "consultants": 3.0,
+              "utilization": 0.7213409167690356,
+              "audits_signed": 0.543944012677228
+            },
+            {
+              "month": 17,
+              "revenue": 78470.85425042783,
+              "profit": 3450.020917094502,
+              "cumulative_profit": -256681.47750609036,
+              "cash": -309859.69754361804,
+              "consultants": 3.0,
+              "utilization": 0.7582085290621797,
+              "audits_signed": 0.5547934960088077
+            },
+            {
+              "month": 18,
+              "revenue": 82648.24231168556,
+              "profit": 7627.408978352236,
+              "cumulative_profit": -249054.06852773813,
+              "cash": -312464.1787745649,
+              "consultants": 3.0,
+              "utilization": 0.7955352136459012,
+              "audits_signed": 0.5643038017107662
+            },
+            {
+              "month": 19,
+              "revenue": 88688.57989396143,
+              "profit": 13667.746560628104,
+              "cumulative_profit": -235386.32196711004,
+              "cash": -309095.69401536597,
+              "consultants": 3.0,
+              "utilization": 0.8509651967236838,
+              "audits_signed": 0.5756359686415419
+            },
+            {
+              "month": 20,
+              "revenue": 93023.38935751202,
+              "profit": 18002.556024178688,
+              "cumulative_profit": -217383.76594293135,
+              "cash": -302543.31216797413,
+              "consultants": 3.0,
+              "utilization": 0.8897399311500679,
+              "audits_signed": 0.5871941664750586
+            },
+            {
+              "month": 21,
+              "revenue": 97433.09101532333,
+              "profit": 22412.25768199,
+              "cumulative_profit": -194971.50826094137,
+              "cash": -290976.15534829104,
+              "consultants": 4.0,
+              "utilization": 0.929189013573233,
+              "audits_signed": 0.5989504956773664
+            },
+            {
+              "month": 22,
+              "revenue": 101520.14063730952,
+              "profit": 8582.640637309523,
+              "cumulative_profit": -186388.86762363184,
+              "cash": -292966.5952982489,
+              "consultants": 4.0,
+              "utilization": 0.7244819480225324,
+              "audits_signed": 0.6109429116907318
+            },
+            {
+              "month": 23,
+              "revenue": 106158.127915591,
+              "profit": 13220.627915591002,
+              "cumulative_profit": -173168.23970804084,
+              "cash": -289584.49546987494,
+              "consultants": 4.0,
+              "utilization": 0.7556181769999436,
+              "audits_signed": 0.6231761234922955
+            },
+            {
+              "month": 24,
+              "revenue": 110887.98397841024,
+              "profit": 17950.483978410237,
+              "cumulative_profit": -155217.7557296306,
+              "cash": -282159.10830578447,
+              "consultants": 4.0,
+              "utilization": 0.7873707978902169,
+              "audits_signed": 0.6356542588189072
+            },
+            {
+              "month": 25,
+              "revenue": 115702.98690835419,
+              "profit": 22765.486908354185,
+              "cumulative_profit": -132452.2688212764,
+              "cash": -270138.9907239848,
+              "consultants": 4.0,
+              "utilization": 0.8196982143605445,
+              "audits_signed": 0.6483822361457975
+            },
+            {
+              "month": 26,
+              "revenue": 120614.61457326231,
+              "profit": 27677.11457326231,
+              "cumulative_profit": -104775.15424801409,
+              "cash": -253412.21481242732,
+              "consultants": 4.0,
+              "utilization": 0.8526743022679012,
+              "audits_signed": 0.661365072051887
+            },
+            {
+              "month": 27,
+              "revenue": 125624.78090614588,
+              "profit": 32687.280906145883,
+              "cumulative_profit": -72087.87334186821,
+              "cash": -231894.54541828466,
+              "consultants": 4.0,
+              "utilization": 0.8863119031104724,
+              "audits_signed": 0.6746078691106142
+            },
+            {
+              "month": 28,
+              "revenue": 130735.25980006994,
+              "profit": 37797.759800069936,
+              "cumulative_profit": -34290.11354179827,
+              "cash": -205490.25899118782,
+              "consultants": 5.0,
+              "utilization": 0.9206229917961752,
+              "audits_signed": 0.6881158323636517
+            },
+            {
+              "month": 29,
+              "revenue": 135948.06427034622,
+              "profit": 25093.897603679565,
+              "cumulative_profit": -9196.215938118708,
+              "cash": -192017.96681593353,
+              "consultants": 5.0,
+              "utilization": 0.7644968658506252,
+              "audits_signed": 0.7018942713647327
+            },
+            {
+              "month": 30,
+              "revenue": 141265.24720589095,
+              "profit": 30411.08053922429,
+              "cumulative_profit": 21214.864601105583,
+              "cash": -173461.19194496793,
+              "consultants": 5.0,
+              "utilization": 0.7930559649450194,
+              "audits_signed": 0.7159486019712038
+            },
+            {
+              "month": 31,
+              "revenue": 146688.89845172572,
+              "profit": 35834.73178505906,
+              "cumulative_profit": 57049.596386164645,
+              "cash": -149718.12985677115,
+              "consultants": 5.0,
+              "utilization": 0.8221869155175089,
+              "audits_signed": 0.7302843484787799
+            },
+            {
+              "month": 32,
+              "revenue": 152221.14979069127,
+              "profit": 41366.98312402461,
+              "cumulative_profit": 98416.57951018926,
+              "cash": -120684.93320936771,
+              "consultants": 5.0,
+              "utilization": 0.8519011675986167,
+              "audits_signed": 0.7449071457988785
+            },
+            {
+              "month": 33,
+              "revenue": 157864.17577414733,
+              "profit": 47010.00910748067,
+              "cumulative_profit": 145426.58861766994,
+              "cash": -86255.67527993023,
+              "consultants": 5.0,
+              "utilization": 0.8822104009108579,
+              "audits_signed": 0.7598227416732786
+            },
+            {
+              "month": 34,
+              "revenue": 163620.1944918916,
+              "profit": 52766.02782522494,
+              "cumulative_profit": 198192.61644289488,
+              "cash": -46322.30841809977,
+              "consultants": 6.0,
+              "utilization": 0.9131265290266926,
+              "audits_signed": 0.7750369989332531
+            },
+            {
+              "month": 35,
+              "revenue": 169491.46844586436,
+              "profit": 40720.63511253103,
+              "cumulative_profit": 238913.25155542593,
+              "cash": -18691.288153892863,
+              "consultants": 6.0,
+              "utilization": 0.7872180867174029,
+              "audits_signed": 0.7905558978040631
+            },
+            {
+              "month": 36,
+              "revenue": 175480.30544115911,
+              "profit": 46709.472107825786,
+              "cumulative_profit": 285622.72366325173,
+              "cash": 14666.470122732891,
+              "consultants": 6.0,
+              "utilization": 0.814023601213122,
+              "audits_signed": 0.8063855382555898
+            }
+          ]
+        }
+      },
+      {
+        "label": "thin-metro",
+        "market_ids": [
+          "C4578"
+        ],
+        "inputs": {},
+        "firm_overrides": {
+          "consultants": 2
+        },
+        "expected": {
+          "verdict": "NO",
+          "reasons": [
+            "Never breaks even inside the horizon. The mix does not cover fixed cost at any point, so this is a plan to lose money slowly.",
+            "The market holds about 1 addressable accounts and the plan consumes 1 of them. Thin: you would be re-selling the same logos by year three.",
+            "Market runs out in month 5; add a second metro before then.",
+            "Cash troughs at -$1,672,366. Arrange a $1,675,000 line before you need it, not when the first invoice ages past sixty days.",
+            "The last six months run at a -$51,577/month loss -- the cost base outgrew what this market can feed. Cut the hiring plan or add a metro."
+          ],
+          "breakeven_month": null,
+          "cash_trough": -1672365.8131199996,
+          "cash_trough_month": 36,
+          "peak_consultants": 2.0,
+          "year_three_revenue": 66325.75488000001,
+          "total_revenue": 244438.47936000003,
+          "addressable": 0.92119104,
+          "market_exhausted_month": 5,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -57104.16666666667,
+              "cash": 92895.83333333333,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -114208.33333333334,
+              "cash": 35791.66666666666,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -171312.5,
+              "cash": -21312.500000000015,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 13500.0,
+              "profit": -43604.16666666667,
+              "cumulative_profit": -214916.6666666667,
+              "cash": -78416.66666666669,
+              "consultants": 2.0,
+              "utilization": 0.21063829787234042,
+              "audits_signed": 0.3
+            },
+            {
+              "month": 5,
+              "revenue": 23875.0,
+              "profit": -33229.16666666667,
+              "cumulative_profit": -248145.83333333337,
+              "cash": -135520.83333333337,
+              "consultants": 2.0,
+              "utilization": 0.36542553191489363,
+              "audits_signed": 0.375
+            },
+            {
+              "month": 6,
+              "revenue": 26828.596800000003,
+              "profit": -30275.56986666667,
+              "cumulative_profit": -278421.40320000006,
+              "cash": -186550.00000000006,
+              "consultants": 2.0,
+              "utilization": 0.40264477276595745,
+              "audits_signed": 0.24619104000000003
+            },
+            {
+              "month": 7,
+              "revenue": 21494.4576,
+              "profit": -35609.70906666667,
+              "cumulative_profit": -314031.1122666667,
+              "cash": -225485.41666666674,
+              "consultants": 2.0,
+              "utilization": 0.31359694978723407,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 8,
+              "revenue": 14494.457600000002,
+              "profit": -42609.70906666667,
+              "cumulative_profit": -356640.8213333334,
+              "cash": -261235.4647733334,
+              "consultants": 2.0,
+              "utilization": 0.21146929021276598,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 9,
+              "revenue": 5744.457600000001,
+              "profit": -51359.70906666667,
+              "cumulative_profit": -408000.53040000005,
+              "cash": -298723.89728000003,
+              "consultants": 2.0,
+              "utilization": 0.08380971574468087,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 10,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -465104.69706666673,
+              "cash": -340643.0580266667,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 11,
+              "revenue": 1800.0,
+              "profit": -55304.16666666667,
+              "cumulative_profit": -520408.8637333334,
+              "cash": -383340.26709333336,
+              "consultants": 2.0,
+              "utilization": 0.02297872340425532,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 12,
+              "revenue": 4050.0000000000005,
+              "profit": -53054.16666666667,
+              "cumulative_profit": -573463.0304,
+              "cash": -432472.48208000005,
+              "consultants": 2.0,
+              "utilization": 0.05170212765957447,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 13,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -625040.0508266668,
+              "cash": -484617.19706666673,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 14,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -676617.0712533335,
+              "cash": -537671.3637333334,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 15,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -728194.0916800002,
+              "cash": -589248.3841600001,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 16,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -779771.1121066669,
+              "cash": -640825.4045866668,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 17,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -831348.1325333336,
+              "cash": -692402.4250133336,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 18,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -882925.1529600003,
+              "cash": -743979.4454400003,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 19,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -934502.173386667,
+              "cash": -795556.465866667,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 20,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -986079.1938133338,
+              "cash": -847133.4862933337,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 21,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1037656.2142400005,
+              "cash": -898710.5067200004,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 22,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1089233.2346666672,
+              "cash": -950287.5271466671,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 23,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1140810.2550933338,
+              "cash": -1001864.5475733338,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 24,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1192387.2755200004,
+              "cash": -1053441.5680000004,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 25,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1243964.295946667,
+              "cash": -1105018.588426667,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 26,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1295541.3163733336,
+              "cash": -1156595.6088533336,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 27,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1347118.3368000002,
+              "cash": -1208172.6292800002,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 28,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1398695.3572266668,
+              "cash": -1259749.6497066668,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 29,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1450272.3776533334,
+              "cash": -1311326.6701333334,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 30,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1501849.39808,
+              "cash": -1362903.69056,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 31,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1553426.4185066666,
+              "cash": -1414480.7109866666,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 32,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1605003.4389333331,
+              "cash": -1466057.7314133332,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 33,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1656580.4593599997,
+              "cash": -1517634.7518399998,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 34,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1708157.4797866663,
+              "cash": -1569211.7722666664,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 35,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1759734.500213333,
+              "cash": -1620788.792693333,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 36,
+              "revenue": 5527.14624,
+              "profit": -51577.02042666667,
+              "cumulative_profit": -1811311.5206399995,
+              "cash": -1672365.8131199996,
+              "consultants": 2.0,
+              "utilization": 0.07055931370212767,
+              "audits_signed": 0.0
+            }
+          ]
+        }
+      },
+      {
+        "label": "big-team",
+        "market_ids": [
+          "C1910",
+          "C4014",
+          "C1698"
+        ],
+        "inputs": {
+          "starting_consultants": 4,
+          "sellers": 2
+        },
+        "firm_overrides": {
+          "consultants": 4
+        },
+        "expected": {
+          "verdict": "MARGINAL",
+          "reasons": [
+            "Breaks even in month 17 on cumulative profit.",
+            "The market holds about 41 addressable accounts and the plan consumes 41 of them. Thin: you would be re-selling the same logos by year three.",
+            "Market runs out in month 34; add a second metro before then.",
+            "Cash troughs at -$550,377. Arrange a $575,000 line before you need it, not when the first invoice ages past sixty days.",
+            "Utilization peaks at 100%. Above 95% there is no slack for an engagement running long, and fixed-scope work always does.",
+            "Hits the 8-consultant ceiling, so growth after that is a hiring decision, not a market one."
+          ],
+          "breakeven_month": 17,
+          "cash_trough": -550377.2727272727,
+          "cash_trough_month": 8,
+          "peak_consultants": 8.0,
+          "year_three_revenue": 3462238.5070409733,
+          "total_revenue": 7535362.7539594835,
+          "addressable": 40.624824239999995,
+          "market_exhausted_month": 34,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -111750.0,
+              "cumulative_profit": -111750.0,
+              "cash": 38250.0,
+              "consultants": 4,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -111750.0,
+              "cumulative_profit": -223500.0,
+              "cash": -73500.0,
+              "consultants": 4,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -111750.0,
+              "cumulative_profit": -335250.0,
+              "cash": -185250.0,
+              "consultants": 4,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 54000.0,
+              "profit": -57750.0,
+              "cumulative_profit": -393000.0,
+              "cash": -297000.0,
+              "consultants": 4,
+              "utilization": 0.42127659574468085,
+              "audits_signed": 1.2
+            },
+            {
+              "month": 5,
+              "revenue": 95500.0,
+              "profit": -16250.0,
+              "cumulative_profit": -409250.0,
+              "cash": -408750.0,
+              "consultants": 4,
+              "utilization": 0.7308510638297873,
+              "audits_signed": 1.5
+            },
+            {
+              "month": 6,
+              "revenue": 132272.72727272726,
+              "profit": 20522.727272727265,
+              "cumulative_profit": -388727.2727272727,
+              "cash": -496200.0,
+              "consultants": 4,
+              "utilization": 0.9999999999999999,
+              "audits_signed": 1.539393939393939
+            },
+            {
+              "month": 7,
+              "revenue": 134605.14233241507,
+              "profit": 22855.142332415067,
+              "cumulative_profit": -365872.1303948576,
+              "cash": -535275.0,
+              "consultants": 4,
+              "utilization": 1.0,
+              "audits_signed": 0.7930211202938476
+            },
+            {
+              "month": 8,
+              "revenue": 133988.50766619362,
+              "profit": 22238.50766619362,
+              "cumulative_profit": -343633.62272866396,
+              "cash": -550377.2727272727,
+              "consultants": 4,
+              "utilization": 1.0,
+              "audits_signed": 0.9903442134847092
+            },
+            {
+              "month": 9,
+              "revenue": 133216.30192904922,
+              "profit": 21466.301929049223,
+              "cumulative_profit": -322167.32079961477,
+              "cash": -548054.9586776859,
+              "consultants": 4,
+              "utilization": 1.0,
+              "audits_signed": 1.2374500493709106
+            },
+            {
+              "month": 10,
+              "revenue": 132758.81118659012,
+              "profit": 21008.811186590116,
+              "cumulative_profit": -301158.50961302465,
+              "cash": -545232.857500626,
+              "consultants": 5,
+              "utilization": 1.0,
+              "audits_signed": 1.3838470869578339
+            },
+            {
+              "month": 11,
+              "revenue": 167008.54749971733,
+              "profit": 37341.88083305067,
+              "cumulative_profit": -263816.62877997395,
+              "cash": -536035.6134599184,
+              "consultants": 5,
+              "utilization": 1.0,
+              "audits_signed": 1.6785981334237798
+            },
+            {
+              "month": 12,
+              "revenue": 169687.72010568564,
+              "profit": 40021.053439018986,
+              "cumulative_profit": -223795.57534095497,
+              "cash": -526151.2664380295,
+              "consultants": 5,
+              "utilization": 1.0,
+              "audits_signed": 1.1812628995139276
+            },
+            {
+              "month": 13,
+              "revenue": 171281.92690342298,
+              "profit": 41615.26023675632,
+              "cumulative_profit": -182180.31510419864,
+              "cash": -499811.7939885699,
+              "consultants": 6,
+              "utilization": 1.0,
+              "audits_signed": 1.0405712696925193
+            },
+            {
+              "month": 14,
+              "revenue": 203672.3805236446,
+              "profit": 56089.04719031125,
+              "cumulative_profit": -126091.2679138874,
+              "cash": -481813.2187216879,
+              "consultants": 6,
+              "utilization": 1.0,
+              "audits_signed": 1.8326178467587981
+            },
+            {
+              "month": 15,
+              "revenue": 204986.119231287,
+              "profit": 57402.78589795367,
+              "cumulative_profit": -68688.48201593373,
+              "cash": -462744.0308629052,
+              "consultants": 6,
+              "utilization": 1.0,
+              "audits_signed": 1.649904071549548
+            },
+            {
+              "month": 16,
+              "revenue": 207046.12712156383,
+              "profit": 59462.79378823048,
+              "cumulative_profit": -9225.688227703242,
+              "cash": -421131.69504358154,
+              "consultants": 7,
+              "utilization": 1.0,
+              "audits_signed": 1.287689558509996
+            },
+            {
+              "month": 17,
+              "revenue": 240975.65468433217,
+              "profit": 75475.65468433217,
+              "cumulative_profit": 66249.96645662893,
+              "cash": -374694.62320876005,
+              "consultants": 7,
+              "utilization": 1.0,
+              "audits_signed": 1.7290307059606682
+            },
+            {
+              "month": 18,
+              "revenue": 242649.90243473672,
+              "profit": 77149.90243473672,
+              "cumulative_profit": 143399.86889136565,
+              "cash": -332174.5015850572,
+              "consultants": 7,
+              "utilization": 1.0,
+              "audits_signed": 1.5961349778529255
+            },
+            {
+              "month": 19,
+              "revenue": 243857.08454678737,
+              "profit": 78357.08454678737,
+              "cumulative_profit": 221756.95343815302,
+              "cash": -276807.6200477439,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.4933397978800718
+            },
+            {
+              "month": 20,
+              "revenue": 277349.29902186105,
+              "profit": 93932.63235519436,
+              "cumulative_profit": 315689.5857933474,
+              "cash": -216127.1980752555,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.992234937249335
+            },
+            {
+              "month": 21,
+              "revenue": 279747.3127808838,
+              "profit": 96330.64611421712,
+              "cumulative_profit": 412020.2319075645,
+              "cash": -151123.19448145738,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.6646988175841728
+            },
+            {
+              "month": 22,
+              "revenue": 281651.09273731854,
+              "profit": 98234.42607065185,
+              "cumulative_profit": 510254.65797821636,
+              "cash": -71487.35819512824,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.4514662086969508
+            },
+            {
+              "month": 23,
+              "revenue": 282992.40015087015,
+              "profit": 99575.73348420346,
+              "cumulative_profit": 609830.3914624199,
+              "cash": 26932.841174014466,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.3312933304028278
+            },
+            {
+              "month": 24,
+              "revenue": 283877.1887894235,
+              "profit": 100460.52212275681,
+              "cumulative_profit": 710290.9135851767,
+              "cash": 126187.08406986951,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.4631283354963345
+            },
+            {
+              "month": 25,
+              "revenue": 285313.017125736,
+              "profit": 101896.3504590693,
+              "cumulative_profit": 812187.2640442459,
+              "cash": 228394.57140981822,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.3867356625610285
+            },
+            {
+              "month": 26,
+              "revenue": 286844.0385020053,
+              "profit": 103427.37183533859,
+              "cumulative_profit": 915614.6358795846,
+              "cash": 334611.63883889094,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.2552103736460736
+            },
+            {
+              "month": 27,
+              "revenue": 288902.10849907005,
+              "profit": 105485.44183240336,
+              "cumulative_profit": 1021100.077711988,
+              "cash": 449467.6130944332,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.0747643595251792
+            },
+            {
+              "month": 28,
+              "revenue": 290129.7133061753,
+              "profit": 106713.04663950863,
+              "cumulative_profit": 1127813.1243514966,
+              "cash": 559567.7656926219,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.0814585374717085
+            },
+            {
+              "month": 29,
+              "revenue": 291250.58988976997,
+              "profit": 107833.92322310328,
+              "cumulative_profit": 1235647.0475745997,
+              "cash": 671326.3529949735,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.07112992080868
+            },
+            {
+              "month": 30,
+              "revenue": 292424.0001095467,
+              "profit": 109007.33344288002,
+              "cumulative_profit": 1344654.3810174798,
+              "cash": 783834.1210336471,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 1.015149049776805
+            },
+            {
+              "month": 31,
+              "revenue": 293929.81388501485,
+              "profit": 110513.14721834817,
+              "cumulative_profit": 1455167.528235828,
+              "cash": 900825.4049827697,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 0.8844394421461143
+            },
+            {
+              "month": 32,
+              "revenue": 295144.10264519416,
+              "profit": 111727.43597852747,
+              "cumulative_profit": 1566894.9642143555,
+              "cash": 1017498.3539004149,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 0.8286835979033808
+            },
+            {
+              "month": 33,
+              "revenue": 296146.0801393152,
+              "profit": 112729.41347264854,
+              "cumulative_profit": 1679624.377687004,
+              "cash": 1134373.9928608066,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 0.8093012894597122
+            },
+            {
+              "month": 34,
+              "revenue": 297006.6598037713,
+              "profit": 113589.99313710461,
+              "cumulative_profit": 1793214.3708241086,
+              "cash": 1250774.8608494578,
+              "consultants": 8.0,
+              "utilization": 1.0,
+              "audits_signed": 0.7918592431197983
+            },
+            {
+              "month": 35,
+              "revenue": 283254.48630214157,
+              "profit": 99837.81963547488,
+              "cumulative_profit": 1893052.1904595834,
+              "cash": 1369623.792656717,
+              "consultants": 8.0,
+              "utilization": 0.9423019831026658,
+              "audits_signed": 0.3900654635084061
+            },
+            {
+              "month": 36,
+              "revenue": 261893.8968332326,
+              "profit": 78477.23016656592,
+              "cumulative_profit": 1971529.4206261493,
+              "cash": 1489398.5838420885,
+              "consultants": 8.0,
+              "utilization": 0.8570148409155075,
+              "audits_signed": 0.0
+            }
+          ]
+        }
+      },
+      {
+        "label": "cold-chain-focus",
+        "market_ids": [
+          "C1698"
+        ],
+        "inputs": {
+          "sub_vertical": "cold_chain"
+        },
+        "firm_overrides": {
+          "consultants": 2
+        },
+        "expected": {
+          "verdict": "NO",
+          "reasons": [
+            "Never breaks even inside the horizon. The mix does not cover fixed cost at any point, so this is a plan to lose money slowly.",
+            "The market holds about 5 addressable accounts and the plan consumes 5 of them. Thin: you would be re-selling the same logos by year three.",
+            "Market runs out in month 13; add a second metro before then.",
+            "Cash troughs at -$798,622. Arrange a $800,000 line before you need it, not when the first invoice ages past sixty days.",
+            "The last six months run at a -$27,929/month loss -- the cost base outgrew what this market can feed. Cut the hiring plan or add a metro."
+          ],
+          "breakeven_month": null,
+          "cash_trough": -798621.8362439581,
+          "cash_trough_month": 36,
+          "peak_consultants": 2.0,
+          "year_three_revenue": 350102.26944,
+          "total_revenue": 1165478.5419960415,
+          "addressable": 4.86253152,
+          "market_exhausted_month": 13,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -57104.16666666667,
+              "cash": 92895.83333333333,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -114208.33333333334,
+              "cash": 35791.66666666666,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -171312.5,
+              "cash": -21312.500000000015,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 13500.0,
+              "profit": -43604.16666666667,
+              "cumulative_profit": -214916.6666666667,
+              "cash": -78416.66666666669,
+              "consultants": 2.0,
+              "utilization": 0.21063829787234042,
+              "audits_signed": 0.3
+            },
+            {
+              "month": 5,
+              "revenue": 23875.0,
+              "profit": -33229.16666666667,
+              "cumulative_profit": -248145.83333333337,
+              "cash": -135520.83333333337,
+              "consultants": 2.0,
+              "utilization": 0.36542553191489363,
+              "audits_signed": 0.375
+            },
+            {
+              "month": 6,
+              "revenue": 36000.0,
+              "profit": -21104.16666666667,
+              "cumulative_profit": -269250.00000000006,
+              "cash": -186550.00000000006,
+              "consultants": 2.0,
+              "utilization": 0.5457446808510639,
+              "audits_signed": 0.45
+            },
+            {
+              "month": 7,
+              "revenue": 46781.25,
+              "profit": -10322.916666666672,
+              "cumulative_profit": -279572.91666666674,
+              "cash": -225485.41666666674,
+              "consultants": 2.0,
+              "utilization": 0.7033244680851064,
+              "audits_signed": 0.45625
+            },
+            {
+              "month": 8,
+              "revenue": 50778.64583333334,
+              "profit": -6325.5208333333285,
+              "cumulative_profit": -285898.43750000006,
+              "cash": -257108.33333333343,
+              "consultants": 2.0,
+              "utilization": 0.7620013297872341,
+              "audits_signed": 0.4640625
+            },
+            {
+              "month": 9,
+              "revenue": 53278.64583333334,
+              "profit": -3825.5208333333285,
+              "cumulative_profit": -289723.9583333334,
+              "cash": -278173.4375000001,
+              "consultants": 2.0,
+              "utilization": 0.798902925531915,
+              "audits_signed": 0.4734375
+            },
+            {
+              "month": 10,
+              "revenue": 54253.25520833334,
+              "profit": -2850.9114583333285,
+              "cumulative_profit": -292574.8697916667,
+              "cash": -292472.5260416668,
+              "consultants": 2.0,
+              "utilization": 0.8135555186170215,
+              "audits_signed": 0.48294270833333336
+            },
+            {
+              "month": 11,
+              "revenue": 57111.143663194445,
+              "profit": 6.976996527773736,
+              "cumulative_profit": -292567.89279513893,
+              "cash": -299678.2552083335,
+              "consultants": 2.0,
+              "utilization": 0.8524092697251774,
+              "audits_signed": 0.49261067708333334
+            },
+            {
+              "month": 12,
+              "revenue": 60471.11545138889,
+              "profit": 3366.948784722219,
+              "cumulative_profit": -289200.94401041674,
+              "cash": -304208.1705729168,
+              "consultants": 2.0,
+              "utilization": 0.897776484929078,
+              "audits_signed": 0.5024739583333333
+            },
+            {
+              "month": 13,
+              "revenue": 64301.39160156251,
+              "profit": 7197.224934895836,
+              "cumulative_profit": -282003.71907552093,
+              "cash": -305083.8134765626,
+              "consultants": 2.0,
+              "utilization": 0.9491936433399824,
+              "audits_signed": 0.5125352647569444
+            },
+            {
+              "month": 14,
+              "revenue": 60560.14868790511,
+              "profit": 3455.9820212384366,
+              "cumulative_profit": -278547.7370542825,
+              "cash": -302669.90559895843,
+              "consultants": 2.0,
+              "utilization": 0.8823540953627367,
+              "audits_signed": 0.35321891149305584
+            },
+            {
+              "month": 15,
+              "revenue": 44197.19814027778,
+              "profit": -12906.96852638889,
+              "cumulative_profit": -291454.7055806714,
+              "cash": -296460.7008192275,
+              "consultants": 2.0,
+              "utilization": 0.6224420245390072,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 16,
+              "revenue": 35313.43077916668,
+              "profit": -21790.73588749999,
+              "cumulative_profit": -313245.44146817137,
+              "cash": -289814.0447440886,
+              "consultants": 2.0,
+              "utilization": 0.48765035787234057,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 17,
+              "revenue": 26251.930851504636,
+              "profit": -30852.235815162036,
+              "cumulative_profit": -344097.6772833334,
+              "cash": -292569.7553600521,
+              "consultants": 2.0,
+              "utilization": 0.3501616241252956,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 18,
+              "revenue": 20965.8203125,
+              "profit": -36138.34635416667,
+              "cumulative_profit": -380236.02363750007,
+              "cash": -306123.2144571991,
+              "consultants": 2.0,
+              "utilization": 0.26764876994680853,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 19,
+              "revenue": 23980.6640625,
+              "profit": -33123.50260416667,
+              "cumulative_profit": -413359.52624166675,
+              "cash": -323949.4985760359,
+              "consultants": 2.0,
+              "utilization": 0.3061361369680851,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 20,
+              "revenue": 27055.875651041668,
+              "profit": -30048.291015625004,
+              "cumulative_profit": -443407.81725729175,
+              "cash": -348977.3330016609,
+              "consultants": 2.0,
+              "utilization": 0.3453941572473404,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 21,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -471336.79480395844,
+              "cash": -377567.859575,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 22,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -499265.77235062514,
+              "cash": -407616.150590625,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 23,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -527194.7498972918,
+              "cash": -435545.1281372917,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 24,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -555123.7274439584,
+              "cash": -463474.1056839584,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 25,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -583052.704990625,
+              "cash": -491403.0832306251,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 26,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -610981.6825372917,
+              "cash": -519332.0607772918,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 27,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -638910.6600839583,
+              "cash": -547261.0383239584,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 28,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -666839.6376306249,
+              "cash": -575190.015870625,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 29,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -694768.6151772916,
+              "cash": -603118.9934172917,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 30,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -722697.5927239582,
+              "cash": -631047.9709639583,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 31,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -750626.5702706248,
+              "cash": -658976.9485106249,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 32,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -778555.5478172915,
+              "cash": -686905.9260572916,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 33,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -806484.5253639581,
+              "cash": -714834.9036039582,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 34,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -834413.5029106247,
+              "cash": -742763.8811506248,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 35,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -862342.4804572914,
+              "cash": -770692.8586972915,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 36,
+              "revenue": 29175.189120000003,
+              "profit": -27928.97754666667,
+              "cumulative_profit": -890271.458003958,
+              "cash": -798621.8362439581,
+              "consultants": 2.0,
+              "utilization": 0.37244922280851067,
+              "audits_signed": 0.0
+            }
+          ]
+        }
+      },
+      {
+        "label": "long-terms",
+        "market_ids": [
+          "C3562"
+        ],
+        "inputs": {},
+        "firm_overrides": {
+          "consultants": 2,
+          "payment_terms_days": 90,
+          "deposit_rate": 0.2,
+          "starting_cash": 50000
+        },
+        "expected": {
+          "verdict": "MARGINAL",
+          "reasons": [
+            "Breaks even in month 30. Past two years is a long time to fund a bet on one metro.",
+            "The market holds about 29 addressable accounts and the plan consumes 19 of them. Thin: you would be re-selling the same logos by year three.",
+            "Cash troughs at -$512,097. Arrange a $525,000 line before you need it, not when the first invoice ages past sixty days.",
+            "Utilization peaks at 100%. Above 95% there is no slack for an engagement running long, and fixed-scope work always does."
+          ],
+          "breakeven_month": 30,
+          "cash_trough": -512097.0480355146,
+          "cash_trough_month": 23,
+          "peak_consultants": 6.0,
+          "year_three_revenue": 1735257.1460595487,
+          "total_revenue": 3165539.3903299184,
+          "addressable": 28.80518256,
+          "market_exhausted_month": null,
+          "months": [
+            {
+              "month": 1,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -57104.16666666667,
+              "cash": -7104.1666666666715,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 2,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -114208.33333333334,
+              "cash": -64208.33333333334,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 3,
+              "revenue": 0.0,
+              "profit": -57104.16666666667,
+              "cumulative_profit": -171312.5,
+              "cash": -121312.50000000001,
+              "consultants": 2.0,
+              "utilization": 0.0,
+              "audits_signed": 0.0
+            },
+            {
+              "month": 4,
+              "revenue": 13500.0,
+              "profit": -43604.16666666667,
+              "cumulative_profit": -214916.6666666667,
+              "cash": -178416.6666666667,
+              "consultants": 2.0,
+              "utilization": 0.21063829787234042,
+              "audits_signed": 0.3
+            },
+            {
+              "month": 5,
+              "revenue": 23875.0,
+              "profit": -33229.16666666667,
+              "cumulative_profit": -248145.83333333337,
+              "cash": -235520.83333333337,
+              "consultants": 2.0,
+              "utilization": 0.36542553191489363,
+              "audits_signed": 0.375
+            },
+            {
+              "month": 6,
+              "revenue": 36000.0,
+              "profit": -21104.16666666667,
+              "cumulative_profit": -269250.00000000006,
+              "cash": -292625.00000000006,
+              "consultants": 2.0,
+              "utilization": 0.5457446808510639,
+              "audits_signed": 0.45
+            },
+            {
+              "month": 7,
+              "revenue": 46781.25,
+              "profit": -10322.916666666672,
+              "cumulative_profit": -279572.91666666674,
+              "cash": -347029.16666666674,
+              "consultants": 2.0,
+              "utilization": 0.7033244680851064,
+              "audits_signed": 0.45625
+            },
+            {
+              "month": 8,
+              "revenue": 50778.64583333334,
+              "profit": -6325.5208333333285,
+              "cumulative_profit": -285898.43750000006,
+              "cash": -388558.33333333343,
+              "consultants": 2.0,
+              "utilization": 0.7620013297872341,
+              "audits_signed": 0.4640625
+            },
+            {
+              "month": 9,
+              "revenue": 53278.64583333334,
+              "profit": -3825.5208333333285,
+              "cumulative_profit": -289723.9583333334,
+              "cash": -424962.5000000001,
+              "consultants": 2.0,
+              "utilization": 0.798902925531915,
+              "audits_signed": 0.4734375
+            },
+            {
+              "month": 10,
+              "revenue": 54253.25520833334,
+              "profit": -2850.9114583333285,
+              "cumulative_profit": -292574.8697916667,
+              "cash": -450910.4166666668,
+              "consultants": 2.0,
+              "utilization": 0.8135555186170215,
+              "audits_signed": 0.48294270833333336
+            },
+            {
+              "month": 11,
+              "revenue": 57111.143663194445,
+              "profit": 6.976996527773736,
+              "cumulative_profit": -292567.89279513893,
+              "cash": -468833.8541666668,
+              "consultants": 2.0,
+              "utilization": 0.8524092697251774,
+              "audits_signed": 0.49261067708333334
+            },
+            {
+              "month": 12,
+              "revenue": 60471.11545138889,
+              "profit": 3366.948784722219,
+              "cumulative_profit": -289200.94401041674,
+              "cash": -477576.0416666668,
+              "consultants": 2.0,
+              "utilization": 0.897776484929078,
+              "audits_signed": 0.5024739583333333
+            },
+            {
+              "month": 13,
+              "revenue": 64301.39160156251,
+              "profit": 7197.224934895836,
+              "cumulative_profit": -282003.71907552093,
+              "cash": -482869.1406250001,
+              "consultants": 2.0,
+              "utilization": 0.9491936433399824,
+              "audits_signed": 0.5125352647569444
+            },
+            {
+              "month": 14,
+              "revenue": 68100.18166692971,
+              "profit": 10996.01500026304,
+              "cumulative_profit": -271007.7040752579,
+              "cash": -484145.97439236124,
+              "consultants": 2.0,
+              "utilization": 1.0,
+              "audits_signed": 0.5207751999158248
+            },
+            {
+              "month": 15,
+              "revenue": 68649.10518637288,
+              "profit": 11544.938519706207,
+              "cumulative_profit": -259462.76555555168,
+              "cash": -482165.2669270835,
+              "consultants": 3.0,
+              "utilization": 1.0,
+              "audits_signed": 0.45649467369401076
+            },
+            {
+              "month": 16,
+              "revenue": 74352.10046570013,
+              "profit": -668.7328676331963,
+              "cumulative_profit": -260131.49842318488,
+              "cash": -494321.82888454874,
+              "consultants": 3.0,
+              "utilization": 0.7213409167690356,
+              "audits_signed": 0.543944012677228
+            },
+            {
+              "month": 17,
+              "revenue": 78470.85425042783,
+              "profit": 3450.020917094502,
+              "cumulative_profit": -256681.47750609036,
+              "cash": -502633.526492135,
+              "consultants": 3.0,
+              "utilization": 0.7582085290621797,
+              "audits_signed": 0.5547934960088077
+            },
+            {
+              "month": 18,
+              "revenue": 82648.24231168556,
+              "profit": 7627.408978352236,
+              "cumulative_profit": -249054.06852773813,
+              "cash": -507769.28784122405,
+              "consultants": 3.0,
+              "utilization": 0.7955352136459012,
+              "audits_signed": 0.5643038017107662
+            },
+            {
+              "month": 19,
+              "revenue": 88688.57989396143,
+              "profit": 13667.746560628104,
+              "cumulative_profit": -235386.32196711004,
+              "cash": -511253.6546918589,
+              "consultants": 3.0,
+              "utilization": 0.8509651967236838,
+              "audits_signed": 0.5756359686415419
+            },
+            {
+              "month": 20,
+              "revenue": 93023.38935751202,
+              "profit": 18002.556024178688,
+              "cumulative_profit": -217383.76594293135,
+              "cash": -507922.2318226125,
+              "consultants": 3.0,
+              "utilization": 0.8897399311500679,
+              "audits_signed": 0.5871941664750586
+            },
+            {
+              "month": 21,
+              "revenue": 97433.09101532333,
+              "profit": 22412.25768199,
+              "cumulative_profit": -194971.50826094137,
+              "cash": -501858.49867111177,
+              "consultants": 4.0,
+              "utilization": 0.929189013573233,
+              "audits_signed": 0.5989504956773664
+            },
+            {
+              "month": 22,
+              "revenue": 101520.14063730952,
+              "profit": 8582.640637309523,
+              "cumulative_profit": -186388.86762363184,
+              "cash": -509162.8220367067,
+              "consultants": 4.0,
+              "utilization": 0.7244819480225324,
+              "audits_signed": 0.6109429116907318
+            },
+            {
+              "month": 23,
+              "revenue": 106158.127915591,
+              "profit": 13220.627915591002,
+              "cumulative_profit": -173168.23970804084,
+              "cash": -512097.0480355146,
+              "consultants": 4.0,
+              "utilization": 0.7556181769999436,
+              "audits_signed": 0.6231761234922955
+            },
+            {
+              "month": 24,
+              "revenue": 110887.98397841024,
+              "profit": 17950.483978410237,
+              "cumulative_profit": -155217.7557296306,
+              "cash": -509221.0805648449,
+              "consultants": 4.0,
+              "utilization": 0.7873707978902169,
+              "audits_signed": 0.6356542588189072
+            },
+            {
+              "month": 25,
+              "revenue": 115702.98690835419,
+              "profit": 22765.486908354185,
+              "cumulative_profit": -132452.2688212764,
+              "cash": -502321.71770676307,
+              "consultants": 4.0,
+              "utilization": 0.8196982143605445,
+              "audits_signed": 0.6483822361457975
+            },
+            {
+              "month": 26,
+              "revenue": 120614.61457326231,
+              "profit": 27677.11457326231,
+              "cumulative_profit": -104775.15424801409,
+              "cash": -490847.2866403231,
+              "consultants": 4.0,
+              "utilization": 0.8526743022679012,
+              "audits_signed": 0.661365072051887
+            },
+            {
+              "month": 27,
+              "revenue": 125624.78090614588,
+              "profit": 32687.280906145883,
+              "cumulative_profit": -72087.87334186821,
+              "cash": -474676.7416682442,
+              "consultants": 4.0,
+              "utilization": 0.8863119031104724,
+              "audits_signed": 0.6746078691106142
+            },
+            {
+              "month": 28,
+              "revenue": 130735.25980006994,
+              "profit": 37797.759800069936,
+              "cumulative_profit": -34290.11354179827,
+              "cash": -453726.2620532886,
+              "consultants": 5.0,
+              "utilization": 0.9206229917961752,
+              "audits_signed": 0.6881158323636517
+            },
+            {
+              "month": 29,
+              "revenue": 135948.06427034622,
+              "profit": 25093.897603679565,
+              "cumulative_profit": -9196.215938118708,
+              "cash": -445817.2005411155,
+              "consultants": 5.0,
+              "utilization": 0.7644968658506252,
+              "audits_signed": 0.7018942713647327
+            },
+            {
+              "month": 30,
+              "revenue": 141265.24720589095,
+              "profit": 30411.08053922429,
+              "cumulative_profit": 21214.864601105583,
+              "cash": -432935.0547586907,
+              "consultants": 5.0,
+              "utilization": 0.7930559649450194,
+              "audits_signed": 0.7159486019712038
+            },
+            {
+              "month": 31,
+              "revenue": 146688.89845172572,
+              "profit": 35834.73178505906,
+              "cumulative_profit": 57049.596386164645,
+              "cash": -414980.2427342877,
+              "consultants": 5.0,
+              "utilization": 0.8221869155175089,
+              "audits_signed": 0.7302843484787799
+            },
+            {
+              "month": 32,
+              "revenue": 152221.14979069127,
+              "profit": 41366.98312402461,
+              "cumulative_profit": 98416.57951018926,
+              "cash": -391851.19678949215,
+              "consultants": 5.0,
+              "utilization": 0.8519011675986167,
+              "audits_signed": 0.7449071457988785
+            },
+            {
+              "month": 33,
+              "revenue": 157864.17577414733,
+              "profit": 47010.00910748067,
+              "cumulative_profit": 145426.58861766994,
+              "cash": -363444.3110020072,
+              "consultants": 5.0,
+              "utilization": 0.8822104009108579,
+              "audits_signed": 0.7598227416732786
+            },
+            {
+              "month": 34,
+              "revenue": 163620.1944918916,
+              "profit": 52766.02782522494,
+              "cumulative_profit": 198192.61644289488,
+              "cash": -329653.904825125,
+              "consultants": 6.0,
+              "utilization": 0.9131265290266926,
+              "audits_signed": 0.7750369989332531
+            },
+            {
+              "month": 35,
+              "revenue": 169491.46844586436,
+              "profit": 40720.63511253103,
+              "cumulative_profit": 238913.25155542593,
+              "cash": -308288.848385504,
+              "consultants": 6.0,
+              "utilization": 0.7872180867174029,
+              "audits_signed": 0.7905558978040631
+            },
+            {
+              "month": 36,
+              "revenue": 175480.30544115911,
+              "profit": 46709.472107825786,
+              "cumulative_profit": 285622.72366325173,
+              "cash": -281322.5200197548,
+              "consultants": 6.0,
+              "utilization": 0.814023601213122,
+              "audits_signed": 0.8063855382555898
+            }
+          ]
+        }
+      }
+    ],
+    "sizings": [
+      {
+        "metro_id": "C1910",
+        "sub_vertical": null,
+        "expected": {
+          "enterprise_sites": 889.648,
+          "platform_accounts": 160.13664,
+          "addressable": 12.33052128,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C1910",
+        "sub_vertical": "3pl",
+        "expected": {
+          "enterprise_sites": 889.648,
+          "platform_accounts": 160.13664,
+          "addressable": 12.33052128,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C1910",
+        "sub_vertical": "cold_chain",
+        "expected": {
+          "enterprise_sites": 361.928,
+          "platform_accounts": 65.14704,
+          "addressable": 5.016322080000001,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C4578",
+        "sub_vertical": null,
+        "expected": {
+          "enterprise_sites": 66.464,
+          "platform_accounts": 11.963519999999999,
+          "addressable": 0.92119104,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C4578",
+        "sub_vertical": "3pl",
+        "expected": {
+          "enterprise_sites": 16.82,
+          "platform_accounts": 3.0276,
+          "addressable": 0.23312520000000003,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C4578",
+        "sub_vertical": "cold_chain",
+        "expected": {
+          "enterprise_sites": 20.42,
+          "platform_accounts": 3.6756,
+          "addressable": 0.28302120000000003,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C3562",
+        "sub_vertical": null,
+        "expected": {
+          "enterprise_sites": 2078.296,
+          "platform_accounts": 374.09327999999994,
+          "addressable": 28.80518256,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C3562",
+        "sub_vertical": "3pl",
+        "expected": {
+          "enterprise_sites": 493.072,
+          "platform_accounts": 88.75296,
+          "addressable": 6.83397792,
+          "disclosed_employment": true
+        }
+      },
+      {
+        "metro_id": "C3562",
+        "sub_vertical": "cold_chain",
+        "expected": {
+          "enterprise_sites": 916.696,
+          "platform_accounts": 165.00528,
+          "addressable": 12.70540656,
+          "disclosed_employment": true
+        }
+      }
+    ],
+    "ranking_3pl": [
+      "C1910",
+      "C4014",
+      "C3562",
+      "C1206",
+      "C3108",
+      "C1698",
+      "C2642",
+      "C3806"
+    ],
+    "lookups": {
+      "Dallas": "C1910",
+      "dallas-fort worth": "C1910",
+      "C1910": "C1910",
+      "Riverside": "C4014",
+      "nowhere city": null
+    }
+  }
 }

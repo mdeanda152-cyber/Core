@@ -126,6 +126,85 @@ def fixture_for(path: str) -> dict:
     }
 
 
+def market_fixtures() -> list[dict]:
+    from scvr import economics, market
+
+    metros, _ = market.load_markets()
+    industries = json.loads((ROOT / "data" / "metro-markets.json").read_text())["industries"]
+    by_name = {}
+    for city in ["Dallas", "Atlanta", "Riverside", "Chicago", "Toledo", "New York"]:
+        found = market.find_metro(metros, city)
+        if found:
+            by_name[city] = found
+
+    cases = []
+    for label, cities, overrides, firm_overrides in [
+        ("dallas-solo", ["Dallas"], {}, {"consultants": 2}),
+        ("dallas-atlanta", ["Dallas", "Atlanta"], {}, {"consultants": 2}),
+        ("thin-metro", ["Toledo"], {}, {"consultants": 2}),
+        ("big-team", ["Dallas", "Riverside", "Chicago"],
+         {"starting_consultants": 4, "sellers": 2}, {"consultants": 4}),
+        ("cold-chain-focus", ["Chicago"], {"sub_vertical": "cold_chain"}, {"consultants": 2}),
+        ("long-terms", ["New York"], {}, {"consultants": 2, "payment_terms_days": 90,
+                                          "deposit_rate": 0.2, "starting_cash": 50_000}),
+    ]:
+        ids = [by_name[c].id for c in cities if c in by_name]
+        firm = economics.FirmModel(**firm_overrides)
+        inputs = market.ScenarioInputs(markets=ids, horizon_months=36, **overrides)
+        scenario = market.run_scenario(metros, firm, inputs, industries=industries)
+        cases.append({
+            "label": label,
+            "market_ids": ids,
+            "inputs": {k: v for k, v in overrides.items()},
+            "firm_overrides": firm_overrides,
+            "expected": {
+                "verdict": scenario.verdict,
+                "reasons": scenario.reasons,
+                "breakeven_month": scenario.breakeven_month,
+                "cash_trough": scenario.cash_trough,
+                "cash_trough_month": scenario.cash_trough_month,
+                "peak_consultants": scenario.peak_consultants,
+                "year_three_revenue": scenario.year_three_revenue,
+                "total_revenue": scenario.total_revenue,
+                "addressable": scenario.addressable,
+                "market_exhausted_month": scenario.market_exhausted_month,
+                "months": [
+                    {"month": mo.month, "revenue": mo.revenue, "profit": mo.profit,
+                     "cumulative_profit": mo.cumulative_profit, "cash": mo.cash,
+                     "consultants": mo.consultants, "utilization": mo.utilization,
+                     "audits_signed": mo.audits_signed}
+                    for mo in scenario.months
+                ],
+            },
+        })
+
+    sizings = []
+    for city in ["Dallas", "Toledo", "New York"]:
+        found = by_name.get(city)
+        if not found:
+            continue
+        for sub in [None, "3pl", "cold_chain"]:
+            sized = market.size_market(found, None, sub, industries)
+            sizings.append({
+                "metro_id": found.id, "sub_vertical": sub,
+                "expected": {
+                    "enterprise_sites": sized.enterprise_sites,
+                    "platform_accounts": sized.platform_accounts,
+                    "addressable": sized.addressable,
+                    "disclosed_employment": sized.disclosed_employment,
+                },
+            })
+
+    ranked = market.rank_markets(metros, None, "3pl", industries, limit=8)
+    return [{
+        "scenarios": cases,
+        "sizings": sizings,
+        "ranking_3pl": [s.metro.id for s in ranked],
+        "lookups": {q: (market.find_metro(metros, q).id if market.find_metro(metros, q) else None)
+                    for q in ["Dallas", "dallas-fort worth", "C1910", "Riverside", "nowhere city"]},
+    }]
+
+
 def write_fixtures() -> None:
     from scvr import economics
 
@@ -167,6 +246,7 @@ def write_fixtures() -> None:
         "generated_by": "tools/gen_web_data.py",
         "audits": [fixture_for(path) for path in EXAMPLES],
         "firms": firm_cases,
+        "market": market_fixtures()[0],
     }
     FIXTURE_OUT.parent.mkdir(parents=True, exist_ok=True)
     FIXTURE_OUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

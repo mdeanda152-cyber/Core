@@ -46,17 +46,17 @@ def build() -> tuple[str, str]:
     fonts = read("fonts.css")
     styles = read("styles.css")
     body = read("index.html")
-    catalog = guard(read("catalog.data.js"), "catalog.data.js")
-    engine = guard(read("engine.js"), "engine.js")
-    app = guard(read("app.js"), "app.js")
+    # Order matters: data, then engines, then the UI that consumes them.
+    modules = [
+        "catalog.data.js", "market.data.js",
+        "engine.js", "market.js", "advisor.js",
+        "app.js",
+    ]
+    scripts_source = [(name, guard(read(name), name)) for name in modules]
 
     css = guard(fonts + "\n" + styles, "css")
     scripts = "\n".join(
-        [
-            "<script>" + catalog + "</script>",
-            "<script>" + engine + "</script>",
-            "<script>" + app + "</script>",
-        ]
+        "<script>" + source + "</script>" for _, source in scripts_source
     )
 
     fragment = "\n".join(

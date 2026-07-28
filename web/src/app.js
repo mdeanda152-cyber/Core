@@ -9,12 +9,17 @@
 
   var E = window.CaptureEngine;
   var DATA = window.CaptureData;
+  var M = window.CaptureMarket;
+  var ADVISOR = window.CaptureAdvisor;
   E.loadCatalogs(DATA.catalogs, DATA.platformNames);
+  M.load(window.CaptureMarketData);
+  ADVISOR.init(M);
 
   var STORE = {
     engagement: "capture.engagement.v1",
     library: "capture.library.v1",
     firm: "capture.firm.v1",
+    chat: "capture.chat.v1",
     theme: "capture.theme.v1"
   };
 
@@ -103,6 +108,8 @@
     engagement: load(STORE.engagement) || deepCopy(DATA.samples[0]),
     library: load(STORE.library) || [],
     firm: load(STORE.firm) || {},
+    chat: load(STORE.chat) || [],
+    chatContext: { lastMetros: [], sub_vertical: null },
     audit: null
   };
 
@@ -366,6 +373,77 @@
         el("span", { text: "month " + Math.round(months.length / 2) }),
         el("span", { text: "month " + months.length })
       ])
+    ]);
+  }
+
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  function svg(tag, attrs, children) {
+    var node = document.createElementNS(SVG_NS, tag);
+    Object.keys(attrs || {}).forEach(function (key) {
+      if (attrs[key] === null || attrs[key] === undefined) return;
+      if (key === "text") node.textContent = attrs[key];
+      else node.setAttribute(key, attrs[key]);
+    });
+    (children || []).forEach(function (child) { if (child) node.appendChild(child); });
+    return node;
+  }
+
+  /* Cumulative profit over the horizon: the shape of the bet. Zero rule and
+   * break-even marker carry the answer; the endpoint carries the size. */
+  function trajectoryChart(scenario) {
+    var months = scenario.months;
+    if (!months.length) return null;
+
+    var W = 640, H = 190, padL = 8, padR = 58, padT = 14, padB = 22;
+    var values = months.map(function (m) { return m.cumulative_profit; });
+    var maxV = Math.max.apply(null, values.concat([0]));
+    var minV = Math.min.apply(null, values.concat([0]));
+    var span = (maxV - minV) || 1;
+
+    function x(i) { return padL + (i / Math.max(months.length - 1, 1)) * (W - padL - padR); }
+    function y(v) { return padT + (1 - (v - minV) / span) * (H - padT - padB); }
+
+    var zeroY = y(0);
+    var line = months.map(function (m, i) {
+      return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(m.cumulative_profit).toFixed(1);
+    }).join(" ");
+    var area = line + " L" + x(months.length - 1).toFixed(1) + " " + zeroY.toFixed(1) +
+               " L" + x(0).toFixed(1) + " " + zeroY.toFixed(1) + " Z";
+
+    var last = months[months.length - 1];
+    var kids = [
+      svg("path", { d: area, class: "area" }),
+      svg("line", { x1: padL, x2: W - padR, y1: zeroY, y2: zeroY, class: "zero" }),
+      svg("path", { d: line, class: "line" + (last.cumulative_profit < 0 ? " line--loss" : "") }),
+      svg("circle", { cx: x(months.length - 1), cy: y(last.cumulative_profit), r: 3.5,
+                      class: "endpoint" }),
+      svg("text", { x: W - padR + 6, y: y(last.cumulative_profit) + 4, class: "value",
+                    text: money(last.cumulative_profit) }),
+      svg("text", { x: padL, y: H - 4, text: "month 1" }),
+      svg("text", { x: W - padR, y: H - 4, "text-anchor": "end",
+                    text: "month " + months.length })
+    ];
+
+    if (scenario.breakeven_month) {
+      var bi = scenario.breakeven_month - 1;
+      kids.splice(2, 0, svg("line", { x1: x(bi), x2: x(bi), y1: padT, y2: H - padB,
+                                      class: "marker" }));
+      kids.push(svg("text", { x: x(bi) + 4, y: padT + 9, class: "marker-label",
+                              text: "breaks even m" + scenario.breakeven_month }));
+    }
+
+    months.forEach(function (m, i) {
+      kids.push(svg("rect", {
+        x: x(i) - 4, y: padT, width: 8, height: H - padT - padB, fill: "transparent"
+      }, [svg("title", { text: "Month " + m.month + ": cumulative " +
+          money(m.cumulative_profit) + ", revenue " + money(m.revenue) })]));
+    });
+
+    return el("div", { class: "trajectory" }, [
+      svg("svg", { viewBox: "0 0 " + W + " " + H, role: "img",
+        "aria-label": "Cumulative profit over " + months.length + " months, ending at " +
+          money(last.cumulative_profit) }, kids)
     ]);
   }
 
@@ -817,6 +895,351 @@
     ]));
   }
 
+
+  // --- growth advisor -------------------------------------------------------
+
+  var VERDICT_STYLE_MARKET = { GO: "good", MARGINAL: "warn", NO: "crit" };
+  var VERDICT_TEXT_MARKET = {
+    GO: "Worth doing",
+    MARGINAL: "Only with eyes open",
+    NO: "Don't do this"
+  };
+
+  var SUGGESTIONS = [
+    "Should I open in Dallas?",
+    "What areas would be good?",
+    "Dallas vs Atlanta",
+    "How big is the Chicago market?",
+    "When does it break even with 3 consultants?",
+    "Where do these numbers come from?"
+  ];
+
+  function currentFirm() {
+    var bag = {};
+    Object.keys(E.FIRM_DEFAULTS).forEach(function (k) {
+      bag[k] = state.firm[k] === undefined ? E.FIRM_DEFAULTS[k] : state.firm[k];
+    });
+    return E.firmModel(bag);
+  }
+
+  function marketTiles(scenario) {
+    return el("div", { class: "tiles" }, [
+      tile("Breaks even", scenario.breakeven_month ? "month " + scenario.breakeven_month : "never",
+        scenario.breakeven_month ? "and stays there" : "inside the horizon", true),
+      tile("Revenue, final year", money(scenario.year_three_revenue), "run rate at the end"),
+      tile("Addressable accounts", scenario.addressable.toFixed(0), "modelled from real counts"),
+      tile("Cash trough", money(scenario.cash_trough), "month " + scenario.cash_trough_month),
+      tile("Peak headcount", String(Math.round(scenario.peak_consultants)), "consultants")
+    ]);
+  }
+
+  function marketBreakdown(sizing) {
+    var m = sizing.metro;
+    return table(
+      ["Layer", { label: "Figure", num: true }, "Where it comes from"],
+      [
+        ["Establishments in scope", { text: m.establishments.toLocaleString("en-US"), num: true },
+          "measured — BLS QCEW"],
+        ["People employed", { text: m.employment ? m.employment.toLocaleString("en-US") : "withheld",
+          num: true }, sizing.disclosed_employment ? "measured — BLS QCEW" : "BLS withheld; estimated from establishments"],
+        ["Enterprise-scale sites", { text: sizing.enterprise_sites.toFixed(0), num: true },
+          "modelled — employment ÷ 250 per site"],
+        ["Running a planning platform", { text: sizing.platform_accounts.toFixed(0), num: true },
+          "modelled — 18% penetration"],
+        ["Past go-live, underperforming", { text: sizing.underperforming.toFixed(0), num: true },
+          "modelled — 55% of those"],
+        ["Addressable by this practice", { text: sizing.addressable.toFixed(0), num: true },
+          "modelled — 35% reachable × 40% platform focus"]
+      ]
+    );
+  }
+
+  function verdictBlock(scenario) {
+    return el("div", { class: "verdict verdict--" + VERDICT_STYLE_MARKET[scenario.verdict] }, [
+      el("strong", { text: VERDICT_TEXT_MARKET[scenario.verdict] }),
+      el("span", { text: scenario.reasons[0] || "" })
+    ]);
+  }
+
+  function reasonList(scenario) {
+    return el("ul", { class: "finding__assumptions" },
+      scenario.reasons.slice(1).map(function (r) { return el("li", { text: r }); }));
+  }
+
+  function contextPrefix(plan) {
+    if (!plan.used_context) return "";
+    var names = plan.metros.map(M.display).join(" + ");
+    if (plan.unknown_places && plan.unknown_places.length) {
+      return "I do not know \u201c" + plan.unknown_places[0] + "\u201d as a US metro, so this is " +
+        names + " from your last question. ";
+    }
+    return "Still on " + names + ". ";
+  }
+
+  function answerDecision(plan, firm) {
+    var ids = plan.metros.map(function (m) { return m.id; });
+    var scenario = ADVISOR.scenarioFor(plan, firm, ids);
+    var names = plan.metros.map(M.display).join(" + ");
+    var heads = plan.consultants || M.SCENARIO_DEFAULTS.starting_consultants;
+
+    var lead = scenario.verdict === "GO"
+      ? "Yes — on these numbers " + names + " works."
+      : scenario.verdict === "MARGINAL"
+        ? "It can work, but not comfortably."
+        : "No. Not on these numbers.";
+
+    return {
+      text: contextPrefix(plan) + lead + " Starting with " + heads + " consultant" +
+        (heads === 1 ? "" : "s") + " over " + scenario.months.length +
+        " months, against your own fees and payment terms.",
+      blocks: [
+        verdictBlock(scenario),
+        marketTiles(scenario),
+        trajectoryChart(scenario),
+        el("p", { class: "note", text: "Line is cumulative profit. Everything below the rule " +
+          "is money you are funding out of pocket." }),
+        reasonList(scenario)
+      ],
+      metros: ids
+    };
+  }
+
+  function answerSize(plan) {
+    var metro = plan.metros[0];
+    var sizing = M.sizeMarket(metro, null, plan.sub_vertical);
+    return {
+      text: M.display(metro) + " has " + metro.establishments.toLocaleString("en-US") +
+        " establishments in warehousing, trucking, wholesale and food manufacturing" +
+        (sizing.disclosed_employment
+          ? " employing " + metro.employment.toLocaleString("en-US") + " people. "
+          : ". Employment is withheld by BLS for this metro, so the figures below start from " +
+            "establishment counts instead. ") +
+        "Filtering down to accounts this practice could actually win:",
+      blocks: [
+        marketBreakdown(sizing),
+        el("p", { class: "note", text: "The first two rows are counted. Everything under them " +
+          "is modelled from stated assumptions — ask where the numbers come from to see them." })
+      ],
+      metros: [metro.id]
+    };
+  }
+
+  function answerRank(plan, firm) {
+    var ranked = M.rankMarkets(null, plan.sub_vertical, 8);
+    var rows = ranked.map(function (s, i) {
+      return [
+        String(i + 1),
+        M.display(s.metro),
+        { text: s.metro.establishments.toLocaleString("en-US"), num: true },
+        { text: s.addressable.toFixed(0), num: true }
+      ];
+    });
+    var top = ranked[0];
+    return {
+      text: (plan.sub_vertical ? "For " + verticalLabel(plan.sub_vertical) + ", the" : "The") +
+        " deepest markets in the country, ranked by accounts this practice could realistically " +
+        "win. " + M.display(top.metro) + " leads with about " + top.addressable.toFixed(0) +
+        ". Ask me about any of them.",
+      blocks: [
+        table(["#", "Metro", { label: "Establishments", num: true },
+               { label: "Addressable", num: true }], rows),
+        el("p", { class: "note", text: "Depth is not the whole answer — a market you already " +
+          "have relationships in beats a bigger one you do not." })
+      ],
+      metros: ranked.slice(0, 3).map(function (s) { return s.metro.id; })
+    };
+  }
+
+  function answerCompare(plan, firm) {
+    var results = plan.metros.slice(0, 3).map(function (metro) {
+      return { metro: metro, scenario: ADVISOR.scenarioFor(plan, firm, [metro.id]) };
+    });
+    var best = results.slice().sort(function (a, b) {
+      var order = { GO: 0, MARGINAL: 1, NO: 2 };
+      return (order[a.scenario.verdict] - order[b.scenario.verdict]) ||
+             ((a.scenario.breakeven_month || 999) - (b.scenario.breakeven_month || 999)) ||
+             (b.scenario.year_three_revenue - a.scenario.year_three_revenue);
+    })[0];
+
+    var rows = results.map(function (r) {
+      return [
+        M.display(r.metro),
+        { node: el("span", { class: "pill pill--" + VERDICT_STYLE_MARKET[r.scenario.verdict],
+            text: r.scenario.verdict }) },
+        { text: r.scenario.breakeven_month ? "m" + r.scenario.breakeven_month : "never", num: true },
+        { text: r.scenario.addressable.toFixed(0), num: true },
+        { text: money(r.scenario.year_three_revenue), num: true },
+        { text: money(r.scenario.cash_trough), num: true }
+      ];
+    });
+
+    return {
+      text: M.display(best.metro) + " wins" +
+        (best.scenario.breakeven_month
+          ? ", breaking even in month " + best.scenario.breakeven_month + "."
+          : ", though none of them break even inside the horizon.") +
+        " Same firm model, same assumptions, one metro at a time:",
+      blocks: [
+        table(["Metro", "Verdict", { label: "Breaks even", num: true },
+               { label: "Accounts", num: true }, { label: "Final-year revenue", num: true },
+               { label: "Cash trough", num: true }], rows),
+        trajectoryChart(best.scenario),
+        reasonList(best.scenario)
+      ],
+      metros: results.map(function (r) { return r.metro.id; })
+    };
+  }
+
+  function answerTrajectory(plan, firm) {
+    if (!plan.metros.length) return answerRank(plan, firm);
+    var ids = plan.metros.map(function (m) { return m.id; });
+    var scenario = ADVISOR.scenarioFor(plan, firm, ids);
+    var text = contextPrefix(plan) + (scenario.breakeven_month
+      ? "Cumulative profit turns positive in month " + scenario.breakeven_month +
+        " and stays positive. Before that you are funding it."
+      : "It never breaks even inside " + scenario.months.length + " months. " +
+        "The cost base is bigger than this market can feed.");
+    return {
+      text: text,
+      blocks: [marketTiles(scenario), trajectoryChart(scenario), reasonList(scenario)],
+      metros: ids
+    };
+  }
+
+  function answerAssumptions() {
+    var src = M.source();
+    var notes = M.assumptionNotes(null);
+    return {
+      text: "Two layers, deliberately kept apart. The counts are real: " + src.name +
+        ", " + src.year + " " + src.basis + " — a census of employers covering " +
+        "about 95% of US jobs, public domain. What is not real is which of those " +
+        "companies run Blue Yonder, o9 or Kinaxis. Nobody publishes that, so it is modelled:",
+      blocks: [
+        table(["Assumption", { label: "Default", num: true }, "Means"],
+          notes.map(function (n) {
+            return [
+              titleCase(n.key),
+              { text: n.key === "enterprise_site_employment" ? n.value.toFixed(0)
+                  : pct(n.value), num: true },
+              n.text
+            ];
+          })),
+        el("p", { class: "note", text: "Disagree with any of these and the answer changes — " +
+          "that is the point of showing them rather than folding them into one number." })
+      ],
+      metros: []
+    };
+  }
+
+  function answerHelp() {
+    return {
+      text: "I model moves into a metro against your own firm economics. Ask me things like:",
+      blocks: [
+        el("ul", { class: "finding__assumptions" }, [
+          "\u201cShould I open in Dallas?\u201d — verdict, trajectory and break-even month",
+          "\u201cWhat areas would be good?\u201d — the deepest markets, ranked",
+          "\u201cDallas vs Atlanta\u201d — same model, side by side",
+          "\u201cHow big is Chicago?\u201d — what is actually there, counted and modelled",
+          "\u201cBreak even with 4 consultants?\u201d — change the team and re-run",
+          "\u201cWhere do these numbers come from?\u201d — sources and assumptions"
+        ].map(function (t) { return el("li", { text: t }); })),
+        el("p", { class: "note", text: "Fees, payment terms and costs come from the Economics " +
+          "screen, so edit those first if they are not yours." })
+      ],
+      metros: []
+    };
+  }
+
+  function answerUnknown(plan) {
+    return {
+      text: "I could not find a US metro in that. I know 375 of them by name — try a city " +
+        "like Dallas, Riverside, Columbus or Allentown, or ask what areas would be good.",
+      blocks: [],
+      metros: []
+    };
+  }
+
+  function respond(question) {
+    var firm = currentFirm();
+    var plan = ADVISOR.interpret(question, state.chatContext);
+
+    if (plan.intent === "help") return answerHelp();
+    if (plan.intent === "assumptions") return answerAssumptions();
+    if (plan.intent === "rank") return answerRank(plan, firm);
+    if (!plan.metros.length) return plan.unmatched ? answerUnknown(plan) : answerHelp();
+    if (plan.intent === "compare") return answerCompare(plan, firm);
+    if (plan.intent === "size") return answerSize(plan);
+    if (plan.intent === "trajectory") return answerTrajectory(plan, firm);
+    return answerDecision(plan, firm);
+  }
+
+  function bubble(entry) {
+    var body = el("div", { class: "bubble__body" });
+    body.appendChild(el("p", { text: entry.text }));
+    (entry.blocks || []).forEach(function (block) { if (block) body.appendChild(block); });
+    return el("div", { class: "bubble bubble--" + entry.role }, [
+      el("div", { class: "bubble__who", text: entry.role === "user" ? "You" : "Advisor" }),
+      body
+    ]);
+  }
+
+  function pushMessage(role, text, blocksFactory) {
+    var log = document.getElementById("chat-log");
+    var entry = { role: role, text: text, blocks: blocksFactory ? blocksFactory() : [] };
+    log.appendChild(bubble(entry));
+    // Blocks are live DOM, so only the text is persisted; replies re-render
+    // from scratch on reload against whatever the firm model says then.
+    state.chat.push({ role: role, text: text });
+    if (state.chat.length > 40) state.chat = state.chat.slice(-40);
+    save(STORE.chat, state.chat);
+    log.lastChild.scrollIntoView({ block: "nearest" });
+  }
+
+  function ask(question) {
+    if (!question.trim()) return;
+    pushMessage("user", question.trim());
+    var answer;
+    try {
+      answer = respond(question);
+    } catch (err) {
+      console.error(err);
+      answer = { text: "Something went wrong running that scenario.", blocks: [], metros: [] };
+    }
+    if (answer.metros && answer.metros.length) state.chatContext.lastMetros = answer.metros;
+    pushMessage("advisor", answer.text, function () { return answer.blocks; });
+  }
+
+  function renderGrowth() {
+    var src = M.source();
+    var host = document.getElementById("growth-source");
+    clear(host);
+    host.appendChild(el("div", { class: "panel__head" }, [
+      el("h2", { text: "Market data" }),
+      el("span", { class: "eyebrow", text: M.metros().length + " US metros" })
+    ]));
+    host.appendChild(el("p", { class: "muted", style: "font-size:.9rem",
+      text: src.name + ", " + src.year + " " + src.basis + ". " + src.coverage + ". " +
+        "Counts are measured; anything derived from them is labelled as modelled." }));
+
+    var log = document.getElementById("chat-log");
+    clear(log);
+    if (!state.chat.length) {
+      var intro = answerHelp();
+      log.appendChild(bubble({ role: "advisor", text: intro.text, blocks: intro.blocks }));
+    } else {
+      state.chat.forEach(function (entry) {
+        log.appendChild(bubble({ role: entry.role, text: entry.text, blocks: [] }));
+      });
+    }
+
+    var suggestions = document.getElementById("chat-suggestions");
+    clear(suggestions);
+    SUGGESTIONS.forEach(function (text) {
+      suggestions.appendChild(el("button", { class: "suggestion", type: "button", text: text,
+        onclick: function () { ask(text); } }));
+    });
+  }
+
   // --- library view ---------------------------------------------------------
 
   function renderLibrary() {
@@ -1204,13 +1627,14 @@
 
   function setView(view) {
     state.view = view;
-    ["engagement", "report", "library", "firm", "method"].forEach(function (name) {
+    ["engagement", "report", "growth", "library", "firm", "method"].forEach(function (name) {
       document.getElementById("view-" + name).hidden = name !== view;
     });
     Array.prototype.forEach.call(document.querySelectorAll(".tab"), function (tab) {
       tab.setAttribute("aria-selected", tab.dataset.view === view ? "true" : "false");
     });
     if (view === "report") renderReport();
+    if (view === "growth") renderGrowth();
     if (view === "library") renderLibrary();
     if (view === "firm") renderFirm();
     window.scrollTo({ top: 0, behavior: "instant" in document.documentElement.style ? "instant" : "auto" });
@@ -1315,6 +1739,13 @@
     }
   });
 
+  document.getElementById("chat-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    var input = document.getElementById("chat-input");
+    ask(input.value);
+    input.value = "";
+  });
+
   document.getElementById("import-file").addEventListener("change", function (event) {
     if (event.target.files && event.target.files[0]) importFile(event.target.files[0]);
     event.target.value = "";
@@ -1323,7 +1754,8 @@
   document.addEventListener("keydown", function (event) {
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (/^(INPUT|SELECT|TEXTAREA)$/.test(event.target.tagName)) return;
-    var views = { 1: "engagement", 2: "report", 3: "library", 4: "firm", 5: "method" };
+    var views = { 1: "engagement", 2: "report", 3: "growth", 4: "library", 5: "firm",
+                  6: "method" };
     if (views[event.key]) { setView(views[event.key]); event.preventDefault(); }
   });
 

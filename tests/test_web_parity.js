@@ -19,9 +19,12 @@ const path = require("path");
 const ROOT = path.resolve(__dirname, "..");
 const engine = require(path.join(ROOT, "web/src/engine.js"));
 const data = require(path.join(ROOT, "web/src/catalog.data.js"));
+const marketEngine = require(path.join(ROOT, "web/src/market.js"));
+const marketData = require(path.join(ROOT, "web/src/market.data.js"));
 const fixtures = JSON.parse(fs.readFileSync(path.join(ROOT, "tests/fixtures/parity.json"), "utf8"));
 
 engine.loadCatalogs(data.catalogs, data.platformNames);
+marketEngine.load(marketData);
 
 // Acklam's inverse-normal approximation is accurate to ~1.15e-9 relative,
 // which is the only intentional source of divergence from Python's exact
@@ -173,6 +176,64 @@ fixtures.firms.forEach((fixture, index) => {
   equal("client excluded from its own cohort", 2, benchmark.stats.n);
 })();
 
+// --- market sizing and scenarios ---------------------------------------------
+
+(function marketChecks() {
+  const fixtures_ = fixtures.market;
+  if (!fixtures_) return;
+
+  Object.keys(fixtures_.lookups).forEach((query) => {
+    const found = marketEngine.findMetro(query);
+    equal(`lookup "${query}"`, fixtures_.lookups[query], found ? found.id : null);
+  });
+
+  fixtures_.sizings.forEach((fixture) => {
+    const metro = marketEngine.findMetro(fixture.metro_id);
+    const tag = `size ${fixture.metro_id}/${fixture.sub_vertical || "all"}`;
+    if (!metro) return fail(tag, fixture.metro_id, null);
+    const sized = marketEngine.sizeMarket(metro, null, fixture.sub_vertical);
+    closeTo(`${tag} enterprise_sites`, fixture.expected.enterprise_sites, sized.enterprise_sites);
+    closeTo(`${tag} platform_accounts`, fixture.expected.platform_accounts, sized.platform_accounts);
+    closeTo(`${tag} addressable`, fixture.expected.addressable, sized.addressable);
+    equal(`${tag} disclosed`, fixture.expected.disclosed_employment, sized.disclosed_employment);
+  });
+
+  equal("3pl market ranking", fixtures_.ranking_3pl,
+    marketEngine.rankMarkets(null, "3pl", 8).map((s) => s.metro.id));
+
+  fixtures_.scenarios.forEach((fixture) => {
+    const tag = `scenario ${fixture.label}`;
+    const firm = engine.firmModel(fixture.firm_overrides);
+    const inputs = Object.assign({ markets: fixture.market_ids, horizon_months: 36 }, fixture.inputs);
+    const scenario = marketEngine.runScenario(firm, inputs);
+    const want = fixture.expected;
+
+    equal(`${tag} verdict`, want.verdict, scenario.verdict);
+    equal(`${tag} reasons`, want.reasons, scenario.reasons);
+    equal(`${tag} breakeven`, want.breakeven_month, scenario.breakeven_month);
+    closeTo(`${tag} cash trough`, want.cash_trough, scenario.cash_trough);
+    equal(`${tag} trough month`, want.cash_trough_month, scenario.cash_trough_month);
+    closeTo(`${tag} peak consultants`, want.peak_consultants, scenario.peak_consultants);
+    closeTo(`${tag} yr3 revenue`, want.year_three_revenue, scenario.year_three_revenue);
+    closeTo(`${tag} total revenue`, want.total_revenue, scenario.total_revenue);
+    closeTo(`${tag} addressable`, want.addressable, scenario.addressable);
+    equal(`${tag} exhausted`, want.market_exhausted_month, scenario.market_exhausted_month);
+    equal(`${tag} month count`, want.months.length, scenario.months.length);
+
+    want.months.forEach((wantMonth, index) => {
+      const got = scenario.months[index];
+      if (!got) return fail(`${tag} missing month ${wantMonth.month}`, wantMonth.month, null);
+      closeTo(`${tag} m${wantMonth.month} revenue`, wantMonth.revenue, got.revenue);
+      closeTo(`${tag} m${wantMonth.month} profit`, wantMonth.profit, got.profit);
+      closeTo(`${tag} m${wantMonth.month} cumulative`, wantMonth.cumulative_profit, got.cumulative_profit);
+      closeTo(`${tag} m${wantMonth.month} cash`, wantMonth.cash, got.cash);
+      closeTo(`${tag} m${wantMonth.month} heads`, wantMonth.consultants, got.consultants);
+      closeTo(`${tag} m${wantMonth.month} utilization`, wantMonth.utilization, got.utilization);
+      closeTo(`${tag} m${wantMonth.month} audits`, wantMonth.audits_signed, got.audits_signed);
+    });
+  });
+})();
+
 // --- report ------------------------------------------------------------------
 
 if (failures.length) {
@@ -182,5 +243,5 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`parity ok -- ${checks} checks across ${fixtures.audits.length} engagements ` +
-            `and ${fixtures.firms.length} firm models`);
+console.log(`parity ok -- ${checks} checks across ${fixtures.audits.length} engagements, ` +
+            `${fixtures.firms.length} firm models and ${fixtures.market.scenarios.length} market scenarios`);

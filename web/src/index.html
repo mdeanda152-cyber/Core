@@ -13,15 +13,18 @@
       <button class="tab" role="tab" data-view="report" aria-selected="false">
         Audit report<span class="tab__key">2</span>
       </button>
+      <button class="tab" role="tab" data-view="growth" aria-selected="false">
+        Growth advisor<span class="tab__key">3</span>
+      </button>
       <div class="rail__group-title" style="padding-top:.75rem">Firm</div>
       <button class="tab" role="tab" data-view="library" aria-selected="false">
-        Pattern library<span class="tab__key">3</span>
+        Pattern library<span class="tab__key">4</span>
       </button>
       <button class="tab" role="tab" data-view="firm" aria-selected="false">
-        Economics<span class="tab__key">4</span>
+        Economics<span class="tab__key">5</span>
       </button>
       <button class="tab" role="tab" data-view="method" aria-selected="false">
-        Method<span class="tab__key">5</span>
+        Method<span class="tab__key">6</span>
       </button>
     </div>
 
@@ -121,6 +124,30 @@
 
     <!-- REPORT ----------------------------------------------------------- -->
     <section class="view" id="view-report" role="tabpanel" aria-label="Audit report" hidden></section>
+
+    <!-- GROWTH ------------------------------------------------------------ -->
+    <section class="view" id="view-growth" role="tabpanel" aria-label="Growth advisor" hidden>
+      <header class="view__head">
+        <div class="eyebrow">Scenarios on real market data</div>
+        <h1>Where should this practice go next?</h1>
+        <p>
+          Ask about a city. You get the trajectory, the month it breaks even, whether the
+          market is deep enough, and a straight answer on whether it is a good decision.
+        </p>
+      </header>
+
+      <div class="panel" id="growth-source"></div>
+
+      <div class="chat" id="chat">
+        <div class="chat__log" id="chat-log" role="log" aria-live="polite" aria-label="Advisor conversation"></div>
+        <div class="chat__suggestions" id="chat-suggestions"></div>
+        <form class="chat__form" id="chat-form" autocomplete="off">
+          <input id="chat-input" type="text" aria-label="Ask the advisor"
+                 placeholder="Ask about a city — &quot;should I open in Dallas?&quot;">
+          <button class="btn btn--primary" type="submit">Ask</button>
+        </form>
+      </div>
+    </section>
 
     <!-- LIBRARY ---------------------------------------------------------- -->
     <section class="view" id="view-library" role="tabpanel" aria-label="Pattern library" hidden></section>
