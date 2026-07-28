@@ -1,0 +1,72 @@
+{
+  "engagement_id": "harborlink-3pl-2025-q3",
+  "client": {
+    "name": "Harborlink Freight Services",
+    "platform": "blue_yonder",
+    "sub_vertical": "3pl",
+    "annual_revenue": 290000000,
+    "live_months": 30,
+    "sites": 4,
+    "erp_systems": 1,
+    "skus": 22000,
+    "planners_fte": 6,
+    "annual_license_fee": 480000,
+    "implementation_spend": 2600000,
+    "business_case_annual_benefit": 3100000
+  },
+  "capabilities": {
+    "by.dp.stat_forecast": "full",
+    "by.dp.demand_sensing": "not_licensed",
+    "by.dp.npi": "not_licensed",
+    "by.dp.promo": "not_licensed",
+    "by.dp.segmentation": "partial",
+    "by.io.meio": "not_licensed",
+    "by.io.safety_stock": "full",
+    "by.sp.master_planning": "full",
+    "by.sp.capacity": "partial",
+    "by.sp.sop": "partial",
+    "by.ct.exception_mgmt": "partial",
+    "by.ct.playbooks": "licensed_unused",
+    "by.ct.visibility": "full",
+    "by.tms.load_build": "full",
+    "by.tms.routing": "full",
+    "by.tms.rate_engine": "partial",
+    "by.tms.tendering": "deployed_unused",
+    "by.wms.labor_mgmt": "deployed_unused",
+    "by.wms.slotting": "licensed_unused",
+    "by.oms.atp": "not_licensed"
+  },
+  "operations": {
+    "annual_cogs": 231000000,
+    "gross_margin_pct": 0.19,
+    "inventory_value": 26000000,
+    "carrying_cost_rate": 0.22,
+    "forecast_mape": 0.27,
+    "avg_lead_time_weeks": 4.0,
+    "service_level_target": 0.95,
+    "exceptions_per_week": 310,
+    "minutes_per_exception": 9,
+    "exception_automation_rate": 0.2,
+    "planner_loaded_cost": 112000,
+    "planner_override_rate": 0.34,
+    "annual_freight_spend": 31000000,
+    "expedite_share": 0.09,
+    "master_data_accuracy": 0.93,
+    "data_rework_hours_per_week": 11,
+    "interface_failure_rate": 0.01
+  },
+  "governance": {
+    "executive_sponsor": "COO",
+    "documented_baseline": true,
+    "baseline_period_months": 6,
+    "dedicated_client_resource": true,
+    "prior_remediation_attempts": 0,
+    "vendor_relationship": "healthy"
+  },
+  "evidence": {
+    "default": "estimated",
+    "exception_handling": "measured",
+    "expedite_freight": "measured"
+  },
+  "notes": "Illustrative comparable used to seed the pattern library."
+}
