@@ -1,0 +1,18 @@
+{
+  "name": "guiltless-payments",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Stripe Checkout backend for the Guiltless storefront",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "stripe": "^17.5.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.99.0"
+  }
+}

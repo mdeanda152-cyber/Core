@@ -14,6 +14,9 @@ Website and formulation documentation for **Guiltless** — high-protein ice cre
 | `flavors.html` | Launch eight, per-flavour macros and the problem each solves |
 | `franchise.html` | Growth sequencing, model economics, roadmap gates, franchise legal notice |
 | `404.html` | Not-found page |
+| `success.html` | Post-payment order confirmation |
+| `api/` | Stripe Checkout backend (Cloudflare Worker) + pricing tests |
+| `docs/payments.md` | Payment setup, testing, tax and food-licensing notes |
 | `docs/formulation-spec.md` | Internal master formula (% w/w), mass balance, QC gates, change log |
 | `assets/css/site.css` | Design system — tokens, light/dark, components |
 | `assets/js/site.js` | Theme, nav, reveal, freezing-point model, waitlist |
@@ -67,27 +70,42 @@ SKUs — the per-pint price drops as the pack grows and product cards update liv
 
 **These prices are placeholders — set your own before selling anything.**
 
-### Wiring checkout
+### Payments
 
-The store deliberately **does not collect card details**. That belongs to a PCI-compliant
-processor, never to hand-rolled HTML. Checkout POSTs the cart as JSON and expects
-`{ url }` back, then redirects:
+Built and tested — it needs your Stripe keys and one deploy. **Full instructions:
+[`docs/payments.md`](docs/payments.md).**
 
-```html
-<aside class="cart" data-cart-drawer data-checkout-endpoint="https://your-api/checkout">
+```bash
+cd api && npm install
+npx wrangler secret put STRIPE_SECRET_KEY
+npx wrangler deploy
 ```
 
-Your endpoint creates a Stripe Checkout session from the posted items and returns its URL.
-Until one is configured, the Checkout button says plainly that checkout is not connected —
-it does not pretend to take an order.
+Then paste the Worker URL into `data-checkout-endpoint` on the cart in `shop.html`.
+
+**Card details never touch this codebase** — the shopper goes to Stripe's hosted
+Checkout page, which keeps you out of PCI scope. Don't add card fields to the site.
+
+The security-critical property: **the browser never sends a price.** It sends product
+IDs and quantities; `api/src/catalog.js` looks up real prices server-side, recomputes
+the volume tier and shipping, and charges that. A tampered cart claiming a one-cent
+pint is still charged full price — there's a test for it:
+
+```bash
+cd api && node --test test/catalog.test.js   # 16 tests
+```
+
+Until an endpoint is configured the Checkout button says plainly that payments aren't
+connected, rather than pretending to take an order.
 
 ### Still needed before you can actually sell
 
-- A payment processor and the endpoint above
-- Real product photography (the product tiles are CSS gradients as placeholders)
-- Terms, refund/replacement policy, and privacy policy pages
-- Sales-tax handling — Stripe Tax or equivalent
-- Verified nutrition panels (see below) before any macro claim is printed on packaging
+- **Food licensing** — FDA facility registration, a state dairy/frozen-dessert licence,
+  verified nutrition panels and allergen declarations. Cottage-food exemptions generally
+  do not cover dairy or interstate shipping. See the end of `docs/payments.md`.
+- Real product photography (product tiles are CSS gradients as placeholders)
+- Terms, refund/replacement and privacy policy pages
+- Sales tax — `ENABLE_STRIPE_TAX` is off by default; food taxability varies by state
 
 ## Design
 

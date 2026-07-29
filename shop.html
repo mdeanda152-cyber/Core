@@ -282,7 +282,12 @@
 
 <!-- ============ CART DRAWER ============ -->
 <div class="scrim" data-cart-scrim></div>
-<aside class="cart" data-cart-drawer aria-hidden="true" aria-label="Shopping cart">
+<!-- Paste your deployed Worker's /checkout URL into data-checkout-endpoint to
+     take live payments. Left empty on purpose: an empty value makes the
+     Checkout button say plainly that payments are not connected, which is
+     better than a button that looks like it takes an order and does not.
+     See docs/payments.md. -->
+<aside class="cart" data-cart-drawer data-checkout-endpoint="" aria-hidden="true" aria-label="Shopping cart">
   <div class="cart__head">
     <h2>Your pack</h2>
     <button class="icon-btn" data-cart-close type="button" aria-label="Close cart">

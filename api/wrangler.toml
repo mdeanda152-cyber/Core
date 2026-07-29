@@ -1,0 +1,22 @@
+name = "guiltless-payments"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Where the storefront is served from. Used to build success/cancel URLs.
+SITE_URL = "https://mdeanda152-cyber.github.io/Core"
+
+# Browser origins permitted to call /checkout. Comma-separated, no trailing slash.
+ALLOWED_ORIGINS = "https://mdeanda152-cyber.github.io"
+
+# Turn on only after Stripe Tax is activated and an origin address is
+# registered. See docs/payments.md — food taxability varies by state.
+ENABLE_STRIPE_TAX = "false"
+
+# Optional: paid orders are POSTed here as JSON for fulfilment.
+# FULFILMENT_WEBHOOK = "https://hooks.zapier.com/..."
+
+# Secrets are NOT set here — they would end up in git. Set them with:
+#   npx wrangler secret put STRIPE_SECRET_KEY
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET
