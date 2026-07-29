@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mdeanda152-cyber.github.io/Core/sitemap.xml

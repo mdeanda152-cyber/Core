@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Update the <loc> host if the site moves to a custom domain. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mdeanda152-cyber.github.io/Core/index.html</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://mdeanda152-cyber.github.io/Core/flavors.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mdeanda152-cyber.github.io/Core/science.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mdeanda152-cyber.github.io/Core/franchise.html</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>

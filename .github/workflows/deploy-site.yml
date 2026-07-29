@@ -1,0 +1,75 @@
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'assets/**'
+      - 'robots.txt'
+      - 'sitemap.xml'
+      - '.github/workflows/deploy-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish; queue at most one more.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage site files
+        run: |
+          mkdir -p _site
+          cp -r assets _site/
+          cp ./*.html _site/
+          for f in robots.txt sitemap.xml; do
+            [ -f "$f" ] && cp "$f" _site/
+          done
+          ls -R _site
+
+      - name: Check internal links resolve
+        run: |
+          python3 - <<'PY'
+          import re, os, sys, glob
+          os.chdir('_site')
+          bad = []
+          for page in glob.glob('*.html'):
+              src = open(page, encoding='utf-8').read()
+              ids = None
+              for ref in re.findall(r'(?:href|src)="([^"]+)"', src):
+                  if ref.startswith(('http:', 'https:', 'mailto:', 'data:', '#')):
+                      continue
+                  target = ref.split('#')[0]
+                  if target and not os.path.exists(target):
+                      bad.append(f'{page} -> {ref}')
+          if bad:
+              print('Broken internal references:')
+              print('\n'.join(bad))
+              sys.exit(1)
+          print('All internal references resolve.')
+          PY
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
