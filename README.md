@@ -15,6 +15,10 @@ Website and formulation documentation for **Guiltless** — high-protein ice cre
 | `franchise.html` | Growth sequencing, model economics, roadmap gates, franchise legal notice |
 | `404.html` | Not-found page |
 | `success.html` | Post-payment order confirmation |
+| `shipping.html` | Shipping, returns and refunds policy |
+| `allergens.html` | Allergen table per flavour, fibre/allulose tolerance, nutrition basis |
+| `terms.html` | Terms of sale |
+| `privacy.html` | Privacy policy |
 | `api/` | Stripe Checkout backend (Cloudflare Worker) + pricing tests |
 | `docs/payments.md` | Payment setup, testing, tax and food-licensing notes |
 | `docs/formulation-spec.md` | Internal master formula (% w/w), mass balance, QC gates, change log |
@@ -98,13 +102,42 @@ cd api && node --test test/catalog.test.js   # 16 tests
 Until an endpoint is configured the Checkout button says plainly that payments aren't
 connected, rather than pretending to take an order.
 
+### Policy pages
+
+Stripe's account activation review expects a published refund policy, terms, privacy
+policy and contact details, so these are a hard prerequisite for taking live payments —
+not paperwork to do later. Four pages exist and are linked from every footer.
+
+They are drafted for a frozen-dairy DTC business, but **they are a starting point written
+by an engineer, not legal advice.** Have a lawyer review them before you go live,
+particularly the liability and governing-law clauses.
+
+Every value that must be filled in is marked `[LIKE THIS]` and rendered as a highlighted
+chip, so nothing ships as a plausible-looking blank:
+
+| Placeholder | Page |
+|---|---|
+| `[LEGAL ENTITY NAME]`, `[BUSINESS ADDRESS]` | `terms.html` |
+| `[STATE]`, `[STATE/COUNTY]` | `terms.html` |
+| `[CO-PACKER CROSS-CONTACT STATEMENT]` | `allergens.html` |
+| `[EMAIL PROVIDER]`, `[N]` (retention years) | `privacy.html` |
+| `[DATE]` (last updated) | all four |
+
+The cross-contact statement is the one that matters most: it cannot honestly be written
+until a manufacturing facility is contracted, and someone with a severe allergy will read
+it. The page currently says so outright.
+
+The privacy policy claims no cookies, no analytics and no ad pixels. **That is currently
+true** — the site loads zero third-party scripts. If you add analytics later, update that
+page in the same commit.
+
 ### Still needed before you can actually sell
 
 - **Food licensing** — FDA facility registration, a state dairy/frozen-dessert licence,
   verified nutrition panels and allergen declarations. Cottage-food exemptions generally
   do not cover dairy or interstate shipping. See the end of `docs/payments.md`.
+- **Legal review** of the four policy pages, and the placeholders above filled in
 - Real product photography (product tiles are CSS gradients as placeholders)
-- Terms, refund/replacement and privacy policy pages
 - Sales tax — `ENABLE_STRIPE_TAX` is off by default; food taxability varies by state
 
 ## Design

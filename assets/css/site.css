@@ -679,3 +679,39 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
 /* free-shipping progress */
 .ship-bar { height: 3px; background: var(--line-2); margin-top: 10px; overflow: hidden; }
 .ship-bar i { display: block; height: 100%; background: var(--good); width: 0; transition: width .3s ease; }
+
+/* --- Footer legal row --------------------------------------------------- */
+
+.site-foot__legal {
+  display: flex; flex-wrap: wrap; gap: 8px 22px;
+  padding-bottom: 18px;
+  font-family: var(--mono); font-size: .7rem;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.site-foot__legal a { color: var(--ink-3); text-decoration: none; }
+.site-foot__legal a:hover { color: var(--warm); }
+
+/* --- Policy pages ------------------------------------------------------- */
+
+.policy { max-width: 68ch; }
+.policy h2 { font-size: clamp(1.3rem, 2.4vw, 1.7rem); margin-top: 2.4em; }
+.policy h2:first-of-type { margin-top: 1.2em; }
+.policy h3 { margin-top: 1.8em; }
+.policy p, .policy li { color: var(--ink-2); }
+.policy p { margin-top: 1em; }
+.policy ul, .policy ol { margin: 1em 0 0; padding-left: 1.2em; }
+.policy li { margin-bottom: .55em; }
+.policy dl { margin: 1.2em 0 0; }
+.policy dt { font-weight: 700; color: var(--ink); margin-top: 1em; }
+.policy dd { margin: .3em 0 0; color: var(--ink-2); }
+.policy .fill {
+  font-family: var(--mono); font-size: .88em;
+  background: color-mix(in srgb, var(--warm) 14%, transparent);
+  color: var(--warm); padding: 1px 6px; white-space: nowrap;
+}
+.policy__meta {
+  font-family: var(--mono); font-size: .72rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); border-top: 1px solid var(--line);
+  margin-top: 3rem; padding-top: 1.2rem;
+}
