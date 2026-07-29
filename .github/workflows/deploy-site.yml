@@ -1,15 +1,18 @@
 name: Deploy site to GitHub Pages
 
+# Manual only, on purpose. The site is private until you deliberately publish
+# it: run this workflow from the Actions tab when you are ready to go live.
+# To publish automatically on every push to main instead, uncomment the
+# `push:` block below.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '*.html'
-      - 'assets/**'
-      - 'robots.txt'
-      - 'sitemap.xml'
-      - '.github/workflows/deploy-site.yml'
   workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - '*.html'
+  #     - 'assets/**'
+  #     - 'robots.txt'
+  #     - 'sitemap.xml'
 
 permissions:
   contents: read

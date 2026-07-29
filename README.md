@@ -9,6 +9,7 @@ Website and formulation documentation for **Guiltless** — high-protein ice cre
 | Path | Purpose |
 |---|---|
 | `index.html` | Landing page + the interactive freezing-point model |
+| `shop.html` | Storefront — product grid, volume pricing, working cart, checkout handoff |
 | `science.html` | Full formulation: FPD maths, all 24 ingredients with mechanisms, 7-step process spec, open problems |
 | `flavors.html` | Launch eight, per-flavour macros and the problem each solves |
 | `franchise.html` | Growth sequencing, model economics, roadmap gates, franchise legal notice |
@@ -28,17 +29,65 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Deploying
+## Privacy
 
-A GitHub Actions workflow deploys to GitHub Pages on every push to `main` that touches
-site files, and can be run manually from the Actions tab. It stages the site, fails the
-build if any internal link is broken, then publishes.
+**The site is not published.** GitHub Pages is not enabled, and the deploy workflow is
+`workflow_dispatch` only — it never fires on its own. Nothing is served publicly until you
+run it deliberately from the Actions tab.
 
-**One-time setup:** in the repo, go to **Settings → Pages → Build and deployment**, and set
-**Source** to **GitHub Actions**. The site then serves at
-`https://mdeanda152-cyber.github.io/Core/`.
+Note that **the repository itself is public**, so this source is readable on github.com.
+To make it private: **Settings → General → Danger Zone → Change repository visibility**.
+
+`shop.html` also carries `<meta name="robots" content="noindex, nofollow">` so it stays out
+of search results if the site does go live before you are ready to sell.
+
+## Deploying (when you want it live)
+
+1. **Settings → Pages → Build and deployment → Source: GitHub Actions**
+2. **Actions → Deploy site to GitHub Pages → Run workflow**
+
+The workflow stages the site, fails the build if any internal link is broken, then
+publishes to `https://mdeanda152-cyber.github.io/Core/`. To deploy automatically on every
+push to `main`, uncomment the `push:` block in `.github/workflows/deploy-site.yml`.
 
 If you point a custom domain at it, update the host in `sitemap.xml` and `robots.txt`.
+
+## The store
+
+`shop.html` is a working storefront: add to cart, quantity controls, cart persisted to
+`localStorage`, and **volume pricing computed at cart level** rather than as separate bundle
+SKUs — the per-pint price drops as the pack grows and product cards update live.
+
+| Setting | Value | Where |
+|---|---|---|
+| Base price per pint | `$9.50` | `UNIT` in `site.js` |
+| Volume tiers | 4+ → 8%, 8+ → 14%, 12+ → 20% | `TIERS` |
+| Shipping | `$12.99`, free at `$75` | `SHIP`, `FREE_AT` |
+| Pack minimum | 4 pints | `MIN_PINTS` |
+
+**These prices are placeholders — set your own before selling anything.**
+
+### Wiring checkout
+
+The store deliberately **does not collect card details**. That belongs to a PCI-compliant
+processor, never to hand-rolled HTML. Checkout POSTs the cart as JSON and expects
+`{ url }` back, then redirects:
+
+```html
+<aside class="cart" data-cart-drawer data-checkout-endpoint="https://your-api/checkout">
+```
+
+Your endpoint creates a Stripe Checkout session from the posted items and returns its URL.
+Until one is configured, the Checkout button says plainly that checkout is not connected —
+it does not pretend to take an order.
+
+### Still needed before you can actually sell
+
+- A payment processor and the endpoint above
+- Real product photography (the product tiles are CSS gradients as placeholders)
+- Terms, refund/replacement policy, and privacy policy pages
+- Sales-tax handling — Stripe Tax or equivalent
+- Verified nutrition panels (see below) before any macro claim is printed on packaging
 
 ## Design
 

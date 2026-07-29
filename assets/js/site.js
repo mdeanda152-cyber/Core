@@ -209,3 +209,230 @@
     el.textContent = String(new Date().getFullYear());
   });
 })();
+
+/* ==========================================================================
+   Shop cart
+   Persisted to localStorage. Volume pricing applies at cart level, so the
+   per-pint price drops as the pack grows — no separate bundle SKUs.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var shopRoot = document.querySelector('[data-shop]') || document.querySelector('[data-cart-drawer]');
+  if (!shopRoot) return;
+
+  var KEY = 'guiltless-cart-v1';
+  var UNIT = 9.50;          // list price per pint, USD
+  var SHIP = 12.99;         // flat dry-ice shipping
+  var FREE_AT = 75;         // free shipping threshold on merchandise subtotal
+  var MIN_PINTS = 4;        // dry-ice packs do not ship below this
+
+  // qty threshold -> discount rate
+  var TIERS = [
+    { min: 12, rate: 0.20 },
+    { min: 8,  rate: 0.14 },
+    { min: 4,  rate: 0.08 },
+    { min: 0,  rate: 0    }
+  ];
+
+  var cart = {};
+  try { cart = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { cart = {}; }
+
+  var drawer  = document.querySelector('[data-cart-drawer]');
+  var scrim   = document.querySelector('[data-cart-scrim]');
+  var openBtn = document.querySelector('[data-cart-open]');
+  var closeBtn= document.querySelector('[data-cart-close]');
+  var bodyEl  = document.querySelector('[data-cart-body]');
+  var footEl  = document.querySelector('[data-cart-foot]');
+  var countEl = document.querySelector('[data-cart-count]');
+
+  var money = function (n) { return '$' + n.toFixed(2); };
+  var totalQty = function () {
+    return Object.keys(cart).reduce(function (n, k) { return n + cart[k].qty; }, 0);
+  };
+  var tierFor = function (q) {
+    for (var i = 0; i < TIERS.length; i++) if (q >= TIERS[i].min) return TIERS[i];
+    return TIERS[TIERS.length - 1];
+  };
+
+  var save = function () {
+    try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) { /* no-op */ }
+  };
+
+  /* ---- Drawer open/close (with focus restore) ---- */
+  var lastFocus = null;
+  function openCart() {
+    lastFocus = document.activeElement;
+    drawer.classList.add('is-open');
+    scrim.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    if (closeBtn) closeBtn.focus();
+  }
+  function closeCart() {
+    drawer.classList.remove('is-open');
+    scrim.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  if (openBtn)  openBtn.addEventListener('click', openCart);
+  if (closeBtn) closeBtn.addEventListener('click', closeCart);
+  if (scrim)    scrim.addEventListener('click', closeCart);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeCart();
+  });
+
+  /* ---- Mutations ---- */
+  function addItem(id, name, swatch) {
+    if (!cart[id]) cart[id] = { name: name, swatch: swatch, qty: 0 };
+    cart[id].qty++;
+    save(); render();
+  }
+  function setQty(id, q) {
+    if (!cart[id]) return;
+    cart[id].qty = q;
+    if (cart[id].qty <= 0) delete cart[id];
+    save(); render();
+  }
+
+  document.querySelectorAll('[data-add]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      addItem(btn.getAttribute('data-add'), btn.getAttribute('data-name'), btn.getAttribute('data-swatch'));
+      btn.classList.add('is-added');
+      var original = btn.textContent;
+      btn.textContent = 'Added';
+      setTimeout(function () { btn.classList.remove('is-added'); btn.textContent = original; }, 1100);
+    });
+  });
+
+  /* ---- Render ---- */
+  function render() {
+    var q = totalQty();
+
+    if (countEl) {
+      countEl.textContent = String(q);
+      countEl.hidden = q === 0;
+    }
+
+    // active pricing tier highlight
+    var tier = tierFor(q);
+    document.querySelectorAll('[data-tier]').forEach(function (el) {
+      el.classList.toggle('is-active', Number(el.getAttribute('data-tier')) === tier.min && q > 0);
+    });
+
+    // per-pint price shown on product cards
+    var unitNow = UNIT * (1 - tier.rate);
+    document.querySelectorAll('[data-unit-price]').forEach(function (el) {
+      el.innerHTML = tier.rate
+        ? '<s>' + money(UNIT) + '</s>' + money(unitNow)
+        : money(UNIT);
+    });
+
+    if (!bodyEl) return;
+
+    if (q === 0) {
+      bodyEl.innerHTML = '<p class="cart__empty">Your cart is empty.<br>Packs start at ' + MIN_PINTS + ' pints.</p>';
+      footEl.innerHTML = '';
+      return;
+    }
+
+    var rows = '';
+    Object.keys(cart).forEach(function (id) {
+      var it = cart[id];
+      rows += '<div class="citem">' +
+        '<div class="citem__sw" style="background:' + it.swatch + '"></div>' +
+        '<div><h4>' + it.name + '</h4>' +
+        '<div class="citem__unit">' + money(unitNow) + ' each</div>' +
+        '<div class="qty">' +
+          '<button type="button" data-dec="' + id + '" aria-label="Decrease quantity of ' + it.name + '">−</button>' +
+          '<span>' + it.qty + '</span>' +
+          '<button type="button" data-inc="' + id + '" aria-label="Increase quantity of ' + it.name + '">+</button>' +
+        '</div></div>' +
+        '<div class="citem__line">' + money(unitNow * it.qty) + '</div>' +
+      '</div>';
+    });
+    bodyEl.innerHTML = rows;
+
+    var list = UNIT * q;
+    var sub = unitNow * q;
+    var saved = list - sub;
+    var ship = sub >= FREE_AT ? 0 : SHIP;
+    var total = sub + ship;
+    var under = q < MIN_PINTS;
+    var toFree = Math.max(0, FREE_AT - sub);
+
+    var foot = '';
+    foot += '<div class="cart__row"><span>Subtotal (' + q + ' pint' + (q === 1 ? '' : 's') + ')</span><span>' + money(list) + '</span></div>';
+    if (saved > 0.005) {
+      foot += '<div class="cart__row cart__row--save"><span>Volume pricing (−' + Math.round(tier.rate * 100) + '%)</span><span>−' + money(saved) + '</span></div>';
+    }
+    foot += '<div class="cart__row"><span>Shipping (dry ice, 2-day)</span><span>' + (ship ? money(ship) : 'Free') + '</span></div>';
+    foot += '<div class="cart__row cart__row--total"><span>Total</span><span>' + money(total) + '</span></div>';
+
+    if (toFree > 0) {
+      foot += '<div class="ship-bar"><i style="width:' + Math.min(100, sub / FREE_AT * 100) + '%"></i></div>';
+      foot += '<p class="cart__note">' + money(toFree) + ' more for free shipping.</p>';
+    }
+    if (under) {
+      foot += '<p class="cart__note">Add ' + (MIN_PINTS - q) + ' more pint' + (MIN_PINTS - q === 1 ? '' : 's') +
+              ' — dry-ice packs do not ship below ' + MIN_PINTS + '.</p>';
+    }
+    foot += '<button class="btn btn--primary" type="button" data-checkout' + (under ? ' disabled' : '') + '>Checkout</button>';
+    foot += '<p class="cart__msg" role="status" aria-live="polite"></p>';
+    footEl.innerHTML = foot;
+  }
+
+  /* ---- Delegated cart controls ---- */
+  document.addEventListener('click', function (e) {
+    var dec = e.target.closest && e.target.closest('[data-dec]');
+    var inc = e.target.closest && e.target.closest('[data-inc]');
+    var out = e.target.closest && e.target.closest('[data-checkout]');
+    if (dec) { var i = dec.getAttribute('data-dec'); setQty(i, cart[i].qty - 1); }
+    if (inc) { var j = inc.getAttribute('data-inc'); setQty(j, cart[j].qty + 1); }
+    if (out) checkout(out);
+  });
+
+  /* ---- Checkout ---------------------------------------------------------
+     Card details are never collected here — that belongs to a PCI-compliant
+     processor. Set data-checkout-endpoint on [data-cart-drawer] to a backend
+     that creates a Stripe Checkout session and returns {url}; we redirect.
+     ---------------------------------------------------------------------- */
+  function checkout(btn) {
+    var msg = footEl.querySelector('.cart__msg');
+    var endpoint = drawer.getAttribute('data-checkout-endpoint');
+    var items = Object.keys(cart).map(function (id) {
+      return { id: id, name: cart[id].name, qty: cart[id].qty };
+    });
+
+    if (!endpoint) {
+      msg.textContent = 'Checkout is not connected yet — no payment processor is wired to this store.';
+      msg.setAttribute('data-state', 'err');
+      return;
+    }
+
+    btn.disabled = true;
+    msg.textContent = 'Redirecting to secure checkout…';
+    msg.setAttribute('data-state', 'ok');
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ items: items, qty: totalQty() })
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (data) {
+      if (!data || !data.url) throw new Error('no session url');
+      window.location.href = data.url;
+    }).catch(function () {
+      msg.textContent = 'Could not reach checkout. Try again in a moment.';
+      msg.setAttribute('data-state', 'err');
+      btn.disabled = false;
+    });
+  }
+
+  render();
+})();
