@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Science — Guiltless formulation, ingredient deck and process</title>
+<meta name="description" content="The full Guiltless formulation: freezing-point maths, every ingredient with its mechanism, the process spec, and the problems we haven't solved yet.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="assets/css/site.css">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9.25' fill='none' stroke='%231A1512' stroke-width='1.5'/%3E%3Cpath d='M12 6.2v11.6M7 9.1l10 5.8M17 9.1l-10 5.8' stroke='%23B5652A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap site-head__in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M12 6.2v11.6M7 9.1l10 5.8M17 9.1l-10 5.8" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>Guiltless</span>
+    </a>
+    <nav class="nav" data-nav aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="flavors.html">Flavors</a>
+      <a href="science.html" aria-current="page">The Science</a>
+      <a href="franchise.html">Franchise</a>
+    </nav>
+    <div class="head-tools">
+      <button class="icon-btn" data-theme-toggle type="button" aria-label="Switch to dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="hero" style="padding-block:clamp(48px,7vw,88px) clamp(32px,4vw,52px)">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--plain"><b>The Science</b> &nbsp;/&nbsp; Base v1.0</p>
+    <h1 style="max-width:15ch">Everything in the pint, and why it's&nbsp;in&nbsp;there.</h1>
+    <p class="lede">Ice cream is a four-phase system — ice crystals, air cells, fat globules and a freeze-concentrated serum — held together by protein and hydrocolloids. Take out sugar and fat and all four phases degrade at once. This is the whole build, mechanism by mechanism.</p>
+  </div>
+</div>
+
+<!-- ============================ THE MATHS ============================ -->
+<section id="targets">
+  <div class="wrap">
+    <p class="eyebrow"><span>01 — The governing constraint</span></p>
+    <h2>Scoopability is arithmetic, not luck</h2>
+    <p class="lede">Ice cream is scoopable when roughly 55–65% of its water is frozen at serving temperature. That fraction is set by <b>freezing-point depression</b>, which depends on how many <em>molecules</em> of solute are dissolved in the water — not how many grams.</p>
+
+    <p>Because depression is colligative, a solute's power scales inversely with molecular weight. Sucrose (MW&nbsp;342) is the industry's unit of account at a relative factor of 1.0. Everything else is measured against it:</p>
+
+    <div class="tablewrap reveal" style="margin-block:2rem">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Solute in the Guiltless base</th>
+            <th scope="col">g / pint</th>
+            <th scope="col">MW</th>
+            <th scope="col">Rel. FPD factor</th>
+            <th scope="col">Sucrose-equivalent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">D-allulose</th><td>18.0</td><td>180</td><td>1.9</td><td class="col-us">34.2</td></tr>
+          <tr><th scope="row">Milk salts &amp; minerals</th><td>≈ 2.0</td><td>varies</td><td>≈ 4.0</td><td class="col-us">8.0</td></tr>
+          <tr><th scope="row">Lactose (from dairy)</th><td>7.3</td><td>342</td><td>1.0</td><td class="col-us">7.3</td></tr>
+          <tr><th scope="row">Sea salt (NaCl, dissociates)</th><td>0.6</td><td>58.5</td><td>≈ 11</td><td class="col-us">6.6</td></tr>
+          <tr><th scope="row">Soluble fibre blend</th><td>18.0</td><td>≈ 1,500+</td><td>≈ 0.35</td><td class="col-us">6.3</td></tr>
+          <tr><th scope="row">Sucrose</th><td>6.0</td><td>342</td><td>1.0</td><td class="col-us">6.0</td></tr>
+          <tr><th scope="row"><b>Total</b></th><td><b>51.9</b></td><td>—</td><td>—</td><td class="col-us"><b>68.4</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid grid--2" style="margin-block:2.4rem">
+      <div class="callout">
+        <h3>The number that matters</h3>
+        <p>68.4&nbsp;g sucrose-equivalent dissolved in the pint's 253&nbsp;g of water is <b>27.0&nbsp;g per 100&nbsp;g water</b>. Premium full-fat ice cream sits at roughly 26–30. We are inside the window, at the firm end of it — which is why the pint scoops straight from a home freezer without a microwave, and still holds a shape on a cone.</p>
+      </div>
+      <div class="callout callout--warn">
+        <h3>The number that nearly killed us</h3>
+        <p>Our first pass ran allulose at 26&nbsp;g plus 3&nbsp;g glycerol and landed at 40&nbsp;g/100&nbsp;g water. Far too soft — a gummy, fast-melting product that wouldn't hold a scoop shape. We pulled the glycerol entirely, cut allulose by 8&nbsp;g, and <b>spent the recovered calories on fat instead.</b></p>
+      </div>
+    </div>
+
+    <p>That trade is the single most important decision in the formula. It converted 16 calories of freezing-point control we didn't need into 1.8&nbsp;g of butterfat we badly did — and it's the reason the priority stack puts texture above macros.</p>
+
+    <h3 style="margin-top:2.6rem">The sweetness ledger</h3>
+    <p>Cutting allulose cut sweetness too. Ice cream needs 14–16% sucrose-equivalent sweetness to read as dessert rather than as cold milk. Here is how we get back there without calories:</p>
+    <div class="tablewrap reveal" style="margin-top:1.4rem">
+      <table>
+        <thead><tr><th scope="col">Source</th><th scope="col">g / pint</th><th scope="col">Relative sweetness</th><th scope="col">Sucrose-equivalent</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Stevia Reb M (fermentation-derived)</th><td>0.09</td><td>≈ 250×</td><td class="col-us">22.5</td></tr>
+          <tr><th scope="row">D-allulose</th><td>18.0</td><td>0.7×</td><td class="col-us">12.6</td></tr>
+          <tr><th scope="row">Monk fruit (mogroside V)</th><td>0.05</td><td>≈ 200×</td><td class="col-us">9.3</td></tr>
+          <tr><th scope="row">Sucrose</th><td>6.0</td><td>1.0×</td><td class="col-us">6.0</td></tr>
+          <tr><th scope="row">Lactose</th><td>7.3</td><td>0.16×</td><td class="col-us">1.2</td></tr>
+          <tr><th scope="row"><b>Total</b></th><td>—</td><td>—</td><td class="col-us"><b>51.6 g → 14.4%</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:.88rem;margin-top:1rem">14.4% sucrose-equivalent sweetness in a 359&nbsp;g pint — inside the premium window, from 6&nbsp;g of actual added sugar.</p>
+  </div>
+</section>
+
+<!-- ============================ INGREDIENT DECK ============================ -->
+<section class="band" id="ingredients">
+  <div class="wrap">
+    <p class="eyebrow"><span>02 — The ingredient deck</span></p>
+    <h2>Twenty-four decisions</h2>
+    <p class="lede" style="margin-bottom:2.4rem">Doses are percentage of mix by weight. Open any line for the mechanism.</p>
+
+    <h3 style="margin-top:2.6rem">Protein system — structure, opacity, water binding</h3>
+    <div class="ing">
+      <details class="ing__item">
+        <summary><span class="ing__k">01</span><span class="ing__name">Milk protein isolate 85 (MPI-85)</span><span class="ing__dose">9.0 – 9.8%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The backbone. MPI carries milk's native 80:20 casein-to-whey ratio, so it behaves in the mix the way milk does rather than the way a sports supplement does.</p>
+          <div class="why">
+            <p><b>Texture &amp; creaminess:</b> casein exists as micelles — colloidal particles 100–200&nbsp;nm across that scatter visible light. That scattering <em>is</em> the white opacity we read as "creamy" before we taste anything. They also bind roughly 3.7&nbsp;g of water per gram of protein.</p>
+            <p><b>Scoopability:</b> water bound to protein is water that cannot form ice. Immobilising it lowers the freezable fraction, so we get fewer and smaller crystals at the same temperature.</p>
+            <p><b>Stability:</b> casein is remarkably heat-stable — it will not aggregate through pasteurisation the way whey does, so no chalk.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">02</span><span class="ing__name">Micellar casein isolate</span><span class="ing__dose">2.5 – 3.0%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Layered on top of MPI to push the casein:whey ratio from 80:20 up to about <b>85:15</b> — deliberately more casein-dominant than milk itself.</p>
+          <div class="why">
+            <p><b>Texture:</b> the highest viscosity and water-binding per gram of any dairy protein. It builds a weak gel network in the serum phase that partially substitutes for the fat network we can't afford at 10&nbsp;g.</p>
+            <p><b>Stability:</b> that network is what gives a slow, clean, even melt instead of a fast collapse into foam and liquid.</p>
+            <p><b>The limit:</b> push casein past ~88% of protein and the product turns pasty and coats the palate badly. This dose is a ceiling, not a starting point.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">03</span><span class="ing__name">Whey protein isolate, instantised, low-denatured</span><span class="ing__dose">0.8 – 1.2%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>A deliberately small fraction. Whey is where protein ice cream usually goes wrong, but a little of it does a job nothing else does.</p>
+          <div class="why">
+            <p><b>Texture:</b> whey is far more surface-active than casein. It adsorbs at the air–serum interface and stabilises small air cells, giving a fine, close foam rather than large coarse bubbles.</p>
+            <p><b>Flavour:</b> clean, slightly sweet finish that lifts the heavier casein body.</p>
+            <p><b>Why we cap it:</b> whey denatures and aggregates above ~75&nbsp;°C, and those aggregates land on the tongue as chalk. It also carries the astringent "whey twang" that makes most protein desserts identifiable blindfolded.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">04</span><span class="ing__name">Microparticulated whey protein</span><span class="ing__dose">0.5 – 0.8%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The clever one. Whey that has been intentionally denatured under shear and formed into spheroidal particles 0.1–3&nbsp;µm across — the same size range as emulsified fat globules.</p>
+          <div class="why">
+            <p><b>Creaminess:</b> mouthfeel is substantially a mechanical phenomenon. Particles in this size band roll between tongue and palate the way fat globules do, and the brain reads that rolling as richness. It is a fat mimetic that costs protein calories instead of fat calories.</p>
+            <p><b>Why it works here specifically:</b> at 10&nbsp;g of fat per pint we have a creaminess deficit to close. This closes perhaps a third of it for free.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h3 style="margin-top:3rem">Fat phase — structure and flavour delivery</h3>
+    <div class="ing">
+      <details class="ing__item">
+        <summary><span class="ing__k">05</span><span class="ing__name">Fresh dairy cream, 36% fat</span><span class="ing__dose">7.0 – 8.0%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Real butterfat, not vegetable oil. At this dose every gram has to earn its 9 calories, and butterfat is the most flavour-dense fat available.</p>
+          <div class="why">
+            <p><b>Flavour:</b> butterfat carries the compounds that <em>are</em> the smell of cream — δ- and γ-lactones, methyl ketones, and short-chain fatty acids like butyric. Coconut or palm fat delivers structure but smells wrong, and at low dose the wrongness is all you taste.</p>
+            <p><b>Flavour delivery:</b> vanillin, cocoa volatiles and nut aromatics are fat-soluble. Fat both carries them and slows their release, which is why full-fat ice cream tastes long and low-fat tastes like a flash.</p>
+            <p><b>Texture:</b> fat globules partially coalesce under shear in the barrel and build the network that gives dryness, stand-up and slow melt.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">06</span><span class="ing__name">Anhydrous milkfat (AMF)</span><span class="ing__dose">0.3 – 0.5%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Butterfat with the water removed, used to add fat without adding the water that cream brings with it.</p>
+          <div class="why">
+            <p><b>Why it matters at low fat:</b> our water budget is tight — every gram of added water is a gram that can freeze. AMF lets us buy fat and flavour with no water penalty, and its higher-melting triglyceride fractions crystallise during ageing, which is a precondition for partial coalescence. Liquid fat cannot partially coalesce.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">07</span><span class="ing__name">Egg yolk — flagship base only</span><span class="ing__dose">0.4 – 0.6%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The pâtissier's addition, reserved for Toasted Milk &amp; Vanilla Bean and Salted Butter Caramel.</p>
+          <div class="why">
+            <p><b>Texture:</b> yolk phospholipids (lecithin) are natural emulsifiers that sit at the fat interface and improve air cell stability. Yolk proteins add viscosity and a custard-like body.</p>
+            <p><b>Flavour:</b> yolk gives the specific rounded, savoury-sweet depth of a French-style custard base. It is the difference between "good ice cream" and "that tastes like a pâtisserie made it."</p>
+            <p><b>The trade:</b> ~2 calories per gram of yolk and a slower, gentler pasteurisation. Worth it on two flavours, not on eight.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h3 style="margin-top:3rem">Emulsifiers — controlled fat destabilisation</h3>
+    <div class="ing">
+      <details class="ing__item">
+        <summary><span class="ing__k">08</span><span class="ing__name">Polysorbate 80</span><span class="ing__dose">0.02 – 0.04%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Two hundredths of a percent, and the single highest-leverage ingredient in the entire formula.</p>
+          <div class="why">
+            <p><b>The mechanism:</b> counter-intuitively, an emulsifier here <em>de</em>-emulsifies. Polysorbate 80 is more surface-active than milk protein, so it competitively displaces protein from the fat globule membrane. The stripped globules have a weak interface, so under the shear of the freezer barrel they partially coalesce into chains and clusters that anchor to air cell surfaces.</p>
+            <p><b>What you feel:</b> that network is <em>dryness</em> and <em>stand-up</em> — a scoop that holds its shape on a cone, cuts cleanly, and melts slowly into cream rather than collapsing into froth and water.</p>
+            <p><b>Why it's non-negotiable here:</b> with only 10&nbsp;g of fat, undestabilised fat is wasted fat. We cannot afford any of it sitting inert.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">09</span><span class="ing__name">Unsaturated mono- &amp; diglycerides (sunflower)</span><span class="ing__dose">0.10 – 0.15%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The same displacement mechanism as polysorbate, but slower and gentler — used to <em>tune the rate</em> of destabilisation rather than to drive it.</p>
+          <div class="why">
+            <p><b>Texture:</b> running the two together gives a controlled destabilisation curve. Too fast and you get buttery grains and a greasy mouthfeel; too slow and you get a wet, structureless product. The ratio between them is a dial we set per flavour.</p>
+            <p><b>Stability:</b> also improves air cell size distribution, which directly slows melt.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">10</span><span class="ing__name">Sunflower lecithin</span><span class="ing__dose">0.04 – 0.06%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Process aid as much as emulsifier.</p>
+          <div class="why">
+            <p><b>Why:</b> at nearly 14% total protein powder, wetting is a real manufacturing problem — dry protein clumps into lumps with a hydrated skin and a dry core, and those cores survive into the finished pint as grit. Lecithin drops the surface tension so powder wets evenly on first contact.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h3 style="margin-top:3rem">Hydrocolloids — ice control and body</h3>
+    <div class="ing">
+      <details class="ing__item">
+        <summary><span class="ing__k">11</span><span class="ing__name">Locust bean gum (carob)</span><span class="ing__dose">0.10 – 0.14%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The gold standard for ice control, and not interchangeable with cheaper gums.</p>
+          <div class="why">
+            <p><b>Why LBG specifically:</b> it is a galactomannan with a mannose:galactose ratio near 4:1, meaning long stretches of its backbone carry no galactose side chains. Those bare "smooth regions" self-associate into junction zones and form a weak network that guar — at 2:1, too substituted — simply cannot form.</p>
+            <p><b>Stability:</b> that network immobilises water in the freeze-concentrated serum between ice crystals, and physically obstructs the migration of water molecules from small crystals to large ones. This is <em>recrystallisation control</em>, and it is what keeps a pint smooth through the temperature abuse of a delivery van and a shop freezer.</p>
+            <p><b>Texture:</b> LBG gives the short, dry, clean-breaking body of premium ice cream. Guar in its place is noticeably slimy.</p>
+            <p><b>Process note:</b> it needs above 80&nbsp;°C to hydrate fully. Underhydrated LBG does nothing at all.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">12</span><span class="ing__name">Tara gum</span><span class="ing__dose">0.03 – 0.05%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>A partial partner to LBG at a 3:1 mannose:galactose ratio — structurally between locust bean and guar.</p>
+          <div class="why">
+            <p><b>Texture:</b> hydrates at lower temperature than LBG, so it builds viscosity early in the process and protects the mix through ageing. Cleaner on the palate than guar, with more anti-recrystallisation activity.</p>
+            <p><b>Supply:</b> it also de-risks us against the periodic price shocks in the locust bean market, which is a genuinely fragile crop.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">13</span><span class="ing__name">Kappa-carrageenan</span><span class="ing__dose">0.012 – 0.018%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>One hundredth of a percent, and it is not there for thickness.</p>
+          <div class="why">
+            <p><b>The problem it solves:</b> galactomannans and casein are thermodynamically incompatible in solution — they phase-separate, and the mix wheys off in the ageing tank into a protein layer and a clear serum layer. Every gum-stabilised dairy system has this problem.</p>
+            <p><b>The mechanism:</b> kappa-carrageenan carries a negative charge that binds a positively charged region of κ-casein, forming a very weak gel that suspends the whole system and blocks separation. It is a secondary stabiliser whose entire job is to make the primary stabilisers usable.</p>
+            <p><b>Clean-label alternative:</b> high-acyl gellan at ~0.01% does the same job for anyone who avoids carrageenan. It costs more and is slightly less forgiving on process.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">14</span><span class="ing__name">Colloidal microcrystalline cellulose</span><span class="ing__dose">0.15 – 0.25%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Insoluble cellulose crystallites that disperse into a three-dimensional network.</p>
+          <div class="why">
+            <p><b>Texture:</b> because it is a particulate network rather than a dissolved polymer, it delivers body and heat-shock protection <em>without</em> the sliminess that comes from pushing soluble gums harder. That distinction matters enormously at low fat, where the temptation is always to add more gum and the result is always gummy.</p>
+            <p><b>Stability:</b> it also stabilises the foam by adsorbing at the air interface, slowing air cell coarsening during storage.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h3 style="margin-top:3rem">Freezing point, bulk and sweetness</h3>
+    <div class="ing">
+      <details class="ing__item" open>
+        <summary><span class="ing__k">15</span><span class="ing__name">D-allulose</span><span class="ing__dose">5.0%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The hero ingredient, and the reason this product can exist at all. A rare sugar that occurs naturally in figs and raisins, absorbed by the small intestine but almost entirely excreted rather than metabolised.</p>
+          <div class="why">
+            <p><b>Scoopability:</b> molecular weight 180 against sucrose's 342 means roughly <b>1.9× the freezing-point depression per gram</b> — at an FDA-permitted 0.4&nbsp;kcal/g. This is the entire solution to Problem&nbsp;01. We buy soft texture with molecules instead of calories.</p>
+            <p><b>Flavour:</b> it is a real reducing sugar, so it browns through the Maillard reaction. That means we can genuinely caramelise it — which no polyol and no high-intensity sweetener can do — and it is why our Salted Butter Caramel tastes of caramel rather than of caramel flavouring.</p>
+            <p><b>Texture, second order:</b> it does not crystallise in frozen systems, so it never contributes the sandiness that erythritol and lactose can.</p>
+            <p><b>Mouthfeel:</b> near-zero heat of solution, so none of the cooling burn that makes polyol-sweetened frozen dessert taste medicinal.</p>
+            <p><b>Labelling:</b> excluded from Total and Added Sugars under FDA guidance, though it stays inside Total Carbohydrate.</p>
+            <p><b>The honest cost:</b> it is expensive, and above roughly 30–40&nbsp;g in a sitting it can cause GI discomfort. At 18&nbsp;g per pint we are comfortably inside tolerance even for a whole-pint sitting.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">16</span><span class="ing__name">Sucrose — yes, real sugar</span><span class="ing__dose">1.7%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Six grams per pint, twenty-four calories, kept deliberately against considerable marketing pressure to claim zero.</p>
+          <div class="why">
+            <p><b>Flavour:</b> sucrose has a sweetness onset and decay curve that no substitute reproduces. It arrives immediately and leaves cleanly. Stevia and monk fruit both arrive late and linger. A small amount of real sugar anchors the front of the sweetness curve and makes the high-intensity sweeteners read as sweetness rather than as sweeteners.</p>
+            <p><b>Texture:</b> it also contributes genuine body and a small amount of freezing-point depression.</p>
+            <p><b>The principle:</b> "zero sugar" is a macro win and a taste loss. Taste is first. Six grams stays.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">17</span><span class="ing__name">Soluble fibre blend (polydextrose + soluble corn fibre)</span><span class="ing__dose">5.0%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Bulking agents that rebuild what removing the sugar took away.</p>
+          <div class="why">
+            <p><b>The problem:</b> total solids is the master variable in ice cream. Real ice cream runs 36–42% solids. Pull out 30&nbsp;g of sugar and a solids hole opens up; what fills it is water, and water makes ice. This is why so much low-sugar ice cream is icy — not because of the sweetener, but because of the solids that left with the sugar.</p>
+            <p><b>Texture:</b> these polymers restore viscosity, body and mouth-coating at ~1&nbsp;kcal/g. Their high molecular weight means they add solids <em>without</em> adding much freezing-point depression, which is exactly what we need — we already have all the softness we can use from allulose.</p>
+            <p><b>The honest cost:</b> 18&nbsp;g of fibre per pint is a lot of fibre. It labels beautifully and it is genuinely the tolerance ceiling of the formula.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">18</span><span class="ing__name">Stevia Reb M + monk fruit mogroside V</span><span class="ing__dose">0.020 – 0.030% / 0.010 – 0.016%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The pair that closes the remaining 32&nbsp;g of sucrose-equivalent sweetness for essentially zero calories.</p>
+          <div class="why">
+            <p><b>Why Reb M and not Reb A:</b> the steviol glycosides differ sharply in off-taste. Reb A — the cheap, common one — carries the bitter, liquorice-like tail that people mean when they say something "tastes of stevia." Reb M is a minor glycoside with a far cleaner profile, now produced at scale by fermentation rather than extraction. It is several times the price and worth all of it.</p>
+            <p><b>Why both:</b> mogrosides deliver sweetness earlier on the curve than steviol glycosides do. Layering them fills the front while Reb M carries the middle, and the combination reads as more sugar-like than either alone.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">19</span><span class="ing__name">Thaumatin</span><span class="ing__dose">0.001 – 0.002%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>A sweet protein from the katemfe fruit, used at trace level as a modifier rather than a sweetener.</p>
+          <div class="why">
+            <p><b>Flavour:</b> at these levels thaumatin contributes little sweetness of its own but measurably suppresses bitterness and rounds the lingering metallic finish of steviol glycosides. It also enhances dairy and vanilla notes. It is a finishing tool — the seasoning on the sweetener system.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">20</span><span class="ing__name">Sea salt</span><span class="ing__dose">0.15 – 0.18%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>The most underrated ingredient in frozen dessert, doing three unrelated jobs at once.</p>
+          <div class="why">
+            <p><b>Scoopability:</b> NaCl dissociates into two ions at molecular weight 58.5, giving it a relative freezing-point-depression factor around 11 — the highest of anything in the formula. Six tenths of a gram does the work of 6.6&nbsp;g of sucrose.</p>
+            <p><b>Flavour, defensively:</b> sodium is a potent bitterness suppressant. It specifically blunts the bitter back-end of steviol glycosides, which is a large part of why our base does not read as artificially sweetened.</p>
+            <p><b>Flavour, offensively:</b> salt amplifies perceived dairy richness, caramel and cocoa. It is the difference between a caramel that tastes sweet and one that tastes like caramel.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <h3 style="margin-top:3rem">Flavour architecture</h3>
+    <div class="ing">
+      <details class="ing__item">
+        <summary><span class="ing__k">21</span><span class="ing__name">Toasted milk solids</span><span class="ing__dose">1.2 – 1.8%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Skimmed milk powder dry-roasted at ~150&nbsp;°C until it turns the colour of a hazelnut. A pastry technique, not a food-technology one.</p>
+          <div class="why">
+            <p><b>Flavour — and the central insight of the whole brand:</b> the problem with protein ice cream is that it tastes of milk protein. You cannot hide that. So we stopped trying to hide it and started <em>amplifying it in a direction people love</em>. Roasting drives the Maillard reaction between milk lactose and milk proteins, generating furans, pyrazines and maltol — the exact compounds behind dulce de leche, browned butter and toasted malt.</p>
+            <p><b>The result:</b> the protein note stops reading as "supplement" and starts reading as "expensive dairy." A liability becomes the signature.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">22</span><span class="ing__name">Cultured dairy (crème fraîche / cultured buttermilk powder)</span><span class="ing__dose">1.0 – 1.5%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>A small cultured fraction in the base, carried across every flavour.</p>
+          <div class="why">
+            <p><b>Flavour:</b> lactic fermentation produces <b>diacetyl</b>, which is not merely associated with butter aroma — it is the principal molecule of it. Adding diacetyl buys a direct perception of butteriness and richness that costs no fat whatsoever. At 10&nbsp;g of fat per pint, that is an extraordinarily efficient trade.</p>
+            <p><b>Flavour, second order:</b> the lactic acid adds a faint tang that gives the base dimension and stops it reading as flat and sweet — the characteristic dullness of low-fat frozen dessert.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">23</span><span class="ing__name">Bourbon vanilla extract + exhausted-bean paste</span><span class="ing__dose">0.8 – 1.2%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>Dosed at roughly <b>1.5–2× what a full-fat base would use</b>, which surprises people.</p>
+          <div class="why">
+            <p><b>Why the overdose is correct:</b> two independent effects suppress aroma here. Cold lowers the vapour pressure of volatile aroma compounds, so less reaches the olfactory epithelium; and low fat means fewer of those compounds are held and released over time. A vanilla dose calibrated on a warm, fatty base will taste of almost nothing at −13&nbsp;°C and 2.8% fat.</p>
+            <p><b>Why the paste:</b> visible seed specks are a genuine quality signal, and visual expectation measurably raises perceived flavour intensity before the first taste.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="ing__item">
+        <summary><span class="ing__k">24</span><span class="ing__name">Citric / lactic acid</span><span class="ing__dose">0.02 – 0.05%</span><svg class="ing__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></summary>
+        <div class="ing__body">
+          <p>A whisper, in fruit and caramel flavours only.</p>
+          <div class="why">
+            <p><b>Flavour:</b> acid provides contrast. Sweet-only systems taste flat and cloying; a trace of acid makes fruit read as fresh fruit rather than as jam, and cuts the richness of caramel so it stays interesting to the bottom of the bowl.</p>
+            <p><b>The constraint:</b> we hold the base above pH 6.4. Push casein toward its isoelectric point at pH 4.6 and the micelles destabilise, the mix curdles, and the product turns grainy. Acid is added late, cold, and dilute.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESS ============================ -->
+<section id="process">
+  <div class="wrap">
+    <p class="eyebrow"><span>03 — Process</span></p>
+    <h2>Half the texture is made after the formula is fixed</h2>
+    <p class="lede" style="margin-bottom:3rem">You can hand a competitor this exact ingredient list and they will still make a worse pint if they get these seven steps wrong. Most of the category gets at least two of them wrong.</p>
+
+    <ol class="steps reveal">
+      <li>
+        <h4>Dry-blend before wetting</h4>
+        <p>All powders — proteins, fibre, gums, allulose — are dry-blended first so the hydrocolloids are diluted among inert particles. Gums added directly to water form lumps with a hydrated gel skin and a permanently dry core; those cores survive everything downstream and end up as grit in the pint.</p>
+        <span class="param">high-shear mixer · powders premixed with allulose as carrier</span>
+      </li>
+      <li>
+        <h4>Pasteurise HTST, not batch</h4>
+        <p>72–74&nbsp;°C for 15–20 seconds. The temptation is a long batch hold at 82&nbsp;°C, which is where whey denatures and aggregates into chalk. Short and hot beats long and hot at this protein load. The exception is the yolk-containing flagship base, which takes a gentler, longer hold.</p>
+        <span class="param">72–74 °C / 15–20 s · avoids whey aggregation</span>
+      </li>
+      <li>
+        <h4>Homogenise in two stages</h4>
+        <p>2,000&nbsp;psi first stage, 500&nbsp;psi second, at 65–70&nbsp;°C. The first stage shatters fat globules to under a micron; the second breaks up the clusters the first stage creates. Single-stage homogenisation leaves clustered globules that read as greasy.</p>
+        <span class="param">2,000 / 500 psi · target globule &lt; 1 µm</span>
+      </li>
+      <li>
+        <h4>Age 8–12 hours at 2–4 °C</h4>
+        <p>The step everyone skips, and the one that decides whether the product is sandy. Three things must finish here: protein hydration completes, locust bean gum reaches full viscosity, and — critically — the fat crystallises. Liquid fat cannot partially coalesce, so a mix frozen straight after homogenising can never build a fat network no matter what emulsifier is in it.</p>
+        <span class="param">minimum 8 h · overnight preferred</span>
+      </li>
+      <li>
+        <h4>Freeze fast, draw cold</h4>
+        <p>Continuous freezer, drawn at −6 to −7&nbsp;°C with high dasher shear. Crystal size is set almost entirely here: fast nucleation under shear gives many small crystals, slow freezing gives few large ones. Mean crystal size under 25&nbsp;µm reads as creamy; above 50&nbsp;µm reads as icy, and nothing downstream can fix it.</p>
+        <span class="param">draw −6 to −7 °C · overrun 45% ± 2</span>
+      </li>
+      <li>
+        <h4>Harden inside 90 minutes</h4>
+        <p>Blast to −30&nbsp;°C core within ninety minutes of draw. This is the most common quality failure in small-scale production: pints moved into a domestic-style freezer harden slowly, and every minute spent between −7&nbsp;°C and −20&nbsp;°C grows the crystals that were just carefully made small.</p>
+        <span class="param">blast tunnel · core −30 °C in &lt; 90 min</span>
+      </li>
+      <li>
+        <h4>Hold cold, temper late</h4>
+        <p>Distribute and store at −25&nbsp;°C or colder — recrystallisation rate rises steeply with temperature and with every freeze–thaw cycle. Temper to −13&nbsp;°C only for scooping. In-store this is trivial to control; in retail distribution it is the hardest variable we have, and it is why the stabiliser system is built the way it is.</p>
+        <span class="param">store −25 °C · serve −13 °C</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================ OPEN PROBLEMS ============================ -->
+<section class="band">
+  <div class="wrap wrap--narrow prose">
+    <p class="eyebrow"><span>04 — Open problems</span></p>
+    <h2>What we haven't solved</h2>
+    <p class="lede">A formulation page that only lists wins is marketing. These are the live constraints on base v1.0, in rough order of how much they bother us.</p>
+
+    <h3>1. We are solids-short</h3>
+    <p>The base runs about <b>29.5% total solids</b> against 36–42% for premium ice cream. Protein's exceptional water binding covers much of the gap — 42&nbsp;g of protein immobilises far more water than the solids figure suggests — but it does not close it entirely. This is the single largest remaining texture gap, and more fibre is not the answer because we are already at the tolerance ceiling.</p>
+
+    <h3>2. Fibre and allulose tolerance stack</h3>
+    <p>18&nbsp;g of fibre and 18&nbsp;g of allulose in one pint is well tolerated by most people eating a serving, and fine for most people eating the whole pint at once. It is not fine for everyone, and it stacks with whatever else is in someone's day. We label it clearly rather than burying it, and we are testing whether a portion of the fibre can be replaced with a higher-molecular-weight starch hydrolysate.</p>
+
+    <h3>3. Acid flavours fight the protein</h3>
+    <p>Casein destabilises as pH approaches 4.6, which caps how much real fruit acid we can carry. Strawberry works because we lean on the cultured dairy for tang. A bright lemon or passionfruit does not work yet at this protein load, and that is a genuine limit on the flavour range rather than a lack of trying.</p>
+
+    <h3>4. Retail distribution is harder than the shop</h3>
+    <p>Every texture claim on this site is easiest to hit behind a counter, where the product is days old and never leaves a controlled cabinet. Surviving weeks of ambient abuse in a retail cold chain is a different problem. It is why the scoop shops come first — and if a retail pint cannot be made to match the counter, we would rather stay a scoop shop longer than ship a worse product with the same label.</p>
+
+    <h3>5. Allulose supply and cost</h3>
+    <p>Allulose is the most expensive functional ingredient in the formula by a wide margin, and the supply base is narrower than we would like. There is no substitute that does what it does — this is a real business risk we are carrying deliberately, not one we have engineered away.</p>
+
+    <div class="callout callout--warn" style="margin-top:2.4rem">
+      <h3>On the numbers</h3>
+      <p>Everything on this page is a formulation target for base v1.0. Calorie and macro figures are calculated from ingredient specifications using standard Atwater factors plus the FDA's 0.4&nbsp;kcal/g for allulose. Nutrition panels require third-party analytical verification, and no figure here should be treated as a printed label until that testing is complete.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band--ink">
+  <div class="wrap wrap--narrow" style="text-align:center">
+    <h2>Want the formulation notes?</h2>
+    <p class="lede" style="margin-inline:auto">We publish version changes, sensory panel results and what we got wrong.</p>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:2rem">
+      <form class="form" data-waitlist="hello@guiltless.example" novalidate>
+        <label for="email-sci" style="position:absolute;left:-9999px">Email address</label>
+        <input type="email" id="email-sci" name="email" placeholder="you@example.com" autocomplete="email" required>
+        <button class="btn btn--primary" type="submit">Send them to me</button>
+      </form>
+      <p class="form__msg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="site-foot__grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:1rem">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 6.2v11.6M7 9.1l10 5.8M17 9.1l-10 5.8" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span>Guiltless</span>
+        </a>
+        <p style="max-width:32ch">The world's best tasting high-protein ice cream. Engineered taste-first, in that order, on purpose.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="flavors.html">Flavors</a></li>
+          <li><a href="science.html">The Science</a></li>
+          <li><a href="science.html#ingredients">Ingredient deck</a></li>
+          <li><a href="science.html#process">Process</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="franchise.html">Franchise</a></li>
+          <li><a href="franchise.html#economics">Unit economics</a></li>
+          <li><a href="franchise.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Notes</h4>
+        <ul>
+          <li><a href="science.html#targets">Nutrition targets</a></li>
+          <li><a href="index.html">Sources &amp; footnotes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-foot__bar">
+      <span>&copy; <span data-year>2026</span> Guiltless. Pre-launch — figures are formulation targets pending analytical verification.</span>
+      <span>Built taste-first.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
