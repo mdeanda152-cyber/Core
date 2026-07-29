@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order desk — Guiltless</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9.3' fill='none' stroke='%235FD3E0' stroke-width='1.4'/%3E%3Cpath d='M12 6.1v11.8M6.9 9.05l10.2 5.9M17.1 9.05l-10.2 5.9' stroke='%23E8894A' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap site-head__in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.3" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M12 6.1v11.8M6.9 9.05l10.2 5.9M17.1 9.05l-10.2 5.9" stroke="var(--warm)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>Guiltless</span>
+    </a>
+    <nav class="nav" data-nav aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="admin.html" aria-current="page">Orders</a>
+    </nav>
+    <div class="head-tools">
+      <button class="icon-btn" data-theme-toggle type="button" aria-label="Switch to light theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" data-nav-toggle type="button" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" data-admin data-api="">
+  <div class="wrap hero" style="padding-block:clamp(30px,4vw,50px) clamp(14px,2vw,22px)">
+    <p class="thesis">Order desk &nbsp;·&nbsp; internal</p>
+    <h1 style="font-size:clamp(1.9rem,4.2vw,3rem)">Orders</h1>
+  </div>
+
+  <section class="is-flush" style="padding-top:clamp(18px,2.5vw,30px)">
+    <div class="wrap">
+
+      <!-- Token gate. Kept in sessionStorage so it dies with the tab. -->
+      <form class="gate" data-gate hidden>
+        <label for="tok">Admin token</label>
+        <input type="password" id="tok" autocomplete="current-password" spellcheck="false"
+               placeholder="paste the ADMIN_TOKEN secret">
+        <button class="btn btn--primary" type="submit">Unlock</button>
+        <p class="admin-msg" data-gate-msg role="status" aria-live="polite"></p>
+      </form>
+
+      <!-- Shown when no API endpoint has been configured yet. -->
+      <div class="callout callout--warn" data-unconfigured hidden>
+        <h3>No API endpoint set</h3>
+        <p>Add your deployed Worker's base URL to <code>data-api</code> on the
+          <code>&lt;main data-admin&gt;</code> element in <code>admin.html</code>, for example
+          <code>https://guiltless-payments.you.workers.dev</code>. Setup steps are in
+          <code>docs/payments.md</code>.</p>
+      </div>
+
+      <div data-desk hidden>
+        <div class="filters" role="group" aria-label="Filter orders by status">
+          <button type="button" data-filter="new" aria-pressed="true">New</button>
+          <button type="button" data-filter="packed" aria-pressed="false">Packed</button>
+          <button type="button" data-filter="shipped" aria-pressed="false">Shipped</button>
+          <button type="button" data-filter="cancelled" aria-pressed="false">Cancelled</button>
+          <button type="button" data-filter="all" aria-pressed="false">All</button>
+        </div>
+
+        <div class="orders" data-orders></div>
+        <p class="admin-msg" data-msg role="status" aria-live="polite"></p>
+
+        <div class="btn-row" style="margin-top:1.4rem">
+          <button class="btn btn--ghost" type="button" data-refresh>Refresh</button>
+          <button class="btn btn--ghost" type="button" data-lock>Lock</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="site-foot__bar" style="border-top:0;padding-top:0">
+      <span>&copy; <span data-year>2026</span> Guiltless — internal.</span>
+      <span>Customer data. Do not share this page.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

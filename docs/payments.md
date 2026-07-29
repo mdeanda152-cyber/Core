@@ -20,7 +20,8 @@ shop.html                    Worker /checkout              Stripe
                                    │
                 Worker /webhook  ◀─┴── checkout.session.completed
                        │
-                       └──▶ FULFILMENT_WEBHOOK (pack the box)
+                       ├──▶ KV  ──▶  admin.html (the order desk)
+                       └──▶ FULFILMENT_WEBHOOK (optional 3PL / sheet)
 ```
 
 **The browser never sends a price.** It sends product IDs and quantities;
@@ -89,12 +90,53 @@ npx wrangler deploy
 Signatures are verified before anything is acted on, so a forged POST claiming a
 paid order is rejected.
 
-### 5. Route orders somewhere you will see them
+### 5. Order storage and the admin desk
+
+Paid orders are stored in Cloudflare KV and managed from `admin.html`, so you do not
+need a third-party tool to see what to pack.
+
+```bash
+npx wrangler kv namespace create ORDERS
+```
+
+Paste the printed `id` into the `[[kv_namespaces]]` block in `wrangler.toml`, then set
+an admin token — any long random string:
+
+```bash
+openssl rand -base64 32                    # generate one
+npx wrangler secret put ADMIN_TOKEN        # paste it
+npx wrangler deploy
+```
+
+Finally, set `data-api` on the `<main data-admin>` element in `admin.html` to your
+Worker's **base** URL (no path):
+
+```html
+<main id="main" data-admin data-api="https://guiltless-payments.you.workers.dev">
+```
+
+Open `admin.html`, paste the token, and you have the desk: orders newest-first,
+filterable by status, with the shipping address loaded on demand and buttons to move
+an order `new → packed → shipped`.
+
+**About the token.** It is held in `sessionStorage`, so it dies with the browser tab and
+is never written to disk. Anyone holding it can read customer names, addresses and phone
+numbers — treat it like a password, and rotate it with `wrangler secret put ADMIN_TOKEN`
+if it leaks. `admin.html` is `noindex, nofollow`, but that is a request to crawlers, not
+access control; the token is the actual control.
+
+For stronger protection, put Cloudflare Access in front of the `/admin/*` routes so the
+token is a second factor rather than the only one.
+
+**Duplicate protection.** Stripe retries webhooks. Orders are keyed by the Stripe session
+plus its creation time, so a retry rewrites the same record instead of creating a second
+one — and a retry arriving after you have marked an order packed will not reset it to new.
+
+### 6. Optional: forward orders elsewhere
 
 Set `FULFILMENT_WEBHOOK` in `wrangler.toml` to a Zapier/Make hook, a Google Sheet
-endpoint, or your own API. Paid orders arrive as JSON with email, shipping address,
-pint count and total. Without it, orders are only in Stripe's dashboard and the
-Worker log — workable at first, but easy to miss.
+endpoint, or your own API, and paid orders are POSTed there as JSON in addition to being
+stored in KV. Only needed if a 3PL or spreadsheet has to be in the loop.
 
 ---
 
@@ -115,8 +157,10 @@ Then also try the failure paths:
 | Card `4000 0000 0000 0002` | Declined, cart intact, no order |
 | Close the Stripe tab | Back to `shop.html`, cart still there |
 | `curl -X POST …/checkout -d '{"items":[{"id":"vanilla","qty":4,"unit":1}]}'` | Charges $34.96, not 4 cents |
+| `curl …/admin/orders` with no token | `401 Not authorised` |
+| A completed test order | Appears in `admin.html` under **New** |
 
-Only once all five behave should you swap in `sk_live_…` and redeploy.
+Only once all six behave should you swap in `sk_live_…` and redeploy.
 
 ---
 

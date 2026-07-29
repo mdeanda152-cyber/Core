@@ -14,9 +14,18 @@ ALLOWED_ORIGINS = "https://mdeanda152-cyber.github.io"
 # registered. See docs/payments.md — food taxability varies by state.
 ENABLE_STRIPE_TAX = "false"
 
-# Optional: paid orders are POSTed here as JSON for fulfilment.
+# Optional: paid orders are ALSO POSTed here as JSON, on top of being stored
+# in KV below. Only needed if you want a 3PL or spreadsheet in the loop.
 # FULFILMENT_WEBHOOK = "https://hooks.zapier.com/..."
+
+# Paid orders are stored here and read by admin.html.
+# Create it once, then paste the id below:
+#   npx wrangler kv namespace create ORDERS
+[[kv_namespaces]]
+binding = "ORDERS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 
 # Secrets are NOT set here — they would end up in git. Set them with:
 #   npx wrangler secret put STRIPE_SECRET_KEY
 #   npx wrangler secret put STRIPE_WEBHOOK_SECRET
+#   npx wrangler secret put ADMIN_TOKEN        # long random string, see docs

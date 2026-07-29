@@ -11,6 +11,7 @@
 
 import Stripe from 'stripe';
 import { priceCart, CURRENCY, MIN_PINTS } from './catalog.js';
+import { saveOrder, listOrders, getOrder, setStatus, safeEqual, STATUSES } from './orders.js';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json' };
 
@@ -22,8 +23,8 @@ function corsHeaders(request, env) {
   const ok = allowed.includes(origin);
   return {
     'Access-Control-Allow-Origin': ok ? origin : allowed[0] || '',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin'
   };
@@ -187,11 +188,26 @@ async function handleWebhook(request, env) {
         created: new Date(event.created * 1000).toISOString()
       };
 
+      // Persist first, so the order survives even if the forward below fails.
+      // Keyed by Stripe's session.created, so a webhook retry overwrites the
+      // same key rather than creating a second order.
+      if (env.ORDERS) {
+        try {
+          const { duplicate } = await saveOrder(env.ORDERS, session);
+          console.log(duplicate ? 'order_replayed' : 'order_stored', session.id);
+          if (duplicate) return new Response('ok', { status: 200 });
+        } catch (err) {
+          // Do not 500 — Stripe would retry, and we would rather log a gap
+          // than reprocess. The Stripe dashboard remains the source of truth.
+          console.error('order_store_failed', session.id, err?.message);
+        }
+      }
+
       console.log('order_paid', JSON.stringify(order));
 
-      // Hand off to whatever actually packs the box — a Google Sheet, an
-      // ops inbox, a 3PL endpoint. Failure here must not 500 back to Stripe,
-      // or it will retry a fulfilment that already happened.
+      // Optional extra hop for anyone wiring a 3PL or a spreadsheet.
+      // Failure here must not 500 back to Stripe, or it will retry a
+      // fulfilment that already happened.
       if (env.FULFILMENT_WEBHOOK) {
         try {
           await fetch(env.FULFILMENT_WEBHOOK, {
@@ -211,6 +227,73 @@ async function handleWebhook(request, env) {
 }
 
 /* ------------------------------------------------------------------ */
+/* /admin/*  — order desk                                              */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Admin requests carry a bearer token. Orders hold customer names, addresses
+ * and phone numbers, so every route below is gated and none of it is cached.
+ */
+function adminAuthed(request, env) {
+  if (!env.ADMIN_TOKEN) return false;
+  const header = request.headers.get('Authorization') || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  return safeEqual(token, env.ADMIN_TOKEN);
+}
+
+const NO_STORE = { 'Cache-Control': 'no-store' };
+
+async function handleAdmin(request, env, pathname) {
+  const cors = corsHeaders(request, env);
+
+  if (!env.ADMIN_TOKEN) {
+    return json({ error: 'Admin is not configured.' }, 503, cors);
+  }
+  if (!adminAuthed(request, env)) {
+    return json({ error: 'Not authorised.' }, 401, { ...cors, ...NO_STORE });
+  }
+  if (!env.ORDERS) {
+    return json({ error: 'Order storage is not configured.' }, 503, cors);
+  }
+
+  const headers = { ...cors, ...NO_STORE };
+  const url = new URL(request.url);
+
+  // GET /admin/orders?status=new
+  if (pathname === '/admin/orders' && request.method === 'GET') {
+    const status = url.searchParams.get('status') || 'all';
+    const cursor = url.searchParams.get('cursor') || undefined;
+    const { orders, cursor: next } = await listOrders(env.ORDERS, { status, cursor });
+    return json({ orders, cursor: next }, 200, headers);
+  }
+
+  // GET /admin/order?key=order:...
+  if (pathname === '/admin/order' && request.method === 'GET') {
+    const key = url.searchParams.get('key') || '';
+    const order = await getOrder(env.ORDERS, key);
+    if (!order) return json({ error: 'Order not found.' }, 404, headers);
+    return json({ order }, 200, headers);
+  }
+
+  // POST /admin/order/status  { key, status }
+  if (pathname === '/admin/order/status' && request.method === 'POST') {
+    let body;
+    try { body = await request.json(); }
+    catch { return json({ error: 'Malformed request.' }, 400, headers); }
+
+    const { key, status } = body || {};
+    if (typeof key !== 'string' || !STATUSES.includes(status)) {
+      return json({ error: 'Invalid key or status.' }, 400, headers);
+    }
+    const result = await setStatus(env.ORDERS, key, status);
+    if (!result.ok) return json({ error: result.error }, 409, headers);
+    return json({ order: result.order }, 200, headers);
+  }
+
+  return json({ error: 'Not found.' }, 404, headers);
+}
+
+/* ------------------------------------------------------------------ */
 
 export default {
   async fetch(request, env) {
@@ -225,9 +308,15 @@ export default {
         ok: true,
         stripe: Boolean(env.STRIPE_SECRET_KEY),
         webhook: Boolean(env.STRIPE_WEBHOOK_SECRET),
+        orders: Boolean(env.ORDERS),
+        admin: Boolean(env.ADMIN_TOKEN),
         tax: env.ENABLE_STRIPE_TAX === 'true',
         min_pints: MIN_PINTS
       }, 200);
+    }
+
+    if (pathname.startsWith('/admin/')) {
+      return handleAdmin(request, env, pathname);
     }
 
     if (request.method !== 'POST') {

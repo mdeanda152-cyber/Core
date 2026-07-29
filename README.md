@@ -19,11 +19,13 @@ Website and formulation documentation for **Guiltless** — high-protein ice cre
 | `allergens.html` | Allergen table per flavour, fibre/allulose tolerance, nutrition basis |
 | `terms.html` | Terms of sale |
 | `privacy.html` | Privacy policy |
-| `api/` | Stripe Checkout backend (Cloudflare Worker) + pricing tests |
+| `admin.html` | Order desk — token-gated, lists and advances orders |
+| `api/` | Stripe Checkout backend (Cloudflare Worker), order storage, tests |
 | `docs/payments.md` | Payment setup, testing, tax and food-licensing notes |
 | `docs/formulation-spec.md` | Internal master formula (% w/w), mass balance, QC gates, change log |
 | `assets/css/site.css` | Design system — tokens, light/dark, components |
-| `assets/js/site.js` | Theme, nav, reveal, freezing-point model, waitlist |
+| `assets/js/site.js` | Theme, nav, reveal, freezing-point model, waitlist, cart |
+| `assets/js/admin.js` | Order desk client |
 | `.github/workflows/deploy-site.yml` | Builds, link-checks and deploys to GitHub Pages |
 
 ## Running it locally
@@ -96,8 +98,27 @@ the volume tier and shipping, and charges that. A tampered cart claiming a one-c
 pint is still charged full price — there's a test for it:
 
 ```bash
-cd api && node --test test/catalog.test.js   # 16 tests
+cd api && node --test test/catalog.test.js test/orders.test.js   # 28 tests
 ```
+
+### Order desk
+
+Paid orders land in Cloudflare KV and are managed from `admin.html` — no third-party
+tool needed. Newest first, filterable by status, shipping address loaded on demand,
+and buttons to move an order `new → packed → shipped`.
+
+Setup is in [`docs/payments.md`](docs/payments.md): create a KV namespace, set an
+`ADMIN_TOKEN` secret, and point `data-api` at your Worker.
+
+The token lives in `sessionStorage`, so it dies with the tab and never touches disk.
+**Anyone holding it can read customer names, addresses and phone numbers** — treat it
+like a password. `admin.html` is `noindex`, but that is a request to crawlers, not
+access control; the token is the actual control. Put Cloudflare Access in front of
+`/admin/*` if you want a second factor.
+
+Stripe retries webhooks, so orders are keyed by session id plus creation time: a retry
+overwrites the same record rather than creating a duplicate, and will not reset an
+order you have already marked packed.
 
 Until an endpoint is configured the Checkout button says plainly that payments aren't
 connected, rather than pretending to take an order.

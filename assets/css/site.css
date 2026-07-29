@@ -715,3 +715,74 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
   color: var(--ink-3); border-top: 1px solid var(--line);
   margin-top: 3rem; padding-top: 1.2rem;
 }
+
+/* ==========================================================================
+   Admin — order desk
+   ========================================================================== */
+
+.gate { max-width: 400px; }
+.gate label { display: block; font-size: .88rem; font-weight: 600; margin-bottom: 9px; }
+.gate input {
+  width: 100%; font: inherit; font-family: var(--mono); font-size: .9rem;
+  padding: 11px 14px; border: 1px solid var(--line-2);
+  background: var(--panel); color: var(--ink);
+}
+.gate input:focus-visible { border-color: var(--cold); }
+.gate .btn { margin-top: 12px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 1px; }
+.filters button {
+  flex: 1 1 auto; background: var(--ground); border: 0; cursor: pointer;
+  color: var(--ink-3); font-family: var(--mono); font-size: .7rem;
+  letter-spacing: .12em; text-transform: uppercase; padding: 11px 14px;
+  transition: color .15s ease, background .15s ease;
+}
+.filters button:hover { color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--panel); color: var(--warm); }
+
+.orders { border: 1px solid var(--line); border-top: 0; }
+.order {
+  display: grid; gap: 4px 16px; padding: 15px 18px;
+  border-top: 1px solid var(--line);
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+.order:first-child { border-top: 0; }
+.order__who { font-weight: 700; font-size: .95rem; }
+.order__meta {
+  font-family: var(--mono); font-size: .76rem; color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.order__total {
+  font-family: var(--mono); font-variant-numeric: tabular-nums;
+  font-weight: 700; text-align: right; font-size: .95rem;
+}
+.order__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+.order__detail {
+  grid-column: 1 / -1; margin-top: 10px; padding: 12px 14px;
+  background: var(--panel); border: 1px solid var(--line);
+  font-size: .84rem; color: var(--ink-2); line-height: 1.6;
+}
+.order__detail address { font-style: normal; font-family: var(--mono); font-size: .8rem; white-space: pre-line; }
+
+.chip {
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 700;
+  padding: 3px 8px; border: 1px solid currentColor;
+}
+.chip--new       { color: var(--cold); }
+.chip--packed    { color: var(--warm); }
+.chip--shipped   { color: var(--good); }
+.chip--cancelled { color: var(--ink-3); }
+
+.btn--mini {
+  padding: 7px 12px; font-size: .65rem;
+  border-color: var(--line-2); color: var(--ink-2); background: transparent;
+}
+.btn--mini:hover { border-color: var(--warm); color: var(--warm); }
+.btn--mini[disabled] { opacity: .4; cursor: not-allowed; }
+
+.admin-msg { font-size: .86rem; margin-top: 14px; min-height: 1.3em; color: var(--ink-3); }
+.admin-msg[data-state="err"] { color: var(--bad); }
+.admin-msg[data-state="ok"]  { color: var(--good); }
+.admin-empty { padding: 40px 18px; text-align: center; color: var(--ink-3); font-size: .9rem; }
